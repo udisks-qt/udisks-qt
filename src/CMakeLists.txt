@@ -15,6 +15,7 @@ set(udisksqt_SRC
     udisksblock.cpp
     udisksdrive.cpp
     udiskspartition.cpp
+    udisksobject.cpp
     udisksmanagerprivate.cpp
     udisksmanager.cpp
 )
@@ -26,6 +27,8 @@ set(udisksqt_HEADERS
     UDisksDrive
     udiskspartition.h
     UDisksPartition
+    udisksobject.h
+    UDisksObject
     udisksmanager.h
     UDisksManager
 )
@@ -36,6 +39,7 @@ set(udisksqt_HEADERS_PRIVATE
     udisksblock_p.h
     udisksdrive_p.h
     udiskspartition_p.h
+    udisksobject_p.h
     udisksmanagerprivate.h
 )
 
