@@ -74,7 +74,12 @@ UDisksPartitionTable *UDisksObject::partitionTable() const
 }
 
 UDisksObjectPrivate::UDisksObjectPrivate(const QString &path) :
-    interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
+    interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus()),
+    drive(0),
+    driveAta(0),
+    block(0),
+    partition(0),
+    partitionTable(0)
 {
 }
 

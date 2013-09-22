@@ -15,6 +15,7 @@ set(udisksqt_SRC
     udisksblock.cpp
     udisksdrive.cpp
     udisksdriveata.cpp
+    udisksmdraid.cpp
     udiskspartition.cpp
     udiskspartitiontable.cpp
     udisksobject.cpp
@@ -29,6 +30,8 @@ set(udisksqt_HEADERS
     UDisksDrive
     udisksdriveata.h
     UDisksDriveAta
+    udisksmdraid.h
+    UDisksMDRaid
     udiskspartition.h
     UDisksPartition
     udiskspartitiontable.h
@@ -45,6 +48,7 @@ set(udisksqt_HEADERS_PRIVATE
     udisksblock_p.h
     udisksdrive_p.h
     udisksdriveata_p.h
+    udisksmdraid_p.h
     udiskspartition_p.h
     udiskspartitiontable_p.h
     udisksobject_p.h

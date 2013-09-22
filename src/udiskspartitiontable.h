@@ -17,8 +17,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef UDisksPartitionTableTABLE_H
-#define UDisksPartitionTableTABLE_H
+#ifndef UDISKSPARTITIONTABLE_H
+#define UDISKSPARTITIONTABLE_H
 
 #include <QObject>
 
@@ -41,4 +41,4 @@ private:
     Q_DECLARE_PRIVATE(UDisksPartitionTable)
 };
 
-#endif // UDisksPartitionTableTABLE_H
+#endif // UDISKSPARTITIONTABLE_H

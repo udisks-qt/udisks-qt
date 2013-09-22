@@ -26,5 +26,6 @@
 #define UD2_PATH_JOBS           "/org/freedesktop/UDisks2/jobs/"
 
 #define UD2_INTERFACE_DRIVE     "org.freedesktop.UDisks2.Drive"
+#define UD2_INTERFACE_MDRAID    "org.freedesktop.UDisks2.MDRaid"
 #define UD2_INTERFACE_BLOCK     "org.freedesktop.UDisks2.Block"
 #define UD2_INTERFACE_MANAGER   "org.freedesktop.UDisks2.Manager"

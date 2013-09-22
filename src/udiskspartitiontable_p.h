@@ -1,5 +1,5 @@
-#ifndef UDisksPartitionTableTABLE_P_H
-#define UDisksPartitionTableTABLE_P_H
+#ifndef UDISKSPARTITIONTABLE_P_H
+#define UDISKSPARTITIONTABLE_P_H
 
 #include "UDisks.h"
 
@@ -14,4 +14,4 @@ public:
     QString type;
 };
 
-#endif // UDisksPartitionTableTABLE_P_H
+#endif // UDISKSPARTITIONTABLE_P_H
