@@ -14,6 +14,7 @@ set(udisksqt_SRC
     dbus-types.cpp
     udisksblock.cpp
     udisksdrive.cpp
+    udisksdriveata.cpp
     udiskspartition.cpp
     udiskspartitiontable.cpp
     udisksobject.cpp
@@ -26,6 +27,8 @@ set(udisksqt_HEADERS
     UDisksBlock
     udisksdrive.h
     UDisksDrive
+    udisksdriveata.h
+    UDisksDriveAta
     udiskspartition.h
     UDisksPartition
     udiskspartitiontable.h
@@ -41,6 +44,7 @@ set(udisksqt_HEADERS_PRIVATE
     common.h
     udisksblock_p.h
     udisksdrive_p.h
+    udisksdriveata_p.h
     udiskspartition_p.h
     udiskspartitiontable_p.h
     udisksobject_p.h

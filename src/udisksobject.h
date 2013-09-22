@@ -25,6 +25,7 @@
 #include "dbus-types.h"
 
 class UDisksDrive;
+class UDisksDriveAta;
 class UDisksBlock;
 class UDisksPartition;
 class UDisksPartitionTable;
@@ -37,6 +38,7 @@ public:
     explicit UDisksObject(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
     UDisksDrive* drive() const;
+    UDisksDriveAta* driveAta() const;
     UDisksBlock* block() const;
     UDisksPartition* partition() const;
     UDisksPartitionTable* partitionTable() const;

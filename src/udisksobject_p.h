@@ -4,6 +4,7 @@
 #include "UDisks.h"
 
 class UDisksDrive;
+class UDisksDriveAta;
 class UDisksBlock;
 class UDisksPartition;
 class UDisksPartitionTable;
@@ -17,6 +18,7 @@ public:
     OrgFreedesktopUDisks2DriveInterface interface;
 
     UDisksDrive *drive;
+    UDisksDriveAta *driveAta;
     UDisksBlock *block;
     UDisksPartition *partition;
     UDisksPartitionTable *partitionTable;

@@ -49,6 +49,12 @@ UDisksDrive *UDisksObject::drive() const
     return d->drive;
 }
 
+UDisksDriveAta *UDisksObject::driveAta() const
+{
+    Q_D(const UDisksObject);
+    return d->driveAta;
+}
+
 UDisksBlock *UDisksObject::block() const
 {
     Q_D(const UDisksObject);
