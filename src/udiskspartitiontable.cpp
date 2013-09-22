@@ -17,23 +17,23 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "udisksobject.h"
-#include "udisksobject_p.h"
+#include "udiskspartitiontable.h"
+#include "udiskspartitiontable_p.h"
 
 #include "common.h"
 
 #include <QDebug>
 
-UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksPartitionTable::UDisksPartitionTable(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
     QObject(parent),
-    d_ptr(new UDisksObjectPrivate(objectPath.path()))
+    d_ptr(new UDisksPartitionTablePrivate(objectPath.path()))
 {
-    Q_D(UDisksObject);
+    Q_D(UDisksPartitionTable);
 
     UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
     while (it != interfacesAndProperties.constEnd()) {
         const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_DRIVE)) {
+        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
             d->init(it.value());
         } else {
             qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
@@ -43,36 +43,18 @@ UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, UDVariantMapMap in
     }
 }
 
-UDisksDrive *UDisksObject::drive() const
+QString UDisksPartitionTable::type() const
 {
-    Q_D(const UDisksObject);
-    return d->drive;
+    Q_D(const UDisksPartitionTable);
+    return d->type;
 }
 
-UDisksBlock *UDisksObject::block() const
-{
-    Q_D(const UDisksObject);
-    return d->block;
-}
-
-UDisksPartition *UDisksObject::partition() const
-{
-    Q_D(const UDisksObject);
-    return d->partition;
-}
-
-UDisksPartitionTable *UDisksObject::partitionTable() const
-{
-    Q_D(const UDisksObject);
-    return d->partitionTable;
-}
-
-UDisksObjectPrivate::UDisksObjectPrivate(const QString &path) :
+UDisksPartitionTablePrivate::UDisksPartitionTablePrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
 }
 
-void UDisksObjectPrivate::init(const QVariantMap &properties)
+void UDisksPartitionTablePrivate::init(const QVariantMap &properties)
 {
     QVariantMap::ConstIterator it = properties.constBegin();
     while (it != properties.constEnd()) {
@@ -80,6 +62,15 @@ void UDisksObjectPrivate::init(const QVariantMap &properties)
         const QVariant &value = it.value();
         qDebug() << Q_FUNC_INFO << property << value;
 
+        if (property == QLatin1String("Type")) {
+            type = value.toString();
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unknown property, please report a bug:" << property << value;
+        }
+
         ++it;
     }
 }
+
+
+

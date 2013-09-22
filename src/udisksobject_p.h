@@ -6,6 +6,8 @@
 class UDisksDrive;
 class UDisksBlock;
 class UDisksPartition;
+class UDisksPartitionTable;
+
 class UDisksObjectPrivate
 {
 public:
@@ -17,6 +19,7 @@ public:
     UDisksDrive *drive;
     UDisksBlock *block;
     UDisksPartition *partition;
+    UDisksPartitionTable *partitionTable;
 };
 
 #endif // UDISKSOBJECT_P_H

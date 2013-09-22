@@ -17,35 +17,28 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef UDISKSOBJECT_H
-#define UDISKSOBJECT_H
+#ifndef UDisksPartitionTableTABLE_H
+#define UDisksPartitionTableTABLE_H
 
 #include <QObject>
 
 #include "dbus-types.h"
 
-class UDisksDrive;
-class UDisksBlock;
-class UDisksPartition;
-class UDisksPartitionTable;
-
-class UDisksObjectPrivate;
-class UDisksObject : public QObject
+class UDisksPartitionTablePrivate;
+class UDisksPartitionTable : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksObject(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    explicit UDisksPartitionTable(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
-    UDisksDrive* drive() const;
-    UDisksBlock* block() const;
-    UDisksPartition* partition() const;
-    UDisksPartitionTable* partitionTable() const;
+    Q_PROPERTY(QString Type READ type)
+    QString type() const;
 
 protected:
-    UDisksObjectPrivate *d_ptr;
+    UDisksPartitionTablePrivate *d_ptr;
 
 private:
-    Q_DECLARE_PRIVATE(UDisksObject)
+    Q_DECLARE_PRIVATE(UDisksPartitionTable)
 };
 
-#endif // UDISKSOBJECT_H
+#endif // UDisksPartitionTableTABLE_H
