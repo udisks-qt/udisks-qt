@@ -17,45 +17,28 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef UDISKSOBJECT_H
-#define UDISKSOBJECT_H
+#ifndef UDISKSSWAPSPACE_H
+#define UDISKSSWAPSPACE_H
 
 #include <QObject>
 
 #include "dbus-types.h"
 
-class UDisksDrive;
-class UDisksDriveAta;
-class UDisksMDRaid;
-class UDisksJob;
-class UDisksBlock;
-class UDisksPartition;
-class UDisksPartitionTable;
-class UDisksFilesystem;
-class UDisksSwapspace;
-
-class UDisksObjectPrivate;
-class UDisksObject : public QObject
+class UDisksSwapspacePrivate;
+class UDisksSwapspace : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksObject(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    explicit UDisksSwapspace(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
-    UDisksDrive *drive() const;
-    UDisksDriveAta *driveAta() const;
-    UDisksMDRaid *mDRaid() const;
-    UDisksJob *job() const;
-    UDisksBlock *block() const;
-    UDisksPartition *partition() const;
-    UDisksPartitionTable *partitionTable() const;
-    UDisksFilesystem *filesystem() const;
-    UDisksSwapspace *swapspace() const;
+    Q_PROPERTY(bool active READ active)
+    bool active() const;
 
 protected:
-    UDisksObjectPrivate *d_ptr;
+    UDisksSwapspacePrivate *d_ptr;
 
 private:
-    Q_DECLARE_PRIVATE(UDisksObject)
+    Q_DECLARE_PRIVATE(UDisksSwapspace)
 };
 
-#endif // UDISKSOBJECT_H
+#endif // UDISKSSWAPSPACE_H

@@ -91,6 +91,12 @@ UDisksFilesystem *UDisksObject::filesystem() const
     return d->filesystem;
 }
 
+UDisksSwapspace *UDisksObject::swapspace() const
+{
+    Q_D(const UDisksObject);
+    return d->swapspace;
+}
+
 UDisksObjectPrivate::UDisksObjectPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus()),
     drive(0),
