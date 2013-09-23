@@ -97,6 +97,12 @@ UDisksSwapspace *UDisksObject::swapspace() const
     return d->swapspace;
 }
 
+UDisksEncrypted *UDisksObject::encrypted() const
+{
+    Q_D(const UDisksObject);
+    return d->encrypted;
+}
+
 UDisksObjectPrivate::UDisksObjectPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus()),
     drive(0),

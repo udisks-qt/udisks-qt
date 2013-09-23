@@ -21,6 +21,7 @@ set(udisksqt_SRC
     udiskspartitiontable.cpp
     udisksfilesystem.cpp
     udisksswapspace.cpp
+    udisksencrypted.cpp
     udisksobject.cpp
     udisksmanagerprivate.cpp
     udisksmanager.cpp
@@ -45,6 +46,8 @@ set(udisksqt_HEADERS
     UDisksFilesystem
     udisksswapspace.h
     UDisksSwapspace
+    udisksencrypted.h
+    UDisksEncrypted
     udisksobject.h
     UDisksObject
     udisksmanager.h
@@ -63,6 +66,7 @@ set(udisksqt_HEADERS_PRIVATE
     udiskspartitiontable_p.h
     udisksfilesystem_p.h
     udisksswapspace_p.h
+    udisksencrypted_p.h
     udisksobject_p.h
     udisksmanagerprivate.h
 )
