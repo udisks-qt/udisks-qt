@@ -22,6 +22,7 @@ set(udisksqt_SRC
     udisksfilesystem.cpp
     udisksswapspace.cpp
     udisksencrypted.cpp
+    udisksloop.cpp
     udisksobject.cpp
     udisksmanagerprivate.cpp
     udisksmanager.cpp
@@ -48,6 +49,8 @@ set(udisksqt_HEADERS
     UDisksSwapspace
     udisksencrypted.h
     UDisksEncrypted
+    udisksloop.h
+    UDisksLoop
     udisksobject.h
     UDisksObject
     udisksmanager.h
@@ -67,6 +70,7 @@ set(udisksqt_HEADERS_PRIVATE
     udisksfilesystem_p.h
     udisksswapspace_p.h
     udisksencrypted_p.h
+    udisksloop_p.h
     udisksobject_p.h
     udisksmanagerprivate.h
 )

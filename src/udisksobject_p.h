@@ -13,6 +13,7 @@ class UDisksPartitionTable;
 class UDisksFilesystem;
 class UDisksSwapspace;
 class UDisksEncrypted;
+class UDisksLoop;
 
 class UDisksObjectPrivate
 {
@@ -32,6 +33,7 @@ public:
     UDisksFilesystem *filesystem;
     UDisksSwapspace *swapspace;
     UDisksEncrypted *encrypted;
+    UDisksLoop *loop;
 };
 
 #endif // UDISKSOBJECT_P_H

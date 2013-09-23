@@ -34,6 +34,7 @@ class UDisksPartitionTable;
 class UDisksFilesystem;
 class UDisksSwapspace;
 class UDisksEncrypted;
+class UDisksLoop;
 
 class UDisksObjectPrivate;
 class UDisksObject : public QObject
@@ -52,6 +53,7 @@ public:
     UDisksFilesystem *filesystem() const;
     UDisksSwapspace *swapspace() const;
     UDisksEncrypted *encrypted() const;
+    UDisksLoop *loop() const;
 
 protected:
     UDisksObjectPrivate *d_ptr;

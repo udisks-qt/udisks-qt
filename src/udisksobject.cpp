@@ -103,6 +103,12 @@ UDisksEncrypted *UDisksObject::encrypted() const
     return d->encrypted;
 }
 
+UDisksLoop *UDisksObject::loop() const
+{
+    Q_D(const UDisksObject);
+    return d->loop;
+}
+
 UDisksObjectPrivate::UDisksObjectPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus()),
     drive(0),
@@ -111,7 +117,10 @@ UDisksObjectPrivate::UDisksObjectPrivate(const QString &path) :
     block(0),
     partition(0),
     partitionTable(0),
-    filesystem(0)
+    filesystem(0),
+    swapspace(0),
+    encrypted(0),
+    loop(0)
 {
 }
 
