@@ -46,14 +46,8 @@ class UDisksManager : public QObject
     Q_OBJECT
     Q_PROPERTY(QString version READ version NOTIFY versionChanged)
 public:
-    /**
-     * \brief Returns an instance of the Manager
-     *
-     * The UDisksManager class is a singleton, you can call this method several times,
-     * a single UDisksManager object will exist.
-     * Use this only when connecting to this class signals
-     */
-    static UDisksManager* global();
+    explicit UDisksManager(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+
 
     /**
      * Destructor
@@ -102,7 +96,6 @@ private Q_SLOTS:
 private:
     UDisksManagerPrivate * const d_ptr;
     Q_DECLARE_PRIVATE(UDisksManager)
-//    Q_PRIVATE_SLOT(d_ptr, void _q_proccessObject())
 
     UDisksManager(QObject *parent = 0);
     static UDisksManager *m_global;

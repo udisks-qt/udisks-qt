@@ -1,5 +1,8 @@
 # CMakeLists for UDisks-Qt library
 set(CMAKE_AUTOMOC ON)
+# As moc files are generated in the binary dir, tell CMake
+# to always look for includes there:
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # We need add -DQT_WIDGETS_LIB when using QtWidgets in Qt 5.
 add_definitions(${Qt5Core_DEFINITIONS})
@@ -24,8 +27,8 @@ set(udisksqt_SRC
     udisksencrypted.cpp
     udisksloop.cpp
     udisksobject.cpp
-    udisksmanagerprivate.cpp
     udisksmanager.cpp
+    udisksclient.cpp
 )
 
 set(udisksqt_HEADERS
@@ -55,6 +58,8 @@ set(udisksqt_HEADERS
     UDisksObject
     udisksmanager.h
     UDisksManager
+    udisksclient.h
+    UDisksClient
 )
 
 set(udisksqt_HEADERS_PRIVATE
@@ -72,7 +77,8 @@ set(udisksqt_HEADERS_PRIVATE
     udisksencrypted_p.h
     udisksloop_p.h
     udisksobject_p.h
-    udisksmanagerprivate.h
+    udisksmanager_p.h
+    udisksclient_p.h
 )
 
 set_property(SOURCE org.freedesktop.UDisks2.xml PROPERTY INCLUDE dbus-types.h)

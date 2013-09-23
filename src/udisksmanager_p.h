@@ -21,27 +21,22 @@
 #define UDISKS_MANAGER_PRIVATE_H
 
 #include <QtCore/QStringList>
-#include <QtDBus/QDBusServiceWatcher>
 
 #include "udisksmanager.h"
+#include "UDisks.h"
 #include "dbus-types.h"
 
-class OrgFreedesktopUDisks2ManagerInterface;
-class OrgFreedesktopDBusObjectManagerInterface;
 class UDisksManagerPrivate
 {
-    Q_DECLARE_PUBLIC(UDisksManager)
-protected:
+public:
     UDisksManagerPrivate(UDisksManager *parent);
     virtual ~UDisksManagerPrivate() {}
 
     void init();
     void setupSignal(const QString &signal, bool connect);
 
-    UDisksManager *q_ptr;
-    OrgFreedesktopUDisks2ManagerInterface *interface;
-    OrgFreedesktopDBusObjectManagerInterface *objectInterface;
-    QDBusServiceWatcher *m_watcher;
+    OrgFreedesktopUDisks2ManagerInterface interface;
+
     QString version;
     bool running;
 };

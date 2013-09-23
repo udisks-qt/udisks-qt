@@ -17,10 +17,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <QDebug>
 
 #include "udisksmanager.h"
-#include "udisksmanagerprivate.h"
+#include "udisksmanager_p.h"
+
 #include "udisksdrive.h"
 #include "udisksblock.h"
 #include "UDisks.h"
@@ -28,27 +28,14 @@
 
 #include "common.h"
 
-UDisksManager* UDisksManager::m_global = 0;
+#include <QDebug>
 
-UDisksManager* UDisksManager::global()
-{
-    if(!m_global) {
-        m_global = new UDisksManager(qApp);
-    }
 
-    return m_global;
-}
-
-UDisksManager::UDisksManager(QObject *parent) :
+UDisksManager::UDisksManager(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
     QObject(parent),
     d_ptr(new UDisksManagerPrivate(this))
 {
-    Q_D(UDisksManager);
-//    d_ptr = new UDisksManagerPrivate(this);
-    QObject::connect(d->objectInterface, SIGNAL(InterfacesAdded(QDBusObjectPath,UDVariantMapMap)),
-                     SLOT(proccessObject(QDBusObjectPath,UDVariantMapMap)));
 
-//    QDBusPendingReply<UDManagedObjects> reply = d->objectInterface->GetManagedObjects();
 }
 
 UDisksManager::~UDisksManager()
@@ -147,4 +134,13 @@ void UDisksManager::proccessObject(const QDBusObjectPath &objectPath, UDVariantM
     } else {
         qWarning() << Q_FUNC_INFO << "Unknown udisk object please report a bug:" << path;
     }
+}
+
+
+UDisksManagerPrivate::UDisksManagerPrivate(UDisksManager *parent) :
+    interface(QLatin1String(UD2_SERVICE),
+              QLatin1String(UD2_PATH_MANAGER),
+              QDBusConnection::systemBus())
+{
+
 }
