@@ -17,43 +17,28 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef UDISKSOBJECT_H
-#define UDISKSOBJECT_H
+#ifndef UDISKSFILESYSTEM_H
+#define UDISKSFILESYSTEM_H
 
 #include <QObject>
 
 #include "dbus-types.h"
 
-class UDisksDrive;
-class UDisksDriveAta;
-class UDisksMDRaid;
-class UDisksJob;
-class UDisksBlock;
-class UDisksPartition;
-class UDisksPartitionTable;
-class UDisksFilesystem;
-
-class UDisksObjectPrivate;
-class UDisksObject : public QObject
+class UDisksFilesytemPrivate;
+class UDisksFilesytem : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksObject(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    explicit UDisksFilesytem(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
-    UDisksDrive *drive() const;
-    UDisksDriveAta *driveAta() const;
-    UDisksMDRaid *mDRaid() const;
-    UDisksJob *job() const;
-    UDisksBlock *block() const;
-    UDisksPartition *partition() const;
-    UDisksPartitionTable *partitionTable() const;
-    UDisksFilesystem *filesystem() const;
+    Q_PROPERTY(QList<QByteArray> mountPoints READ mountPoints)
+    QList<QByteArray> mountPoints() const;
 
 protected:
-    UDisksObjectPrivate *d_ptr;
+    UDisksFilesytemPrivate *d_ptr;
 
 private:
-    Q_DECLARE_PRIVATE(UDisksObject)
+    Q_DECLARE_PRIVATE(UDisksFilesytem)
 };
 
-#endif // UDISKSOBJECT_H
+#endif // UDISKSFILESYSTEM_H

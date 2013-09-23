@@ -85,13 +85,21 @@ UDisksPartitionTable *UDisksObject::partitionTable() const
     return d->partitionTable;
 }
 
+UDisksFilesystem *UDisksObject::filesystem() const
+{
+    Q_D(const UDisksObject);
+    return d->filesystem;
+}
+
 UDisksObjectPrivate::UDisksObjectPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus()),
     drive(0),
     driveAta(0),
+    mDRaid(0),
     block(0),
     partition(0),
-    partitionTable(0)
+    partitionTable(0),
+    filesystem(0)
 {
 }
 

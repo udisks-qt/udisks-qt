@@ -10,6 +10,7 @@ class UDisksJob;
 class UDisksBlock;
 class UDisksPartition;
 class UDisksPartitionTable;
+class UDisksFilesystem;
 
 class UDisksObjectPrivate
 {
@@ -26,6 +27,7 @@ public:
     UDisksBlock *block;
     UDisksPartition *partition;
     UDisksPartitionTable *partitionTable;
+    UDisksFilesystem *filesystem;
 };
 
 #endif // UDISKSOBJECT_P_H

@@ -19,6 +19,7 @@ set(udisksqt_SRC
     udisksjob.cpp
     udiskspartition.cpp
     udiskspartitiontable.cpp
+    udisksfilesystem.cpp
     udisksobject.cpp
     udisksmanagerprivate.cpp
     udisksmanager.cpp
@@ -39,6 +40,8 @@ set(udisksqt_HEADERS
     UDisksPartition
     udiskspartitiontable.h
     UDisksPartitionTable
+    udisksfilesystem.h
+    UDisksFilesystem
     udisksobject.h
     UDisksObject
     udisksmanager.h
@@ -55,6 +58,7 @@ set(udisksqt_HEADERS_PRIVATE
     udisksjob_p.h
     udiskspartition_p.h
     udiskspartitiontable_p.h
+    udisksfilesystem_p.h
     udisksobject_p.h
     udisksmanagerprivate.h
 )
