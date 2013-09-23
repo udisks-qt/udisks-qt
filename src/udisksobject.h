@@ -27,6 +27,7 @@
 class UDisksDrive;
 class UDisksDriveAta;
 class UDisksMDRaid;
+class UDisksJob;
 class UDisksBlock;
 class UDisksPartition;
 class UDisksPartitionTable;
@@ -41,6 +42,7 @@ public:
     UDisksDrive *drive() const;
     UDisksDriveAta *driveAta() const;
     UDisksMDRaid *mDRaid() const;
+    UDisksJob *job() const;
     UDisksBlock *block() const;
     UDisksPartition *partition() const;
     UDisksPartitionTable *partitionTable() const;

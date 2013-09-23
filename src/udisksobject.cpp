@@ -61,6 +61,12 @@ UDisksMDRaid *UDisksObject::mDRaid() const
     return d->mDRaid;
 }
 
+UDisksJob *UDisksObject::job() const
+{
+    Q_D(const UDisksObject);
+    return d->job;
+}
+
 UDisksBlock *UDisksObject::block() const
 {
     Q_D(const UDisksObject);
