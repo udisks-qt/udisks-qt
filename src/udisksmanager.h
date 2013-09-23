@@ -63,6 +63,7 @@ public:
     /**
      * The daemon version
      */
+    Q_PROPERTY(QString version READ version)
     QString version() const;
 
     /**

@@ -31,34 +31,34 @@ class UDisksPartition : public QObject
 public:
     explicit UDisksPartition(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
-    Q_PROPERTY(qulonglong Flags READ flags)
+    Q_PROPERTY(qulonglong flags READ flags)
     qulonglong flags() const;
 
-    Q_PROPERTY(bool IsContained READ isContained)
+    Q_PROPERTY(bool isContained READ isContained)
     bool isContained() const;
 
-    Q_PROPERTY(bool IsContainer READ isContainer)
+    Q_PROPERTY(bool isContainer READ isContainer)
     bool isContainer() const;
 
-    Q_PROPERTY(QString Name READ name)
+    Q_PROPERTY(QString name READ name)
     QString name() const;
 
-    Q_PROPERTY(uint Number READ number)
+    Q_PROPERTY(uint number READ number)
     uint number() const;
 
-    Q_PROPERTY(qulonglong Offset READ offset)
+    Q_PROPERTY(qulonglong offset READ offset)
     qulonglong offset() const;
 
-    Q_PROPERTY(qulonglong Size READ size)
+    Q_PROPERTY(qulonglong size READ size)
     qulonglong size() const;
 
-    Q_PROPERTY(QDBusObjectPath Table READ table)
+    Q_PROPERTY(QDBusObjectPath table READ table)
     QDBusObjectPath table() const;
 
-    Q_PROPERTY(QString Type READ type)
+    Q_PROPERTY(QString type READ type)
     QString type() const;
 
-    Q_PROPERTY(QString UUID READ uUID)
+    Q_PROPERTY(QString uUID READ uUID)
     QString uUID() const;
 
 protected:

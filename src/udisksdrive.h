@@ -31,91 +31,91 @@ class UDisksDrive : public QObject
 public:
     explicit UDisksDrive(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
-    Q_PROPERTY(bool CanPowerOff READ canPowerOff)
+    Q_PROPERTY(bool canPowerOff READ canPowerOff)
     bool canPowerOff() const;
 
-    Q_PROPERTY(QVariantMap Configuration READ configuration)
+    Q_PROPERTY(QVariantMap configuration READ configuration)
     QVariantMap configuration() const;
 
-    Q_PROPERTY(QString ConnectionBus READ connectionBus)
+    Q_PROPERTY(QString connectionBus READ connectionBus)
     QString connectionBus() const;
 
-    Q_PROPERTY(bool Ejectable READ ejectable)
+    Q_PROPERTY(bool ejectable READ ejectable)
     bool ejectable() const;
 
-    Q_PROPERTY(QString Id READ id)
+    Q_PROPERTY(QString driveId READ id)
     QString id() const;
 
-    Q_PROPERTY(QString Media READ media)
+    Q_PROPERTY(QString media READ media)
     QString media() const;
 
-    Q_PROPERTY(bool MediaAvailable READ mediaAvailable)
+    Q_PROPERTY(bool mediaAvailable READ mediaAvailable)
     bool mediaAvailable() const;
 
-    Q_PROPERTY(bool MediaChangeDetected READ mediaChangeDetected)
+    Q_PROPERTY(bool mediaChangeDetected READ mediaChangeDetected)
     bool mediaChangeDetected() const;
 
-    Q_PROPERTY(QStringList MediaCompatibility READ mediaCompatibility)
+    Q_PROPERTY(QStringList mediaCompatibility READ mediaCompatibility)
     QStringList mediaCompatibility() const;
 
-    Q_PROPERTY(bool MediaRemovable READ mediaRemovable)
+    Q_PROPERTY(bool mediaRemovable READ mediaRemovable)
     bool mediaRemovable() const;
 
-    Q_PROPERTY(QString Model READ model)
+    Q_PROPERTY(QString model READ model)
     QString model() const;
 
-    Q_PROPERTY(bool Optical READ optical)
+    Q_PROPERTY(bool optical READ optical)
     bool optical() const;
 
-    Q_PROPERTY(bool OpticalBlank READ opticalBlank)
+    Q_PROPERTY(bool opticalBlank READ opticalBlank)
     bool opticalBlank() const;
 
-    Q_PROPERTY(uint OpticalNumAudioTracks READ opticalNumAudioTracks)
+    Q_PROPERTY(uint opticalNumAudioTracks READ opticalNumAudioTracks)
     uint opticalNumAudioTracks() const;
 
-    Q_PROPERTY(uint OpticalNumDataTracks READ opticalNumDataTracks)
+    Q_PROPERTY(uint opticalNumDataTracks READ opticalNumDataTracks)
     uint opticalNumDataTracks() const;
 
-    Q_PROPERTY(uint OpticalNumSessions READ opticalNumSessions)
+    Q_PROPERTY(uint opticalNumSessions READ opticalNumSessions)
     uint opticalNumSessions() const;
 
-    Q_PROPERTY(uint OpticalNumTracks READ opticalNumTracks)
+    Q_PROPERTY(uint opticalNumTracks READ opticalNumTracks)
     uint opticalNumTracks() const;
 
-    Q_PROPERTY(bool Removable READ removable)
+    Q_PROPERTY(bool removable READ removable)
     bool removable() const;
 
-    Q_PROPERTY(QString Revision READ revision)
+    Q_PROPERTY(QString revision READ revision)
     QString revision() const;
 
-    Q_PROPERTY(int RotationRate READ rotationRate)
+    Q_PROPERTY(int rotationRate READ rotationRate)
     int rotationRate() const;
 
-    Q_PROPERTY(QString Seat READ seat)
+    Q_PROPERTY(QString seat READ seat)
     QString seat() const;
 
-    Q_PROPERTY(QString Serial READ serial)
+    Q_PROPERTY(QString serial READ serial)
     QString serial() const;
 
-    Q_PROPERTY(QString SiblingId READ siblingId)
+    Q_PROPERTY(QString siblingId READ siblingId)
     QString siblingId() const;
 
-    Q_PROPERTY(qulonglong Size READ size)
+    Q_PROPERTY(qulonglong size READ size)
     qulonglong size() const;
 
-    Q_PROPERTY(QString SortKey READ sortKey)
+    Q_PROPERTY(QString sortKey READ sortKey)
     QString sortKey() const;
 
-    Q_PROPERTY(qulonglong TimeDetected READ timeDetected)
+    Q_PROPERTY(qulonglong timeDetected READ timeDetected)
     qulonglong timeDetected() const;
 
-    Q_PROPERTY(qulonglong TimeMediaDetected READ timeMediaDetected)
+    Q_PROPERTY(qulonglong timeMediaDetected READ timeMediaDetected)
     qulonglong timeMediaDetected() const;
 
-    Q_PROPERTY(QString Vendor READ vendor)
+    Q_PROPERTY(QString vendor READ vendor)
     QString vendor() const;
 
-    Q_PROPERTY(QString WWN READ wWN)
+    Q_PROPERTY(QString wWN READ wWN)
     QString wWN() const;
 
 protected:

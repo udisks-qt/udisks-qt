@@ -5,6 +5,7 @@
 
 class UDisksDrive;
 class UDisksDriveAta;
+class UDisksMDRaid;
 class UDisksBlock;
 class UDisksPartition;
 class UDisksPartitionTable;
@@ -19,6 +20,7 @@ public:
 
     UDisksDrive *drive;
     UDisksDriveAta *driveAta;
+    UDisksMDRaid *mDRaid;
     UDisksBlock *block;
     UDisksPartition *partition;
     UDisksPartitionTable *partitionTable;

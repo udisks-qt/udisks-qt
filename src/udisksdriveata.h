@@ -31,73 +31,73 @@ class UDisksDriveAta : public QObject
 public:
     explicit UDisksDriveAta(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
-    Q_PROPERTY(bool AamEnabled READ aamEnabled)
+    Q_PROPERTY(bool aamEnabled READ aamEnabled)
     bool aamEnabled() const;
 
-    Q_PROPERTY(bool AamSupported READ aamSupported)
+    Q_PROPERTY(bool aamSupported READ aamSupported)
     bool aamSupported() const;
 
-    Q_PROPERTY(int AamVendorRecommendedValue READ aamVendorRecommendedValue)
+    Q_PROPERTY(int aamVendorRecommendedValue READ aamVendorRecommendedValue)
     int aamVendorRecommendedValue() const;
 
-    Q_PROPERTY(bool ApmEnabled READ apmEnabled)
+    Q_PROPERTY(bool apmEnabled READ apmEnabled)
     bool apmEnabled() const;
 
-    Q_PROPERTY(bool ApmSupported READ apmSupported)
+    Q_PROPERTY(bool apmSupported READ apmSupported)
     bool apmSupported() const;
 
-    Q_PROPERTY(bool PmEnabled READ pmEnabled)
+    Q_PROPERTY(bool pmEnabled READ pmEnabled)
     bool pmEnabled() const;
 
-    Q_PROPERTY(bool PmSupported READ pmSupported)
+    Q_PROPERTY(bool pmSupported READ pmSupported)
     bool pmSupported() const;
 
-    Q_PROPERTY(int SecurityEnhancedEraseUnitMinutes READ securityEnhancedEraseUnitMinutes)
+    Q_PROPERTY(int securityEnhancedEraseUnitMinutes READ securityEnhancedEraseUnitMinutes)
     int securityEnhancedEraseUnitMinutes() const;
 
-    Q_PROPERTY(int SecurityEraseUnitMinutes READ securityEraseUnitMinutes)
+    Q_PROPERTY(int securityEraseUnitMinutes READ securityEraseUnitMinutes)
     int securityEraseUnitMinutes() const;
 
-    Q_PROPERTY(bool SecurityFrozen READ securityFrozen)
+    Q_PROPERTY(bool securityFrozen READ securityFrozen)
     bool securityFrozen() const;
 
-    Q_PROPERTY(bool SmartEnabled READ smartEnabled)
+    Q_PROPERTY(bool smartEnabled READ smartEnabled)
     bool smartEnabled() const;
 
-    Q_PROPERTY(bool SmartFailing READ smartFailing)
+    Q_PROPERTY(bool smartFailing READ smartFailing)
     bool smartFailing() const;
 
-    Q_PROPERTY(int SmartNumAttributesFailedInThePast READ smartNumAttributesFailedInThePast)
+    Q_PROPERTY(int smartNumAttributesFailedInThePast READ smartNumAttributesFailedInThePast)
     int smartNumAttributesFailedInThePast() const;
 
-    Q_PROPERTY(int SmartNumAttributesFailing READ smartNumAttributesFailing)
+    Q_PROPERTY(int smartNumAttributesFailing READ smartNumAttributesFailing)
     int smartNumAttributesFailing() const;
 
-    Q_PROPERTY(qlonglong SmartNumBadSectors READ smartNumBadSectors)
+    Q_PROPERTY(qlonglong smartNumBadSectors READ smartNumBadSectors)
     qlonglong smartNumBadSectors() const;
 
-    Q_PROPERTY(qulonglong SmartPowerOnSeconds READ smartPowerOnSeconds)
+    Q_PROPERTY(qulonglong smartPowerOnSeconds READ smartPowerOnSeconds)
     qulonglong smartPowerOnSeconds() const;
 
-    Q_PROPERTY(int SmartSelftestPercentRemaining READ smartSelftestPercentRemaining)
+    Q_PROPERTY(int smartSelftestPercentRemaining READ smartSelftestPercentRemaining)
     int smartSelftestPercentRemaining() const;
 
-    Q_PROPERTY(QString SmartSelftestStatus READ smartSelftestStatus)
+    Q_PROPERTY(QString smartSelftestStatus READ smartSelftestStatus)
     QString smartSelftestStatus() const;
 
-    Q_PROPERTY(bool SmartSupported READ smartSupported)
+    Q_PROPERTY(bool smartSupported READ smartSupported)
     bool smartSupported() const;
 
-    Q_PROPERTY(double SmartTemperature READ smartTemperature)
+    Q_PROPERTY(double smartTemperature READ smartTemperature)
     double smartTemperature() const;
 
-    Q_PROPERTY(qulonglong SmartUpdated READ smartUpdated)
+    Q_PROPERTY(qulonglong smartUpdated READ smartUpdated)
     qulonglong smartUpdated() const;
 
-    Q_PROPERTY(bool WriteCacheEnabled READ writeCacheEnabled)
+    Q_PROPERTY(bool writeCacheEnabled READ writeCacheEnabled)
     bool writeCacheEnabled() const;
 
-    Q_PROPERTY(bool WriteCacheSupported READ writeCacheSupported)
+    Q_PROPERTY(bool writeCacheSupported READ writeCacheSupported)
     bool writeCacheSupported() const;
 
 protected:

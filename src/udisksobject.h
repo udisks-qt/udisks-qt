@@ -26,6 +26,7 @@
 
 class UDisksDrive;
 class UDisksDriveAta;
+class UDisksMDRaid;
 class UDisksBlock;
 class UDisksPartition;
 class UDisksPartitionTable;
@@ -37,11 +38,12 @@ class UDisksObject : public QObject
 public:
     explicit UDisksObject(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
-    UDisksDrive* drive() const;
-    UDisksDriveAta* driveAta() const;
-    UDisksBlock* block() const;
-    UDisksPartition* partition() const;
-    UDisksPartitionTable* partitionTable() const;
+    UDisksDrive *drive() const;
+    UDisksDriveAta *driveAta() const;
+    UDisksMDRaid *mDRaid() const;
+    UDisksBlock *block() const;
+    UDisksPartition *partition() const;
+    UDisksPartitionTable *partitionTable() const;
 
 protected:
     UDisksObjectPrivate *d_ptr;

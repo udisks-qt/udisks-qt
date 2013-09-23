@@ -55,6 +55,12 @@ UDisksDriveAta *UDisksObject::driveAta() const
     return d->driveAta;
 }
 
+UDisksMDRaid *UDisksObject::mDRaid() const
+{
+    Q_D(const UDisksObject);
+    return d->mDRaid;
+}
+
 UDisksBlock *UDisksObject::block() const
 {
     Q_D(const UDisksObject);

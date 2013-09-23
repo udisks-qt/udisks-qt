@@ -31,43 +31,43 @@ class UDisksMDRaid : public QObject
 public:
     explicit UDisksMDRaid(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
-    Q_PROPERTY(UDActiveDevice ActiveDevices READ activeDevices)
+    Q_PROPERTY(UDActiveDevice activeDevices READ activeDevices)
     UDActiveDevice activeDevices() const;
 
-    Q_PROPERTY(QByteArray BitmapLocation READ bitmapLocation)
+    Q_PROPERTY(QByteArray bitmapLocation READ bitmapLocation)
     QByteArray bitmapLocation() const;
 
-    Q_PROPERTY(qulonglong ChunkSize READ chunkSize)
+    Q_PROPERTY(qulonglong chunkSize READ chunkSize)
     qulonglong chunkSize() const;
 
-    Q_PROPERTY(uint Degraded READ degraded)
+    Q_PROPERTY(uint degraded READ degraded)
     uint degraded() const;
 
-    Q_PROPERTY(QString Level READ level)
+    Q_PROPERTY(QString level READ level)
     QString level() const;
 
-    Q_PROPERTY(QString Name READ name)
+    Q_PROPERTY(QString name READ name)
     QString name() const;
 
-    Q_PROPERTY(uint NumDevices READ numDevices)
+    Q_PROPERTY(uint numDevices READ numDevices)
     uint numDevices() const;
 
-    Q_PROPERTY(qulonglong Size READ size)
+    Q_PROPERTY(qulonglong size READ size)
     qulonglong size() const;
 
-    Q_PROPERTY(QString SyncAction READ syncAction)
+    Q_PROPERTY(QString syncAction READ syncAction)
     QString syncAction() const;
 
-    Q_PROPERTY(double SyncCompleted READ syncCompleted)
+    Q_PROPERTY(double syncCompleted READ syncCompleted)
     double syncCompleted() const;
 
-    Q_PROPERTY(qulonglong SyncRate READ syncRate)
+    Q_PROPERTY(qulonglong syncRate READ syncRate)
     qulonglong syncRate() const;
 
-    Q_PROPERTY(qulonglong SyncRemainingTime READ syncRemainingTime)
+    Q_PROPERTY(qulonglong syncRemainingTime READ syncRemainingTime)
     qulonglong syncRemainingTime() const;
 
-    Q_PROPERTY(QString UUID READ uUID)
+    Q_PROPERTY(QString uUID READ uUID)
     QString uUID() const;
 
 protected:
