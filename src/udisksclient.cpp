@@ -72,7 +72,7 @@ bool UDisksClient::init(bool async)
     return true;
 }
 
-UDisksObject::List UDisksClient::getObjects(UDisksObject::Kind kind)
+UDisksObject::List UDisksClient::getObjects(UDisksObject::Kind kind) const
 {
     Q_D(const UDisksClient);
 
@@ -87,6 +87,16 @@ UDisksObject::List UDisksClient::getObjects(UDisksObject::Kind kind)
         }
         return ret;
     }
+}
+
+UDisksManager *UDisksClient::manager() const
+{
+    UDisksManager *ret = 0;
+    UDisksObject::List managers = getObjects(UDisksObject::Manager);
+    if (!managers.isEmpty()) {
+        ret = managers.first()->manager();
+    }
+    return ret;
 }
 
 UDisksClientPrivate::UDisksClientPrivate(UDisksClient *parent) :

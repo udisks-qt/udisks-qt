@@ -98,6 +98,12 @@ uint UDisksJob::startedByUID() const
     return d->properties[QLatin1String("StartedByUID")].toUInt();
 }
 
+QDBusPendingReply<> UDisksJob::cancel(const QVariantMap &options)
+{
+    Q_D(UDisksJob);
+    return d->interface.Cancel(options);
+}
+
 UDisksJobPrivate::UDisksJobPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {

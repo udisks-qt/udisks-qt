@@ -56,6 +56,18 @@ uint UDisksLoop::setupByUID() const
     return d->properties[QLatin1String("SetupByUID")].toUInt();
 }
 
+QDBusPendingReply<> UDisksLoop::deleteLoop(const QVariantMap &options)
+{
+    Q_D(UDisksLoop);
+    return d->interface.Delete(options);
+}
+
+QDBusPendingReply<> UDisksLoop::setAutoclear(bool value, const QVariantMap &options)
+{
+    Q_D(UDisksLoop);
+    return d->interface.SetAutoclear(value, options);
+}
+
 UDisksLoopPrivate::UDisksLoopPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {

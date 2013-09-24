@@ -44,6 +44,18 @@ bool UDisksSwapspace::active() const
     return d->properties[QLatin1String("Active")].toBool();
 }
 
+QDBusPendingReply<> UDisksSwapspace::start(const QVariantMap &options)
+{
+    Q_D(UDisksSwapspace);
+    return d->interface.Start(options);
+}
+
+QDBusPendingReply<> UDisksSwapspace::stop(const QVariantMap &options)
+{
+    Q_D(UDisksSwapspace);
+    return d->interface.Stop(options);
+}
+
 UDisksSwapspacePrivate::UDisksSwapspacePrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {

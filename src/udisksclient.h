@@ -51,7 +51,9 @@ public:
      */
     bool init(bool async = true);
 
-    UDisksObject::List getObjects(UDisksObject::Kind kind = UDisksObject::Any);
+    UDisksObject::List getObjects(UDisksObject::Kind kind = UDisksObject::Any) const;
+
+    UDisksManager *manager() const;
 
 signals:
     void objectsAvailable();

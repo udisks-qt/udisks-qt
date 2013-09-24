@@ -21,6 +21,7 @@
 #define UDISKSPARTITION_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -63,6 +64,15 @@ public:
 
     Q_PROPERTY(QString uUID READ uUID)
     QString uUID() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<> deletePartition(const QVariantMap &options);
+
+    QDBusPendingReply<> setFlags(qulonglong flags, const QVariantMap &options);
+
+    QDBusPendingReply<> setName(const QString &name, const QVariantMap &options);
+
+    QDBusPendingReply<> setType(const QString &type, const QVariantMap &options);
 
 protected:
     UDisksPartitionPrivate *d_ptr;

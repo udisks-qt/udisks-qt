@@ -44,6 +44,24 @@ QList<QByteArray> UDisksFilesystem::mountPoints() const
     return d->properties[QLatin1String("MountPoints")].value<QList<QByteArray> >();
 }
 
+QDBusPendingReply<QString> UDisksFilesystem::mount(const QVariantMap &options)
+{
+    Q_D(UDisksFilesystem);
+    return d->interface.Mount(options);
+}
+
+QDBusPendingReply<> UDisksFilesystem::setLabel(const QString &label, const QVariantMap &options)
+{
+    Q_D(UDisksFilesystem);
+    return d->interface.SetLabel(label, options);
+}
+
+QDBusPendingReply<> UDisksFilesystem::unmount(const QVariantMap &options)
+{
+    Q_D(UDisksFilesystem);
+    return d->interface.Unmount(options);
+}
+
 UDisksFilesystemPrivate::UDisksFilesystemPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {

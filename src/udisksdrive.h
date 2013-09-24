@@ -21,6 +21,7 @@
 #define UDISKSDRIVE_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -120,6 +121,13 @@ public:
 
     Q_PROPERTY(QString wWN READ wWN)
     QString wWN() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<> eject(const QVariantMap &options);
+
+    QDBusPendingReply<> powerOff(const QVariantMap &options);
+
+    QDBusPendingReply<> setConfiguration(const QVariantMap &value, const QVariantMap &options);
 
 protected:
     UDisksDrivePrivate *d_ptr;

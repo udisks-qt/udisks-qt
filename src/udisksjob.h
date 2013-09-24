@@ -21,6 +21,7 @@
 #define UDISKSJOB_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -63,6 +64,9 @@ public:
 
     Q_PROPERTY(uint startedByUID READ startedByUID)
     uint startedByUID() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<> cancel(const QVariantMap &options);
 
 protected:
     UDisksJobPrivate *d_ptr;

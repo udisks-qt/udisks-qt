@@ -176,6 +176,60 @@ bool UDisksDriveAta::writeCacheSupported() const
     return d->properties[QLatin1String("WriteCacheSupported")].toBool();
 }
 
+QDBusPendingReply<uchar> UDisksDriveAta::pmGetState(const QVariantMap &options)
+{
+    Q_D(UDisksDriveAta);
+    return d->interface.PmGetState(options);
+}
+
+QDBusPendingReply<> UDisksDriveAta::pmStandby(const QVariantMap &options)
+{
+    Q_D(UDisksDriveAta);
+    return d->interface.PmStandby(options);
+}
+
+QDBusPendingReply<> UDisksDriveAta::pmWakeup(const QVariantMap &options)
+{
+    Q_D(UDisksDriveAta);
+    return d->interface.PmWakeup(options);
+}
+
+QDBusPendingReply<> UDisksDriveAta::securityEraseUnit(const QVariantMap &options)
+{
+    Q_D(UDisksDriveAta);
+    return d->interface.SecurityEraseUnit(options);
+}
+
+QDBusPendingReply<UDAttributes> UDisksDriveAta::smartGetAttributes(const QVariantMap &options)
+{
+    Q_D(UDisksDriveAta);
+    return d->interface.SmartGetAttributes(options);
+}
+
+QDBusPendingReply<> UDisksDriveAta::smartSelftestAbort(const QVariantMap &options)
+{
+    Q_D(UDisksDriveAta);
+    return d->interface.SmartSelftestAbort(options);
+}
+
+QDBusPendingReply<> UDisksDriveAta::smartSelftestStart(const QString &type, const QVariantMap &options)
+{
+    Q_D(UDisksDriveAta);
+    return d->interface.SmartSelftestStart(type, options);
+}
+
+QDBusPendingReply<> UDisksDriveAta::smartSetEnabled(bool value, const QVariantMap &options)
+{
+    Q_D(UDisksDriveAta);
+    return d->interface.SmartSetEnabled(value, options);
+}
+
+QDBusPendingReply<> UDisksDriveAta::smartUpdate(const QVariantMap &options)
+{
+    Q_D(UDisksDriveAta);
+    return d->interface.SmartUpdate(options);
+}
+
 UDisksDriveAtaPrivate::UDisksDriveAtaPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {

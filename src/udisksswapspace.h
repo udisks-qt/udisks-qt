@@ -21,6 +21,7 @@
 #define UDISKSSWAPSPACE_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -36,6 +37,11 @@ public:
 
     Q_PROPERTY(bool active READ active)
     bool active() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<> start(const QVariantMap &options);
+
+    QDBusPendingReply<> stop(const QVariantMap &options);
 
 protected:
     UDisksSwapspacePrivate *d_ptr;

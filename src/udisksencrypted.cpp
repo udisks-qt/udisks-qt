@@ -38,6 +38,24 @@ UDisksEncrypted::~UDisksEncrypted()
     delete d_ptr;
 }
 
+QDBusPendingReply<> UDisksEncrypted::changePassphrase(const QString &passphrase, const QString &newPassphrase, const QVariantMap &options)
+{
+    Q_D(UDisksEncrypted);
+    return d->interface.ChangePassphrase(passphrase, newPassphrase, options);
+}
+
+QDBusPendingReply<> UDisksEncrypted::lock(const QVariantMap &options)
+{
+    Q_D(UDisksEncrypted);
+    return d->interface.Lock(options);
+}
+
+QDBusPendingReply<QDBusObjectPath> UDisksEncrypted::unlock(const QString &passphrase, const QVariantMap &options)
+{
+    Q_D(UDisksEncrypted);
+    return d->interface.Unlock(passphrase, options);
+}
+
 UDisksEncryptedPrivate::UDisksEncryptedPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {

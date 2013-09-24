@@ -21,6 +21,7 @@
 #define UDisksDriveAtaATA_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -102,6 +103,25 @@ public:
 
     Q_PROPERTY(bool writeCacheSupported READ writeCacheSupported)
     bool writeCacheSupported() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<uchar> pmGetState(const QVariantMap &options);
+
+    QDBusPendingReply<> pmStandby(const QVariantMap &options);
+
+    QDBusPendingReply<> pmWakeup(const QVariantMap &options);
+
+    QDBusPendingReply<> securityEraseUnit(const QVariantMap &options);
+
+    QDBusPendingReply<UDAttributes> smartGetAttributes(const QVariantMap &options);
+
+    QDBusPendingReply<> smartSelftestAbort(const QVariantMap &options);
+
+    QDBusPendingReply<> smartSelftestStart(const QString &type, const QVariantMap &options);
+
+    QDBusPendingReply<> smartSetEnabled(bool value, const QVariantMap &options);
+
+    QDBusPendingReply<> smartUpdate(const QVariantMap &options);
 
 protected:
     UDisksDriveAtaPrivate *d_ptr;

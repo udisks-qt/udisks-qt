@@ -98,6 +98,30 @@ QString UDisksPartition::uUID() const
     return d->properties[QLatin1String("UUID")].toString();
 }
 
+QDBusPendingReply<> UDisksPartition::deletePartition(const QVariantMap &options)
+{
+    Q_D(UDisksPartition);
+    return d->interface.Delete(options);
+}
+
+QDBusPendingReply<> UDisksPartition::setFlags(qulonglong flags, const QVariantMap &options)
+{
+    Q_D(UDisksPartition);
+    return d->interface.SetFlags(flags, options);
+}
+
+QDBusPendingReply<> UDisksPartition::setName(const QString &name, const QVariantMap &options)
+{
+    Q_D(UDisksPartition);
+    return d->interface.SetName(name, options);
+}
+
+QDBusPendingReply<> UDisksPartition::setType(const QString &type, const QVariantMap &options)
+{
+    Q_D(UDisksPartition);
+    return d->interface.SetType(type, options);
+}
+
 UDisksPartitionPrivate::UDisksPartitionPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {

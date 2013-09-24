@@ -21,6 +21,8 @@
 #define UDISKSBLOCK_H
 
 #include <QObject>
+#include <QtDBus>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -105,6 +107,25 @@ public:
 
     Q_PROPERTY(QList<QByteArray> symlinks READ symlinks)
     QList<QByteArray> symlinks() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<> addConfigurationItem(UDItem item, const QVariantMap &options);
+
+    QDBusPendingReply<> format(const QString &type, const QVariantMap &options);
+
+    QDBusPendingReply<QList<QVariantMap> > getSecretConfiguration(const QVariantMap &options);
+
+    QDBusPendingReply<QDBusUnixFileDescriptor> openForBackup(const QVariantMap &options);
+
+    QDBusPendingReply<QDBusUnixFileDescriptor> openForBenchmark(const QVariantMap &options);
+
+    QDBusPendingReply<QDBusUnixFileDescriptor> openForRestore(const QVariantMap &options);
+
+    QDBusPendingReply<> removeConfigurationItem(UDItem item, const QVariantMap &options);
+
+    QDBusPendingReply<> rescan(const QVariantMap &options);
+
+    QDBusPendingReply<> updateConfigurationItem(UDItem oldItem, UDItem newItem, const QVariantMap &options);
 
 protected:
     UDisksBlockPrivate *d_ptr;

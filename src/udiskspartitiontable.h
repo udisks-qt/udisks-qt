@@ -21,6 +21,7 @@
 #define UDISKSPARTITIONTABLE_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -36,6 +37,9 @@ public:
 
     Q_PROPERTY(QString type READ type)
     QString type() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<QDBusObjectPath> createPartition(qulonglong offset, qulonglong size, const QString &type, const QString &name, const QVariantMap &options);
 
 protected:
     UDisksPartitionTablePrivate *d_ptr;

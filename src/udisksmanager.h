@@ -24,6 +24,7 @@
 #include <QtCore/QMetaEnum>
 #include <QtDBus/QDBusError>
 #include <QtDBus/QDBusObjectPath>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -62,7 +63,7 @@ public:
      *
      * Returns a Block::Ptr
      */
-//    Block::Ptr loopSetup(int fileDescriptor);
+    QDBusPendingReply<QDBusObjectPath> loopSetup(const QDBusUnixFileDescriptor &fd, const QVariantMap &options);
 
     /**
      * Creates a new RAID array on the block devices specified by
@@ -77,7 +78,7 @@ public:
      * \p options: Options (currently unused except for <link linkend="udisks-std-options">standard options</link>).
      * returns an MDRaid object
      */
-//    MDRaid::Ptr MDRaidCreate(const QStringList &blocks, const QString &level, const QString &name, qulonglong chunk, const QVariantMap &options);
+    QDBusPendingReply<QDBusObjectPath> mDRaidCreate(const QList<QDBusObjectPath> &blocks, const QString &level, const QString &name, qulonglong chunk, const QVariantMap &options);
 
 Q_SIGNALS:
     /**

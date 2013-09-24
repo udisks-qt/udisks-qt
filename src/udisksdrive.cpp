@@ -209,6 +209,24 @@ QString UDisksDrive::wWN() const
     return d->properties[QLatin1String("WWN")].toString();
 }
 
+QDBusPendingReply<> UDisksDrive::eject(const QVariantMap &options)
+{
+    Q_D(UDisksDrive);
+    return d->interface.Eject(options);
+}
+
+QDBusPendingReply<> UDisksDrive::powerOff(const QVariantMap &options)
+{
+    Q_D(UDisksDrive);
+    return d->interface.PowerOff(options);
+}
+
+QDBusPendingReply<> UDisksDrive::setConfiguration(const QVariantMap &value, const QVariantMap &options)
+{
+    Q_D(UDisksDrive);
+    return d->interface.SetConfiguration(value, options);
+}
+
 UDisksDrivePrivate::UDisksDrivePrivate(const QString &path, const QVariantMap &propertiesMap) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus()),
     properties(propertiesMap)

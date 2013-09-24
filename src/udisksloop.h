@@ -21,6 +21,7 @@
 #define UDISKSLOOP_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -42,6 +43,11 @@ public:
 
     Q_PROPERTY(uint setupByUID READ setupByUID)
     uint setupByUID() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<> deleteLoop(const QVariantMap &options);
+
+    QDBusPendingReply<> setAutoclear(bool value, const QVariantMap &options);
 
 protected:
     UDisksLoopPrivate *d_ptr;

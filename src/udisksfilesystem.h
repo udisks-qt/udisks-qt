@@ -21,6 +21,7 @@
 #define UDISKSFILESYSTEM_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -36,6 +37,13 @@ public:
 
     Q_PROPERTY(QList<QByteArray> mountPoints READ mountPoints)
     QList<QByteArray> mountPoints() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<QString> mount(const QVariantMap &options);
+
+    QDBusPendingReply<> setLabel(const QString &label, const QVariantMap &options);
+
+    QDBusPendingReply<> unmount(const QVariantMap &options);
 
 protected:
     UDisksFilesystemPrivate *d_ptr;

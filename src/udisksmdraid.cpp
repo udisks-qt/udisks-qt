@@ -116,6 +116,42 @@ QString UDisksMDRaid::uUID() const
     return d->properties[QLatin1String("UUID")].toString();
 }
 
+QDBusPendingReply<> UDisksMDRaid::addDevice(const QDBusObjectPath &device, const QVariantMap &options)
+{
+    Q_D(UDisksMDRaid);
+    return d->interface.AddDevice(device, options);
+}
+
+QDBusPendingReply<> UDisksMDRaid::removeDevice(const QDBusObjectPath &device, const QVariantMap &options)
+{
+    Q_D(UDisksMDRaid);
+    return d->interface.RemoveDevice(device, options);
+}
+
+QDBusPendingReply<> UDisksMDRaid::requestSyncAction(const QString &syncAction, const QVariantMap &options)
+{
+    Q_D(UDisksMDRaid);
+    return d->interface.RequestSyncAction(syncAction, options);
+}
+
+QDBusPendingReply<> UDisksMDRaid::setBitmapLocation(const QByteArray &value, const QVariantMap &options)
+{
+    Q_D(UDisksMDRaid);
+    return d->interface.SetBitmapLocation(value, options);
+}
+
+QDBusPendingReply<> UDisksMDRaid::start(const QVariantMap &options)
+{
+    Q_D(UDisksMDRaid);
+    return d->interface.Start(options);
+}
+
+QDBusPendingReply<> UDisksMDRaid::stop(const QVariantMap &options)
+{
+    Q_D(UDisksMDRaid);
+    return d->interface.Stop(options);
+}
+
 UDisksMDRaidPrivate::UDisksMDRaidPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {

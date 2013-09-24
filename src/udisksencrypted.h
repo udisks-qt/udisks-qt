@@ -21,6 +21,7 @@
 #define UDISKSENCRYPTED_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -33,6 +34,13 @@ public:
     typedef QList<Ptr> List;
     explicit UDisksEncrypted(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksEncrypted();
+
+public Q_SLOTS:
+    QDBusPendingReply<> changePassphrase(const QString &passphrase, const QString &newPassphrase, const QVariantMap &options);
+
+    QDBusPendingReply<> lock(const QVariantMap &options);
+
+    QDBusPendingReply<QDBusObjectPath> unlock(const QString &passphrase, const QVariantMap &options);
 
 protected:
     UDisksEncryptedPrivate *d_ptr;

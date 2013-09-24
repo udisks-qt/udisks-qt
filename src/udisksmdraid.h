@@ -21,6 +21,7 @@
 #define UDISKSMDRAID_H
 
 #include <QObject>
+#include <QtDBus/QDBusPendingReply>
 
 #include "dbus-types.h"
 
@@ -72,6 +73,19 @@ public:
 
     Q_PROPERTY(QString uUID READ uUID)
     QString uUID() const;
+
+public Q_SLOTS:
+    QDBusPendingReply<> addDevice(const QDBusObjectPath &device, const QVariantMap &options);
+
+    QDBusPendingReply<> removeDevice(const QDBusObjectPath &device, const QVariantMap &options);
+
+    QDBusPendingReply<> requestSyncAction(const QString &syncAction, const QVariantMap &options);
+
+    QDBusPendingReply<> setBitmapLocation(const QByteArray &value, const QVariantMap &options);
+
+    QDBusPendingReply<> start(const QVariantMap &options);
+
+    QDBusPendingReply<> stop(const QVariantMap &options);
 
 protected:
     UDisksMDRaidPrivate *d_ptr;

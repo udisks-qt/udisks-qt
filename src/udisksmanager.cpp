@@ -51,20 +51,21 @@ QString UDisksManager::version() const
     return d->properties[QLatin1String("Version")].toString();
 }
 
-//Block::Ptr UDisksManager::loopSetup(int fileDescriptor)
-//{
+QDBusPendingReply<QDBusObjectPath> UDisksManager::loopSetup(const QDBusUnixFileDescriptor &fd, const QVariantMap &options)
+{
+    Q_D(UDisksManager);
+    return d->interface.LoopSetup(fd, options);
+}
 
-//}
-
-//MDRaid::Ptr UDisksManager::MDRaidCreate(const QStringList &blocks, const QString &level, const QString &name, qulonglong chunk, const QVariantMap &options)
-//{
-
-//}
+QDBusPendingReply<QDBusObjectPath> UDisksManager::mDRaidCreate(const QList<QDBusObjectPath> &blocks, const QString &level, const QString &name, qulonglong chunk, const QVariantMap &options)
+{
+    Q_D(UDisksManager);
+    return d->interface.MDRaidCreate(blocks, level, name, chunk, options);
+}
 
 UDisksManagerPrivate::UDisksManagerPrivate(const QDBusObjectPath &object) :
     interface(QLatin1String(UD2_SERVICE),
               object.path(),
               QDBusConnection::systemBus())
 {
-
 }

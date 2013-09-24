@@ -182,6 +182,60 @@ QList<QByteArray> UDisksBlock::symlinks() const
     return d->properties[QLatin1String("Symlinks")].value<QList<QByteArray> >();
 }
 
+QDBusPendingReply<> UDisksBlock::addConfigurationItem(UDItem item, const QVariantMap &options)
+{
+    Q_D(UDisksBlock);
+    return d->interface.AddConfigurationItem(item, options);
+}
+
+QDBusPendingReply<> UDisksBlock::format(const QString &type, const QVariantMap &options)
+{
+    Q_D(UDisksBlock);
+    return d->interface.Format(type, options);
+}
+
+QDBusPendingReply<QList<QVariantMap> > UDisksBlock::getSecretConfiguration(const QVariantMap &options)
+{
+    Q_D(UDisksBlock);
+    return d->interface.GetSecretConfiguration(options);
+}
+
+QDBusPendingReply<QDBusUnixFileDescriptor> UDisksBlock::openForBackup(const QVariantMap &options)
+{
+    Q_D(UDisksBlock);
+    return d->interface.OpenForBackup(options);
+}
+
+QDBusPendingReply<QDBusUnixFileDescriptor> UDisksBlock::openForBenchmark(const QVariantMap &options)
+{
+    Q_D(UDisksBlock);
+    return d->interface.OpenForBenchmark(options);
+}
+
+QDBusPendingReply<QDBusUnixFileDescriptor> UDisksBlock::openForRestore(const QVariantMap &options)
+{
+    Q_D(UDisksBlock);
+    return d->interface.OpenForRestore(options);
+}
+
+QDBusPendingReply<> UDisksBlock::removeConfigurationItem(UDItem item, const QVariantMap &options)
+{
+    Q_D(UDisksBlock);
+    return d->interface.RemoveConfigurationItem(item, options);
+}
+
+QDBusPendingReply<> UDisksBlock::rescan(const QVariantMap &options)
+{
+    Q_D(UDisksBlock);
+    return d->interface.Rescan(options);
+}
+
+QDBusPendingReply<> UDisksBlock::updateConfigurationItem(UDItem oldItem, UDItem newItem, const QVariantMap &options)
+{
+    Q_D(UDisksBlock);
+    return d->interface.UpdateConfigurationItem(oldItem, newItem, options);
+}
+
 UDisksBlockPrivate::UDisksBlockPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
