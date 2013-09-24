@@ -32,10 +32,12 @@ public:
 
 Q_SIGNALS:
     void changed();
+    void removed();
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties) = 0;
     void changeProperties(QVariantMap &properties, const QVariantMap &changedProperties, const QStringList &invalidProperties);
+    void removeInterface();
 
 private:
     friend class UDisksObjectPrivate;
