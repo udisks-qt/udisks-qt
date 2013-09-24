@@ -64,6 +64,9 @@ public:
     Q_PROPERTY(QDBusObjectPath path READ path)
     QDBusObjectPath path() const;
 
+    Q_PROPERTY(QStringList interfaces READ interfaces)
+    QStringList interfaces() const;
+
     UDisksManager *manager() const;
     UDisksDrive *drive() const;
     UDisksDriveAta *driveAta() const;
@@ -77,10 +80,14 @@ public:
     UDisksEncrypted *encrypted() const;
     UDisksLoop *loop() const;
 
+Q_SIGNALS:
+    void interfaceAdded(const QString &interface);
+    void interfaceRemoved(const QString &interface);
+
 protected:
     UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties);
-    void addInterfaces(const UDVariantMapMap &interfacesAndProperties);
-    void removeInterfaces(const QStringList &interfaces);
+    bool addInterfaces(const UDVariantMapMap &interfacesAndProperties);
+    bool removeInterfaces(const QStringList &interfaces);
 
     UDisksObjectPrivate *d_ptr;
 

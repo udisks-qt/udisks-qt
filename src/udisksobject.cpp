@@ -37,7 +37,7 @@
 #include <QDebug>
 
 UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties) :
-    d_ptr(new UDisksObjectPrivate(objectPath))
+    d_ptr(new UDisksObjectPrivate(objectPath, this))
 {
     Q_D(UDisksObject);
 
@@ -63,7 +63,13 @@ UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMap
         d->kind = Unknown;
     }
 
-    addInterfaces(interfacesAndProperties);
+    // Create the object interfaces
+    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
+    while (it != interfacesAndProperties.constEnd()) {
+        d->_q_addInterface(it.key(), it.value(), false);
+
+        ++it;
+    }
 }
 
 UDisksObject::~UDisksObject()
@@ -81,6 +87,12 @@ QDBusObjectPath UDisksObject::path() const
 {
     Q_D(const UDisksObject);
     return d->object;
+}
+
+QStringList UDisksObject::interfaces() const
+{
+    Q_D(const UDisksObject);
+    return d->interfaces;
 }
 
 UDisksManager *UDisksObject::manager() const
@@ -155,94 +167,39 @@ UDisksLoop *UDisksObject::loop() const
     return d->loop;
 }
 
-void UDisksObject::addInterfaces(const UDVariantMapMap &interfacesAndProperties)
+bool UDisksObject::addInterfaces(const UDVariantMapMap &interfacesAndProperties)
 {
     Q_D(UDisksObject);
+    bool ret = false;
 
     // Create the object interfaces
     UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
     while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->block = new UDisksBlock(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE)) {
-            d->drive = new UDisksDrive(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE_ATA)) {
-            d->driveAta = new UDisksDriveAta(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_MDRAID)) {
-            d->mDRaid = new UDisksMDRaid(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_MANAGER)) {
-            d->manager = new UDisksManager(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION)) {
-            d->partition = new UDisksPartition(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION_TABLE)) {
-            d->partitionTable = new UDisksPartitionTable(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_FILESYSTEM)) {
-            d->filesystem = new UDisksFilesystem(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_SWAPSPACE)) {
-            d->swapspace = new UDisksSwapspace(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_ENCRYPTION)) {
-            d->encrypted = new UDisksEncrypted(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_LOOP)) {
-            d->loop = new UDisksLoop(d->object, it.value(), this);
-        } else if (interface == QLatin1String(UD2_INTERFACE_JOB)) {
-            d->job = new UDisksJob(d->object, it.value(), this);
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
+        if (d->_q_addInterface(it.key(), it.value(), true)) {
+            ret = true;
         }
 
         ++it;
     }
+    return ret;
 }
 
-void UDisksObject::removeInterfaces(const QStringList &interfaces)
+bool UDisksObject::removeInterfaces(const QStringList &interfaces)
 {
     Q_D(UDisksObject);
 
+    bool ret = false;
     foreach (const QString &interface, interfaces) {
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->block->deleteLater();
-            d->block = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE)) {
-            d->drive->deleteLater();
-            d->drive = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE_ATA)) {
-            d->driveAta->deleteLater();
-            d->driveAta = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_MDRAID)) {
-            d->mDRaid->deleteLater();
-            d->mDRaid = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_MANAGER)) {
-            d->manager->deleteLater();
-            d->manager = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION)) {
-            d->partition->deleteLater();
-            d->partition = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION_TABLE)) {
-            d->partitionTable->deleteLater();
-            d->partitionTable = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_FILESYSTEM)) {
-            d->filesystem->deleteLater();
-            d->filesystem = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_SWAPSPACE)) {
-            d->swapspace->deleteLater();
-            d->swapspace = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_ENCRYPTION)) {
-            d->encrypted->deleteLater();
-            d->encrypted = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_LOOP)) {
-            d->loop->deleteLater();
-            d->loop = 0;
-        } else if (interface == QLatin1String(UD2_INTERFACE_JOB)) {
-            d->job->deleteLater();
-            d->job = 0;
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
+        if (d->_q_removeInterface(interface)) {
+            ret = true;
         }
     }
+
+    return ret;
 }
 
-UDisksObjectPrivate::UDisksObjectPrivate(const QDBusObjectPath &path) :
+UDisksObjectPrivate::UDisksObjectPrivate(const QDBusObjectPath &path, UDisksObject *parent) :
+    q_ptr(parent),
     object(path),
     kind(UDisksObject::Unknown),
     manager(0),
@@ -257,4 +214,172 @@ UDisksObjectPrivate::UDisksObjectPrivate(const QDBusObjectPath &path) :
     encrypted(0),
     loop(0)
 {
+}
+
+bool UDisksObjectPrivate::_q_addInterface(const QString &interface, const QVariantMap &properties, bool emitSignal)
+{
+    Q_Q(UDisksObject);
+
+    bool ret = false;
+    if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
+        if (block == 0) {
+            block = new UDisksBlock(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE)) {
+        if (drive == 0) {
+            drive = new UDisksDrive(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE_ATA)) {
+        if (driveAta == 0) {
+            driveAta = new UDisksDriveAta(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_MDRAID)) {
+        if (mDRaid == 0) {
+            mDRaid = new UDisksMDRaid(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_MANAGER)) {
+        if (manager == 0) {
+            manager = new UDisksManager(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION)) {
+        if (partition == 0) {
+            partition = new UDisksPartition(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION_TABLE)) {
+        if (partitionTable == 0) {
+            partitionTable = new UDisksPartitionTable(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_FILESYSTEM)) {
+        if (filesystem == 0) {
+            filesystem = new UDisksFilesystem(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_SWAPSPACE)) {
+        if (swapspace == 0) {
+            swapspace = new UDisksSwapspace(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_ENCRYPTION)) {
+        if (encrypted == 0) {
+            encrypted = new UDisksEncrypted(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_LOOP)) {
+        if (loop == 0) {
+            loop = new UDisksLoop(object, properties, q);
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_JOB)) {
+        if (job == 0) {
+            job = new UDisksJob(object, properties, q);
+            ret = true;
+        }
+    } else {
+        qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
+    }
+
+    if (ret) {
+        interfaces << interface;
+        if (emitSignal) {
+            q->interfaceAdded(interface);
+        }
+    }
+
+    return ret;
+}
+
+bool UDisksObjectPrivate::_q_removeInterface(const QString &interface)
+{
+    Q_Q(UDisksObject);
+
+    bool ret = false;
+    if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
+        if (block) {
+            block->deleteLater();
+            block = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE)) {
+        if (drive) {
+            drive->deleteLater();
+            drive = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE_ATA)) {
+        if (driveAta) {
+            driveAta->deleteLater();
+            driveAta = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_MDRAID)) {
+        if (mDRaid) {
+            mDRaid->deleteLater();
+            mDRaid = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_MANAGER)) {
+        if (manager) {
+            manager->deleteLater();
+            manager = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION)) {
+        if (partition) {
+            partition->deleteLater();
+            partition = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION_TABLE)) {
+        if (partitionTable) {
+            partitionTable->deleteLater();
+            partitionTable = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_FILESYSTEM)) {
+        if (filesystem) {
+            filesystem->deleteLater();
+            filesystem = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_SWAPSPACE)) {
+        if (swapspace) {
+            swapspace->deleteLater();
+            swapspace = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_ENCRYPTION)) {
+        if (encrypted) {
+            encrypted->deleteLater();
+            encrypted = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_LOOP)) {
+        if (loop) {
+            loop->deleteLater();
+            loop = 0;
+            ret = true;
+        }
+    } else if (interface == QLatin1String(UD2_INTERFACE_JOB)) {
+        if (job) {
+            job->deleteLater();
+            job = 0;
+            ret = true;
+        }
+    } else {
+        qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
+    }
+
+    if (ret) {
+        interfaces.removeOne(interface);
+        q->interfaceRemoved(interface);
+    }
+
+    return ret;
 }

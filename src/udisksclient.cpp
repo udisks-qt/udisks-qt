@@ -51,7 +51,7 @@ bool UDisksClient::init(bool async)
     connect(&d->objectInterface, SIGNAL(InterfacesAdded(QDBusObjectPath,UDVariantMapMap)),
             SLOT(_q_interfacesAdded(QDBusObjectPath,UDVariantMapMap)));
     connect(&d->objectInterface, SIGNAL(InterfacesRemoved(QDBusObjectPath,QStringList)),
-            SLOT(_q_interfacesAdded(QDBusObjectPath,QStringList)));
+            SLOT(_q_interfacesRemoved(QDBusObjectPath,QStringList)));
 
     if (async) {
         QDBusPendingReply<UDManagedObjects> reply = d->objectInterface.GetManagedObjects();
@@ -157,6 +157,8 @@ void UDisksClientPrivate::_q_interfacesAdded(const QDBusObjectPath &object_path,
 {
     Q_Q(UDisksClient);
 
+    qDebug() << Q_FUNC_INFO << object_path.path();
+
     foreach (const UDisksObject::Ptr &object, objects) {
         if (object->path() == object_path) {
             object->addInterfaces(interfaces_and_properties);
@@ -174,10 +176,17 @@ void UDisksClientPrivate::_q_interfacesRemoved(const QDBusObjectPath &object_pat
 {
     Q_Q(UDisksClient);
 
+    qDebug() << Q_FUNC_INFO << object_path.path();
+
     foreach (const UDisksObject::Ptr &object, objects) {
         if (object->path() == object_path) {
             object->removeInterfaces(interfaces);
-            q->interfacesRemoved(object);
+            if (object->interfaces().isEmpty()) {
+                q->objectRemoved(object);
+                objects.removeOne(object);
+            } else {
+                q->interfacesRemoved(object);
+            }
             return;
         }
     }
