@@ -112,6 +112,7 @@ UDisksClientPrivate::UDisksClientPrivate(UDisksClient *parent) :
     qDBusRegisterMetaType<UDItemList>();
     qDBusRegisterMetaType<UDAttributes>();
     qDBusRegisterMetaType<UDActiveDevice>();
+    qDBusRegisterMetaType<UDByteArrayList>();
 
     watcher = new QDBusServiceWatcher(QLatin1String(UD2_SERVICE),
                                       QDBusConnection::systemBus(),

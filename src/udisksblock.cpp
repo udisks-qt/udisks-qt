@@ -176,10 +176,16 @@ qulonglong UDisksBlock::size() const
     return d->properties[QLatin1String("Size")].toULongLong();
 }
 
-QList<QByteArray> UDisksBlock::symlinks() const
+QStringList UDisksBlock::symlinks() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("Symlinks")].value<QList<QByteArray> >();
+    QStringList ret;
+    QVariant variant = d->properties[QLatin1String("Symlinks")];
+    UDByteArrayList symlinks = qdbus_cast<UDByteArrayList>(variant);
+    foreach (const QByteArray &symlink, symlinks) {
+        ret << QFile::decodeName(symlink);
+    }
+    return ret;
 }
 
 QDBusPendingReply<> UDisksBlock::addConfigurationItem(UDItem item, const QVariantMap &options)

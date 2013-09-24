@@ -24,6 +24,9 @@
 #include <QtDBus/QDBusArgument>
 #include <QtCore/QVariantMap>
 
+typedef QList<QByteArray> UDByteArrayList;
+Q_DECLARE_METATYPE(UDByteArrayList)
+
 typedef QMap<QString,QVariantMap> UDVariantMapMap;
 Q_DECLARE_METATYPE(UDVariantMapMap)
 

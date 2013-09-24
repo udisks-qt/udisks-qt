@@ -22,6 +22,7 @@
 
 #include "common.h"
 
+#include <QFile>
 #include <QDebug>
 
 UDisksFilesystem::UDisksFilesystem(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
@@ -38,10 +39,16 @@ UDisksFilesystem::~UDisksFilesystem()
     delete d_ptr;
 }
 
-QList<QByteArray> UDisksFilesystem::mountPoints() const
+QStringList UDisksFilesystem::mountPoints() const
 {
     Q_D(const UDisksFilesystem);
-    return d->properties[QLatin1String("MountPoints")].value<QList<QByteArray> >();
+    QStringList ret;
+    QVariant variant = d->properties[QLatin1String("MountPoints")];
+    UDByteArrayList mountPoints = qdbus_cast<UDByteArrayList>(variant);
+    foreach (const QByteArray &mountPoint, mountPoints) {
+        ret << QFile::decodeName(mountPoint);
+    }
+    return ret;
 }
 
 QDBusPendingReply<QString> UDisksFilesystem::mount(const QVariantMap &options)

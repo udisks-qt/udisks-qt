@@ -36,8 +36,8 @@ public:
     explicit UDisksFilesystem(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksFilesystem();
 
-    Q_PROPERTY(QList<QByteArray> mountPoints READ mountPoints)
-    QList<QByteArray> mountPoints() const;
+    Q_PROPERTY(QStringList mountPoints READ mountPoints)
+    QStringList mountPoints() const;
 
 public Q_SLOTS:
     QDBusPendingReply<QString> mount(const QVariantMap &options = QVariantMap());

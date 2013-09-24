@@ -37,8 +37,8 @@ public:
     explicit UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksBlock();
 
-    Q_PROPERTY(QList<UDItem> configuration READ configuration)
-    QList<UDItem> configuration() const;
+    Q_PROPERTY(UDItemList configuration READ configuration)
+    UDItemList configuration() const;
 
     Q_PROPERTY(QDBusObjectPath cryptoBackingDevice READ cryptoBackingDevice)
     QDBusObjectPath cryptoBackingDevice() const;
@@ -106,8 +106,8 @@ public:
     Q_PROPERTY(qulonglong size READ size)
     qulonglong size() const;
 
-    Q_PROPERTY(QList<QByteArray> symlinks READ symlinks)
-    QList<QByteArray> symlinks() const;
+    Q_PROPERTY(QStringList symlinks READ symlinks)
+    QStringList symlinks() const;
 
 public Q_SLOTS:
     QDBusPendingReply<> addConfigurationItem(UDItem item, const QVariantMap &options = QVariantMap());

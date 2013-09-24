@@ -457,6 +457,9 @@ void UDisksObjectPrivate::_q_propertiesChanged(const QString &interface, const Q
 {
     Q_Q(UDisksObject);
 
+    qDebug() << Q_FUNC_INFO << interface;
+    qDebug() << properties;
+    qDebug() << invalidatedProperties;
     UDisksInterface *interfacePointer = 0;
     UDisksObject::Interface interfaceEnum = q->interfaceEnumFromString(interface);
     switch (interfaceEnum) {

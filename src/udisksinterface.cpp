@@ -21,7 +21,7 @@
 
 #include "common.h"
 
-#include <QString>
+#include <QStringList>
 #include <QDebug>
 
 UDisksInterface::UDisksInterface(QObject *parent) :
@@ -31,9 +31,9 @@ UDisksInterface::UDisksInterface(QObject *parent) :
 
 void UDisksInterface::changeProperties(QVariantMap &properties, const QVariantMap &changedProperties, const QStringList &invalidProperties)
 {
-//    foreach (const QString &property, invalidProperties) {
-//        properties.remove(property);
-//    }
+    foreach (const QString &property, invalidProperties) {
+        properties.remove(property);
+    }
 
     QVariantMap::ConstIterator it = changedProperties.constBegin();
     while (it != changedProperties.constEnd()) {
