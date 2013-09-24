@@ -24,23 +24,18 @@
 
 #include <QDebug>
 
-UDisksLoop::UDisksLoop(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksLoop::UDisksLoop(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
     QObject(parent),
     d_ptr(new UDisksLoopPrivate(objectPath.path()))
 {
     Q_D(UDisksLoop);
 
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
-    while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->properties = it.value();
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
-        }
+    d->properties =  properties;
+}
 
-        ++it;
-    }
+UDisksLoop::~UDisksLoop()
+{
+    delete d_ptr;
 }
 
 bool UDisksLoop::autoclear() const
@@ -65,10 +60,3 @@ UDisksLoopPrivate::UDisksLoopPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
 }
-
-void UDisksLoopPrivate::init(const QVariantMap &properties)
-{
-}
-
-
-

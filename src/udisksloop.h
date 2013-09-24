@@ -29,7 +29,10 @@ class UDisksLoop : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksLoop(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksLoop> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksLoop(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksLoop();
 
     Q_PROPERTY(bool autoclear READ autoclear)
     bool autoclear() const;

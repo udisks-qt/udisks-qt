@@ -24,125 +24,81 @@
 
 #include <QDebug>
 
-UDisksPartition::UDisksPartition(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksPartition::UDisksPartition(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
     QObject(parent),
     d_ptr(new UDisksPartitionPrivate(objectPath.path()))
 {
     Q_D(UDisksPartition);
 
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
-    while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->init(it.value());
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
-        }
+    d->properties = properties;
+}
 
-        ++it;
-    }
+UDisksPartition::~UDisksPartition()
+{
+    delete d_ptr;
 }
 
 qulonglong UDisksPartition::flags() const
 {
     Q_D(const UDisksPartition);
-    return d->flags;
+    return d->properties[QLatin1String("Flags")].toULongLong();
 }
 
 bool UDisksPartition::isContained() const
 {
     Q_D(const UDisksPartition);
-    return d->isContained;
+    return d->properties[QLatin1String("IsContained")].toBool();
 }
 
 bool UDisksPartition::isContainer() const
 {
     Q_D(const UDisksPartition);
-    return d->isContainer;
+    return d->properties[QLatin1String("IsContainer")].toBool();
 }
 
 QString UDisksPartition::name() const
 {
     Q_D(const UDisksPartition);
-    return d->name;
+    return d->properties[QLatin1String("Name")].toString();
 }
 
 uint UDisksPartition::number() const
 {
     Q_D(const UDisksPartition);
-    return d->number;
+    return d->properties[QLatin1String("Number")].toUInt();
 }
 
 qulonglong UDisksPartition::offset() const
 {
     Q_D(const UDisksPartition);
-    return d->offset;
+    return d->properties[QLatin1String("Offset")].toULongLong();
 }
 
 qulonglong UDisksPartition::size() const
 {
     Q_D(const UDisksPartition);
-    return d->size;
+    return d->properties[QLatin1String("Size")].toULongLong();
 }
 
 QDBusObjectPath UDisksPartition::table() const
 {
     Q_D(const UDisksPartition);
-    return d->table;
+    return d->properties[QLatin1String("Table")].value<QDBusObjectPath>();
 }
 
 QString UDisksPartition::type() const
 {
     Q_D(const UDisksPartition);
-    return d->type;
+    return d->properties[QLatin1String("Type")].toString();
 }
 
 QString UDisksPartition::uUID() const
 {
     Q_D(const UDisksPartition);
-    return d->uUID;
+    return d->properties[QLatin1String("UUID")].toString();
 }
 
 UDisksPartitionPrivate::UDisksPartitionPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
 }
-
-void UDisksPartitionPrivate::init(const QVariantMap &properties)
-{
-    QVariantMap::ConstIterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        const QString &property = it.key();
-        const QVariant &value = it.value();
-        qDebug() << Q_FUNC_INFO << property << value;
-
-        if (property == QLatin1String("Flags")) {
-            flags = value.toULongLong();
-        } else if (property == QLatin1String("IsContained")) {
-            isContained = value.toBool();
-        } else if (property == QLatin1String("IsContainer")) {
-            isContainer = value.toBool();
-        } else if (property == QLatin1String("Name")) {
-            name = value.toString();
-        } else if (property == QLatin1String("Number")) {
-            number = value.toUInt();
-        } else if (property == QLatin1String("Offset")) {
-            offset = value.toULongLong();
-        } else if (property == QLatin1String("Size")) {
-            size = value.toULongLong();
-        } else if (property == QLatin1String("Table")) {
-            table = value.value<QDBusObjectPath>();
-        } else if (property == QLatin1String("Type")) {
-            type = value.toString();
-        } else if (property == QLatin1String("UUID")) {
-            uUID = value.toString();
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown property, please report a bug:" << property << value;
-        }
-
-        ++it;
-    }
-}
-
-
-

@@ -7,10 +7,8 @@ class UDisksEncryptedPrivate
 {
 public:
     UDisksEncryptedPrivate(const QString &path);
-    void init(const QVariantMap &properties);
 
     OrgFreedesktopUDisks2EncryptedInterface interface;
-
     QVariantMap properties;
 };
 

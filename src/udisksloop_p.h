@@ -7,10 +7,8 @@ class UDisksLoopPrivate
 {
 public:
     UDisksLoopPrivate(const QString &path);
-    void init(const QVariantMap &properties);
 
     OrgFreedesktopUDisks2LoopInterface interface;
-
     QVariantMap properties;
 };
 

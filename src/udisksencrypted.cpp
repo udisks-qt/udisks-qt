@@ -24,33 +24,21 @@
 
 #include <QDebug>
 
-UDisksEncrypted::UDisksEncrypted(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksEncrypted::UDisksEncrypted(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
     QObject(parent),
     d_ptr(new UDisksEncryptedPrivate(objectPath.path()))
 {
     Q_D(UDisksEncrypted);
 
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
-    while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->properties = it.value();
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
-        }
+    d->properties = properties;
+}
 
-        ++it;
-    }
+UDisksEncrypted::~UDisksEncrypted()
+{
+    delete d_ptr;
 }
 
 UDisksEncryptedPrivate::UDisksEncryptedPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
 }
-
-void UDisksEncryptedPrivate::init(const QVariantMap &properties)
-{
-}
-
-
-

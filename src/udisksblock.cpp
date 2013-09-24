@@ -24,234 +24,165 @@
 
 #include <QDebug>
 
-UDisksBlock::UDisksBlock(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksBlock::UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
     QObject(parent),
     d_ptr(new UDisksBlockPrivate(objectPath.path()))
 {
     Q_D(UDisksBlock);
 
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
-    while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->init(it.value());
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
-        }
+    d->properties = properties;
+}
 
-        ++it;
-    }
+UDisksBlock::~UDisksBlock()
+{
+    delete d_ptr;
 }
 
 QList<UDItem> UDisksBlock::configuration() const
 {
     Q_D(const UDisksBlock);
-    return d->configuration;
+    return d->properties[QLatin1String("Configuration")].value<QList<UDItem> >();
 }
 
 QDBusObjectPath UDisksBlock::cryptoBackingDevice() const
 {
     Q_D(const UDisksBlock);
-    return d->cryptoBackingDevice;
+    return d->properties[QLatin1String("CryptoBackingDevice")].value<QDBusObjectPath>();
 }
 
 QByteArray UDisksBlock::device() const
 {
     Q_D(const UDisksBlock);
-    return d->device;
+    return d->properties[QLatin1String("Device")].toByteArray();
 }
 
 qulonglong UDisksBlock::deviceNumber() const
 {
     Q_D(const UDisksBlock);
-    return d->deviceNumber;
+    return d->properties[QLatin1String("DeviceNumber")].toULongLong();
 }
 
 QDBusObjectPath UDisksBlock::drive() const
 {
     Q_D(const UDisksBlock);
-    return d->drive;
+    return d->properties[QLatin1String("Drive")].value<QDBusObjectPath>();
 }
 
 bool UDisksBlock::hintAuto() const
 {
     Q_D(const UDisksBlock);
-    return d->hintAuto;
+    return d->properties[QLatin1String("Drive")].toBool();
 }
 
 QString UDisksBlock::hintIconName() const
 {
     Q_D(const UDisksBlock);
-    return d->hintIconName;
+    return d->properties[QLatin1String("HintIconName")].toString();
 }
 
 bool UDisksBlock::hintIgnore() const
 {
     Q_D(const UDisksBlock);
-    return d->hintIgnore;
+    return d->properties[QLatin1String("HintIgnore")].toBool();
 }
 
 QString UDisksBlock::hintName() const
 {
     Q_D(const UDisksBlock);
-    return d->hintName;
+    return d->properties[QLatin1String("HintName")].toString();
 }
 
 bool UDisksBlock::hintPartitionable() const
 {
     Q_D(const UDisksBlock);
-    return d->hintPartitionable;
+    return d->properties[QLatin1String("HintPartitionable")].toBool();
 }
 
 QString UDisksBlock::hintSymbolicIconName() const
 {
     Q_D(const UDisksBlock);
-    return d->hintSymbolicIconName;
+    return d->properties[QLatin1String("HintSymbolicIconName")].toString();
 }
 
 bool UDisksBlock::hintSystem() const
 {
     Q_D(const UDisksBlock);
-    return d->hintSystem;
+    return d->properties[QLatin1String("HintSystem")].toBool();
 }
 
 QString UDisksBlock::id() const
 {
     Q_D(const UDisksBlock);
-    return d->id;
+    return d->properties[QLatin1String("Id")].toString();
 }
 
 QString UDisksBlock::idLabel() const
 {
     Q_D(const UDisksBlock);
-    return d->idLabel;
+    return d->properties[QLatin1String("IdLabel")].toString();
 }
 
 QString UDisksBlock::idType() const
 {
     Q_D(const UDisksBlock);
-    return d->idType;
+    return d->properties[QLatin1String("IdType")].toString();
 }
 
 QString UDisksBlock::idUUID() const
 {
     Q_D(const UDisksBlock);
-    return d->idUUID;
+    return d->properties[QLatin1String("IdUUID")].toString();
 }
 
 QString UDisksBlock::idUsage() const
 {
     Q_D(const UDisksBlock);
-    return d->idUsage;
+    return d->properties[QLatin1String("IdUsage")].toString();
 }
 
 QString UDisksBlock::idVersion() const
 {
     Q_D(const UDisksBlock);
-    return d->idVersion;
+    return d->properties[QLatin1String("IdVersion")].toString();
 }
 
 QDBusObjectPath UDisksBlock::mDRaid() const
 {
     Q_D(const UDisksBlock);
-    return d->mDRaid;
+    return d->properties[QLatin1String("MDRaid")].value<QDBusObjectPath>();
 }
 
 QDBusObjectPath UDisksBlock::mDRaidMember() const
 {
     Q_D(const UDisksBlock);
-    return d->mDRaidMember;
+    return d->properties[QLatin1String("MDRaidMember")].value<QDBusObjectPath>();
 }
 
 QByteArray UDisksBlock::preferredDevice() const
 {
     Q_D(const UDisksBlock);
-    return d->preferredDevice;
+    return d->properties[QLatin1String("PreferredDevice")].toByteArray();
 }
 
 bool UDisksBlock::readOnly() const
 {
     Q_D(const UDisksBlock);
-    return d->readOnly;
+    return d->properties[QLatin1String("ReadOnly")].toBool();
 }
 
 qulonglong UDisksBlock::size() const
 {
     Q_D(const UDisksBlock);
-    return d->size;
+    return d->properties[QLatin1String("Size")].toULongLong();
 }
 
 QList<QByteArray> UDisksBlock::symlinks() const
 {
     Q_D(const UDisksBlock);
-    return d->symlinks;
+    return d->properties[QLatin1String("Symlinks")].value<QList<QByteArray> >();
 }
 
 UDisksBlockPrivate::UDisksBlockPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
-}
-
-void UDisksBlockPrivate::init(const QVariantMap &properties)
-{
-    QVariantMap::ConstIterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        const QString &property = it.key();
-        const QVariant &value = it.value();
-        qDebug() << Q_FUNC_INFO << property << value;
-
-        if (property == QLatin1String("Configuration")) {
-            configuration = value.value<QList<UDItem> >();
-        } else if (property == QLatin1String("CryptoBackingDevice")) {
-            cryptoBackingDevice = value.value<QDBusObjectPath>();
-        } else if (property == QLatin1String("Device")) {
-            device = value.toByteArray();
-        } else if (property == QLatin1String("DeviceNumber")) {
-            deviceNumber = value.toULongLong();
-        } else if (property == QLatin1String("Drive")) {
-            drive = value.value<QDBusObjectPath>();
-        } else if (property == QLatin1String("HintAuto")) {
-            hintAuto = value.toBool();
-        } else if (property == QLatin1String("HintIconName")) {
-            hintIconName = value.toString();
-        } else if (property == QLatin1String("HintIgnore")) {
-            hintIgnore = value.toBool();
-        } else if (property == QLatin1String("HintName")) {
-            hintName = value.toString();
-        } else if (property == QLatin1String("HintPartitionable")) {
-            hintPartitionable = value.toBool();
-        } else if (property == QLatin1String("HintSymbolicIconName")) {
-            hintSymbolicIconName = value.toString();
-        } else if (property == QLatin1String("HintSystem")) {
-            hintSystem = value.toBool();
-        } else if (property == QLatin1String("Id")) {
-            id = value.toString();
-        } else if (property == QLatin1String("IdLabel")) {
-            idLabel = value.toString();
-        } else if (property == QLatin1String("IdType")) {
-            idType = value.toString();
-        } else if (property == QLatin1String("IdUUID")) {
-            idUUID = value.toString();
-        } else if (property == QLatin1String("IdUsage")) {
-            idUsage = value.toString();
-        } else if (property == QLatin1String("IdVersion")) {
-            idVersion = value.toString();
-        } else if (property == QLatin1String("MDRaid")) {
-            mDRaid = value.value<QDBusObjectPath>();
-        } else if (property == QLatin1String("MDRaidMember")) {
-            mDRaidMember = value.value<QDBusObjectPath>();
-        } else if (property == QLatin1String("PreferredDevice")) {
-            preferredDevice = value.toByteArray();
-        } else if (property == QLatin1String("ReadOnly")) {
-            readOnly = value.toBool();
-        } else if (property == QLatin1String("Size")) {
-            size = value.toULongLong();
-        } else if (property == QLatin1String("Symlinks")) {
-            symlinks = value.value<QList<QByteArray> >();
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown property, please report a bug:" << property << value;
-        }
-
-        ++it;
-    }
 }

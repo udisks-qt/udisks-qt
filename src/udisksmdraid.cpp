@@ -24,23 +24,18 @@
 
 #include <QDebug>
 
-UDisksMDRaid::UDisksMDRaid(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksMDRaid::UDisksMDRaid(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
     QObject(parent),
     d_ptr(new UDisksMDRaidPrivate(objectPath.path()))
 {
     Q_D(UDisksMDRaid);
 
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
-    while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->properties = it.value();
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
-        }
+    d->properties = properties;
+}
 
-        ++it;
-    }
+UDisksMDRaid::~UDisksMDRaid()
+{
+    delete d_ptr;
 }
 
 UDActiveDevice UDisksMDRaid::activeDevices() const
@@ -125,10 +120,3 @@ UDisksMDRaidPrivate::UDisksMDRaidPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
 }
-
-void UDisksMDRaidPrivate::init(const QVariantMap &properties)
-{
-}
-
-
-

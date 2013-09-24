@@ -24,23 +24,18 @@
 
 #include <QDebug>
 
-UDisksSwapspace::UDisksSwapspace(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksSwapspace::UDisksSwapspace(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
     QObject(parent),
     d_ptr(new UDisksSwapspacePrivate(objectPath.path()))
 {
     Q_D(UDisksSwapspace);
 
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
-    while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->properties = it.value();
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
-        }
+    d->properties = properties;
+}
 
-        ++it;
-    }
+UDisksSwapspace::~UDisksSwapspace()
+{
+    delete d_ptr;
 }
 
 bool UDisksSwapspace::active() const
@@ -53,10 +48,3 @@ UDisksSwapspacePrivate::UDisksSwapspacePrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
 }
-
-void UDisksSwapspacePrivate::init(const QVariantMap &properties)
-{
-}
-
-
-

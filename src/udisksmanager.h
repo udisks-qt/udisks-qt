@@ -46,12 +46,9 @@ class UDisksManager : public QObject
     Q_OBJECT
     Q_PROPERTY(QString version READ version NOTIFY versionChanged)
 public:
-    explicit UDisksManager(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
-
-
-    /**
-     * Destructor
-     */
+    typedef QSharedPointer<UDisksManager> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksManager(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksManager();
 
     /**
@@ -88,17 +85,11 @@ Q_SIGNALS:
      */
     void versionChanged();
 
-private Q_SLOTS:
-    void serviceOwnerChanged(const QString &service, const QString &oldOwner, const QString &newOwner);
-    void callFinishedSlot(QDBusPendingCallWatcher *call);
-    void proccessObject(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties);
+protected:
+    UDisksManagerPrivate *d_ptr;
 
 private:
-    UDisksManagerPrivate * const d_ptr;
     Q_DECLARE_PRIVATE(UDisksManager)
-
-    UDisksManager(QObject *parent = 0);
-    static UDisksManager *m_global;
 };
 
 #endif // UDISKS_MANAGER_H

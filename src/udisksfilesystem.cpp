@@ -24,39 +24,27 @@
 
 #include <QDebug>
 
-UDisksFilesytem::UDisksFilesytem(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksFilesystem::UDisksFilesystem(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
     QObject(parent),
-    d_ptr(new UDisksFilesytemPrivate(objectPath.path()))
+    d_ptr(new UDisksFilesystemPrivate(objectPath.path()))
 {
-    Q_D(UDisksFilesytem);
+    Q_D(UDisksFilesystem);
 
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
-    while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->properties = it.value();
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
-        }
-
-        ++it;
-    }
+    d->properties = properties;
 }
 
-QList<QByteArray> UDisksFilesytem::mountPoints() const
+UDisksFilesystem::~UDisksFilesystem()
 {
-    Q_D(const UDisksFilesytem);
+    delete d_ptr;
+}
+
+QList<QByteArray> UDisksFilesystem::mountPoints() const
+{
+    Q_D(const UDisksFilesystem);
     return d->properties[QLatin1String("MountPoints")].value<QList<QByteArray> >();
 }
 
-UDisksFilesytemPrivate::UDisksFilesytemPrivate(const QString &path) :
+UDisksFilesystemPrivate::UDisksFilesystemPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
 }
-
-void UDisksFilesytemPrivate::init(const QVariantMap &properties)
-{
-}
-
-
-

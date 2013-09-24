@@ -24,23 +24,18 @@
 
 #include <QDebug>
 
-UDisksJob::UDisksJob(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksJob::UDisksJob(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
     QObject(parent),
     d_ptr(new UDisksJobPrivate(objectPath.path()))
 {
     Q_D(UDisksJob);
 
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
-    while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->properties = it.value();
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
-        }
+    d->properties = properties;
+}
 
-        ++it;
-    }
+UDisksJob::~UDisksJob()
+{
+    delete d_ptr;
 }
 
 qulonglong UDisksJob::bytes() const
@@ -107,10 +102,3 @@ UDisksJobPrivate::UDisksJobPrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
 }
-
-void UDisksJobPrivate::init(const QVariantMap &properties)
-{
-}
-
-
-

@@ -20,10 +20,12 @@
 #ifndef UDISKSOBJECT_H
 #define UDISKSOBJECT_H
 
-#include <QObject>
+#include <QtCore/QObject>
+#include <QtDBus/QDBusObjectPath>
 
 #include "dbus-types.h"
 
+class UDisksManager;
 class UDisksDrive;
 class UDisksDriveAta;
 class UDisksMDRaid;
@@ -43,8 +45,26 @@ class UDisksObject : public QObject
 public:
     typedef QSharedPointer<UDisksObject> Ptr;
     typedef QList<Ptr> List;
-    explicit UDisksObject(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
 
+    enum Kind {
+        Unknown,
+        Any,
+        Manager,
+        BlockDevice,
+        Drive,
+        MDRaid,
+        Job
+    };
+
+    ~UDisksObject();
+
+    Q_PROPERTY(Kind kind READ kind)
+    Kind kind() const;
+
+    Q_PROPERTY(QDBusObjectPath path READ path)
+    QDBusObjectPath path() const;
+
+    UDisksManager *manager() const;
     UDisksDrive *drive() const;
     UDisksDriveAta *driveAta() const;
     UDisksMDRaid *mDRaid() const;
@@ -58,9 +78,14 @@ public:
     UDisksLoop *loop() const;
 
 protected:
+    UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties);
+    void addInterfaces(const UDVariantMapMap &interfacesAndProperties);
+    void removeInterfaces(const QStringList &interfaces);
+
     UDisksObjectPrivate *d_ptr;
 
 private:
+    friend class UDisksClientPrivate;
     Q_DECLARE_PRIVATE(UDisksObject)
 };
 

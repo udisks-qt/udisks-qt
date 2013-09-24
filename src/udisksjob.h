@@ -29,7 +29,10 @@ class UDisksJob : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksJob(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksJob> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksJob(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksJob();
 
     Q_PROPERTY(qulonglong bytes READ bytes)
     qulonglong bytes() const;

@@ -1,7 +1,7 @@
 #ifndef UDISKSOBJECT_P_H
 #define UDISKSOBJECT_P_H
 
-#include "UDisks.h"
+#include "udisksobject.h"
 
 class UDisksDrive;
 class UDisksDriveAta;
@@ -18,11 +18,11 @@ class UDisksLoop;
 class UDisksObjectPrivate
 {
 public:
-    UDisksObjectPrivate(const QString &path);
-    void init(const QVariantMap &properties);
+    UDisksObjectPrivate(const QDBusObjectPath &path);
 
-    OrgFreedesktopUDisks2DriveInterface interface;
-
+    QDBusObjectPath object;
+    UDisksObject::Kind kind;
+    UDisksManager *manager;
     UDisksDrive *drive;
     UDisksDriveAta *driveAta;
     UDisksMDRaid *mDRaid;

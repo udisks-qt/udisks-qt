@@ -22,10 +22,11 @@
 
 #include <QObject>
 
-#include "dbus-types.h"
+#include "udisksdefs.h"
+#include "udisksobject.h"
 
 class UDisksClientPrivate;
-class UDisksClient : public QObject
+class UDISKS_EXPORT UDisksClient : public QObject
 {
     Q_OBJECT
 public:
@@ -36,7 +37,7 @@ public:
      * @param parent
      */
     explicit UDisksClient(QObject *parent = 0);
-
+    ~UDisksClient();
 
     Q_PROPERTY(bool inited READ inited)
     bool inited() const;
@@ -50,12 +51,23 @@ public:
      */
     bool init(bool async = true);
 
+    UDisksObject::List getObjects(UDisksObject::Kind kind = UDisksObject::Any);
+
+signals:
+    void objectsAvailable();
+    void objectAdded(const UDisksObject::Ptr &object);
+    void objectRemoved(const UDisksObject::Ptr &object);
+    void interfacesAdded(const UDisksObject::Ptr &object);
+    void interfacesRemoved(const UDisksObject::Ptr &object);
+
 protected:
     UDisksClientPrivate *d_ptr;
 
 private:
     Q_DECLARE_PRIVATE(UDisksClient)
     Q_PRIVATE_SLOT(d_func(), void _q_interfacesAdded(const QDBusObjectPath &, UDVariantMapMap))
+    Q_PRIVATE_SLOT(d_func(), void _q_interfacesRemoved(const QDBusObjectPath &, const QStringList &))
+    Q_PRIVATE_SLOT(d_func(), void _q_getObjectsFinished(QDBusPendingCallWatcher *))
 };
 
 #endif // UDISKSCLIENT_H

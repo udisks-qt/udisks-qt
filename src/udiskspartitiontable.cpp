@@ -24,53 +24,27 @@
 
 #include <QDebug>
 
-UDisksPartitionTable::UDisksPartitionTable(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent) :
+UDisksPartitionTable::UDisksPartitionTable(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
     QObject(parent),
     d_ptr(new UDisksPartitionTablePrivate(objectPath.path()))
 {
     Q_D(UDisksPartitionTable);
 
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
-    while (it != interfacesAndProperties.constEnd()) {
-        const QString &interface = it.key();
-        if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
-            d->init(it.value());
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
-        }
+    d->properties = properties;
+}
 
-        ++it;
-    }
+UDisksPartitionTable::~UDisksPartitionTable()
+{
+    delete d_ptr;
 }
 
 QString UDisksPartitionTable::type() const
 {
     Q_D(const UDisksPartitionTable);
-    return d->type;
+    return d->properties[QLatin1String("Type")].toString();
 }
 
 UDisksPartitionTablePrivate::UDisksPartitionTablePrivate(const QString &path) :
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus())
 {
 }
-
-void UDisksPartitionTablePrivate::init(const QVariantMap &properties)
-{
-    QVariantMap::ConstIterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        const QString &property = it.key();
-        const QVariant &value = it.value();
-        qDebug() << Q_FUNC_INFO << property << value;
-
-        if (property == QLatin1String("Type")) {
-            type = value.toString();
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unknown property, please report a bug:" << property << value;
-        }
-
-        ++it;
-    }
-}
-
-
-

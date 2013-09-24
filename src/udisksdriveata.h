@@ -29,7 +29,10 @@ class UDisksDriveAta : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksDriveAta(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksDriveAta> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksDriveAta(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksDriveAta();
 
     Q_PROPERTY(bool aamEnabled READ aamEnabled)
     bool aamEnabled() const;

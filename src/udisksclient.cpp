@@ -25,32 +25,73 @@
 
 UDisksClient::UDisksClient(QObject *parent) :
     QObject(parent),
-    d_ptr(new UDisksClientPrivate)
+    d_ptr(new UDisksClientPrivate(this))
 {
+}
+
+UDisksClient::~UDisksClient()
+{
+    delete d_ptr;
+}
+
+bool UDisksClient::inited() const
+{
+    Q_D(const UDisksClient);
+    return d->inited;
 }
 
 bool UDisksClient::init(bool async)
 {
     Q_D(UDisksClient);
 
+    if (d->inited) {
+        return true;
+    }
+
+    connect(&d->objectInterface, SIGNAL(InterfacesAdded(QDBusObjectPath,UDVariantMapMap)),
+            SLOT(_q_interfacesAdded(QDBusObjectPath,UDVariantMapMap)));
+    connect(&d->objectInterface, SIGNAL(InterfacesRemoved(QDBusObjectPath,QStringList)),
+            SLOT(_q_interfacesAdded(QDBusObjectPath,QStringList)));
+
     if (async) {
         QDBusPendingReply<UDManagedObjects> reply = d->objectInterface.GetManagedObjects();
         QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-
-//        QObject::connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)),
-//                         d, SLOT(callFinishedSlot(QDBusPendingCallWatcher*)));
+        connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)),
+                SLOT(_q_getObjectsFinished(QDBusPendingCallWatcher*)));
     } else {
         QDBusReply<UDManagedObjects> reply = d->objectInterface.GetManagedObjects();
-        if (reply.isValid()) {
+        d->inited = true;
+
+        if (!reply.isValid()) {
+            qWarning() << Q_FUNC_INFO << reply.error().message();
             return false;
         }
 
-
+        d->initObjects(reply.value());
     }
     return true;
 }
 
-UDisksClientPrivate::UDisksClientPrivate() :
+UDisksObject::List UDisksClient::getObjects(UDisksObject::Kind kind)
+{
+    Q_D(const UDisksClient);
+
+    if (kind == UDisksObject::Any) {
+        return d->objects;
+    } else {
+        UDisksObject::List ret;
+        foreach (const UDisksObject::Ptr &object, d->objects) {
+            if (kind == object->kind()) {
+                ret << object;
+            }
+        }
+        return ret;
+    }
+}
+
+UDisksClientPrivate::UDisksClientPrivate(UDisksClient *parent) :
+    q_ptr(parent),
+    inited(false),
     objectInterface(QLatin1String(UD2_SERVICE),
                     QLatin1String(UD2_PATH),
                     QDBusConnection::systemBus())
@@ -85,10 +126,6 @@ UDisksClientPrivate::UDisksClientPrivate() :
     }
 }
 
-void UDisksClientPrivate::init(const QVariantMap &properties)
-{
-}
-
 void UDisksClientPrivate::initObjects(const UDManagedObjects &managedObjects)
 {
     UDManagedObjects::ConstIterator it = managedObjects.constBegin();
@@ -99,10 +136,51 @@ void UDisksClientPrivate::initObjects(const UDManagedObjects &managedObjects)
     }
 }
 
+void UDisksClientPrivate::_q_getObjectsFinished(QDBusPendingCallWatcher *call)
+{
+    Q_Q(UDisksClient);
+    qWarning() << Q_FUNC_INFO;
+    QDBusPendingReply<UDManagedObjects> reply = *call;
+    if (reply.isError()) {
+//        showError();
+        qWarning() << Q_FUNC_INFO << reply.error().message();
+    } else {
+        initObjects(reply.value());
+    }
+    call->deleteLater();
+
+    inited = true;
+    q->objectsAvailable();
+}
+
 void UDisksClientPrivate::_q_interfacesAdded(const QDBusObjectPath &object_path, UDVariantMapMap interfaces_and_properties)
 {
+    Q_Q(UDisksClient);
+
+    foreach (const UDisksObject::Ptr &object, objects) {
+        if (object->path() == object_path) {
+            object->addInterfaces(interfaces_and_properties);
+            q->interfacesAdded(object);
+            return;
+        }
+    }
+
     UDisksObject::Ptr object(new UDisksObject(object_path, interfaces_and_properties));
     objects << object;
+    q->objectAdded(object);
+}
+
+void UDisksClientPrivate::_q_interfacesRemoved(const QDBusObjectPath &object_path, const QStringList &interfaces)
+{
+    Q_Q(UDisksClient);
+
+    foreach (const UDisksObject::Ptr &object, objects) {
+        if (object->path() == object_path) {
+            object->removeInterfaces(interfaces);
+            q->interfacesRemoved(object);
+            return;
+        }
+    }
 }
 
 #include "moc_udisksclient.cpp"

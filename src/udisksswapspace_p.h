@@ -7,10 +7,8 @@ class UDisksSwapspacePrivate
 {
 public:
     UDisksSwapspacePrivate(const QString &path);
-    void init(const QVariantMap &properties);
 
     OrgFreedesktopUDisks2SwapspaceInterface interface;
-
     QVariantMap properties;
 };
 

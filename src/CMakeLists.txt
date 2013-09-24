@@ -32,6 +32,8 @@ set(udisksqt_SRC
 )
 
 set(udisksqt_HEADERS
+    dbus-types.h
+    udisksdefs.h
     udisksblock.h
     UDisksBlock
     udisksdrive.h
@@ -63,7 +65,6 @@ set(udisksqt_HEADERS
 )
 
 set(udisksqt_HEADERS_PRIVATE
-    dbus-types.h
     common.h
     udisksblock_p.h
     udisksdrive_p.h
@@ -99,6 +100,8 @@ target_link_libraries(udisks2-qt5
     ${Qt5DBus_LIBRARIES}
 )
 
+set_property(TARGET udisks2-qt5 PROPERTY COMPILE_DEFINITIONS UDISKS_STATIC)
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/udisks-qt5.pc.in
   ${CMAKE_CURRENT_BINARY_DIR}/udisks-qt5.pc
   @ONLY
@@ -109,7 +112,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/udisks-qt5.pc
 	DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
 )
 install(FILES ${udisksqt_HEADERS}
-        DESTINATION include/UDisks2Qt5/UDisks
+        DESTINATION include/UDisks2Qt5
 )
 
 add_subdirectory(modules)

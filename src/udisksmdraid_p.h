@@ -7,10 +7,8 @@ class UDisksMDRaidPrivate
 {
 public:
     UDisksMDRaidPrivate(const QString &path);
-    void init(const QVariantMap &properties);
 
     OrgFreedesktopUDisks2MDRaidInterface interface;
-
     QVariantMap properties;
 };
 

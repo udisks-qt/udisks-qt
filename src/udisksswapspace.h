@@ -29,7 +29,10 @@ class UDisksSwapspace : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksSwapspace(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksSwapspace> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksSwapspace(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksSwapspace();
 
     Q_PROPERTY(bool active READ active)
     bool active() const;

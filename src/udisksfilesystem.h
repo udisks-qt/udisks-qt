@@ -24,21 +24,24 @@
 
 #include "dbus-types.h"
 
-class UDisksFilesytemPrivate;
-class UDisksFilesytem : public QObject
+class UDisksFilesystemPrivate;
+class UDisksFilesystem : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksFilesytem(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksFilesystem> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksFilesystem(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksFilesystem();
 
     Q_PROPERTY(QList<QByteArray> mountPoints READ mountPoints)
     QList<QByteArray> mountPoints() const;
 
 protected:
-    UDisksFilesytemPrivate *d_ptr;
+    UDisksFilesystemPrivate *d_ptr;
 
 private:
-    Q_DECLARE_PRIVATE(UDisksFilesytem)
+    Q_DECLARE_PRIVATE(UDisksFilesystem)
 };
 
 #endif // UDISKSFILESYSTEM_H

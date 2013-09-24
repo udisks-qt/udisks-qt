@@ -3,14 +3,12 @@
 
 #include "UDisks.h"
 
-class UDisksFilesytemPrivate
+class UDisksFilesystemPrivate
 {
 public:
-    UDisksFilesytemPrivate(const QString &path);
-    void init(const QVariantMap &properties);
+    UDisksFilesystemPrivate(const QString &path);
 
     OrgFreedesktopUDisks2FilesystemInterface interface;
-
     QVariantMap properties;
 };
 

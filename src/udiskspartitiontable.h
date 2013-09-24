@@ -29,7 +29,10 @@ class UDisksPartitionTable : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksPartitionTable(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksPartitionTable> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksPartitionTable(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksPartitionTable();
 
     Q_PROPERTY(QString type READ type)
     QString type() const;

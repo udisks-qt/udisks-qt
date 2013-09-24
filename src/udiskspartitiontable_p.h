@@ -7,11 +7,9 @@ class UDisksPartitionTablePrivate
 {
 public:
     UDisksPartitionTablePrivate(const QString &path);
-    void init(const QVariantMap &properties);
 
     OrgFreedesktopUDisks2PartitionTableInterface interface;
-
-    QString type;
+    QVariantMap properties;
 };
 
 #endif // UDISKSPARTITIONTABLE_P_H

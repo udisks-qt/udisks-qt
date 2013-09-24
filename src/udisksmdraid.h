@@ -29,7 +29,10 @@ class UDisksMDRaid : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksMDRaid(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksMDRaid> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksMDRaid(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksMDRaid();
 
     Q_PROPERTY(UDActiveDevice activeDevices READ activeDevices)
     UDActiveDevice activeDevices() const;

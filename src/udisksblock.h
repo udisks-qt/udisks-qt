@@ -29,7 +29,10 @@ class UDisksBlock : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksBlock(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksBlock> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksBlock();
 
     Q_PROPERTY(QList<UDItem> configuration READ configuration)
     QList<UDItem> configuration() const;

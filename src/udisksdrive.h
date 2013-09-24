@@ -29,7 +29,10 @@ class UDisksDrive : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksDrive(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksDrive> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksDrive(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksDrive();
 
     Q_PROPERTY(bool canPowerOff READ canPowerOff)
     bool canPowerOff() const;

@@ -29,7 +29,10 @@ class UDisksPartition : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksPartition(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties, QObject *parent = 0);
+    typedef QSharedPointer<UDisksPartition> Ptr;
+    typedef QList<Ptr> List;
+    explicit UDisksPartition(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    ~UDisksPartition();
 
     Q_PROPERTY(qulonglong flags READ flags)
     qulonglong flags() const;

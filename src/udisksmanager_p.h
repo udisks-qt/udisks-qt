@@ -29,16 +29,10 @@
 class UDisksManagerPrivate
 {
 public:
-    UDisksManagerPrivate(UDisksManager *parent);
-    virtual ~UDisksManagerPrivate() {}
-
-    void init();
-    void setupSignal(const QString &signal, bool connect);
+    UDisksManagerPrivate(const QDBusObjectPath &object);
 
     OrgFreedesktopUDisks2ManagerInterface interface;
-
-    QString version;
-    bool running;
+    QVariantMap properties;
 };
 
 #endif // UDISKS_MANAGER_PRIVATE_H

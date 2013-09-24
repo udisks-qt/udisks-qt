@@ -7,10 +7,8 @@ class UDisksJobPrivate
 {
 public:
     UDisksJobPrivate(const QString &path);
-    void init(const QVariantMap &properties);
 
     OrgFreedesktopUDisks2JobInterface interface;
-
     QVariantMap properties;
 };
 
