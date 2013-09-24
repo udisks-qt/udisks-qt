@@ -37,3 +37,5 @@
 #define UD2_INTERFACE_ENCRYPTION       "org.freedesktop.UDisks2.Encryption"
 #define UD2_INTERFACE_LOOP             "org.freedesktop.UDisks2.Loop"
 #define UD2_INTERFACE_JOB              "org.freedesktop.UDisks2.Job"
+
+#define DBUS_PROPERTIES  "org.freedesktop.DBus.Properties"

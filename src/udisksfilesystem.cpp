@@ -25,7 +25,7 @@
 #include <QDebug>
 
 UDisksFilesystem::UDisksFilesystem(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
-    QObject(parent),
+    UDisksInterface(parent),
     d_ptr(new UDisksFilesystemPrivate(objectPath.path()))
 {
     Q_D(UDisksFilesystem);
@@ -60,6 +60,12 @@ QDBusPendingReply<> UDisksFilesystem::unmount(const QVariantMap &options)
 {
     Q_D(UDisksFilesystem);
     return d->interface.Unmount(options);
+}
+
+void UDisksFilesystem::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
+{
+    Q_D(UDisksFilesystem);
+    changeProperties(d->properties, properties, invalidProperties);
 }
 
 UDisksFilesystemPrivate::UDisksFilesystemPrivate(const QString &path) :

@@ -23,10 +23,11 @@
 #include <QObject>
 #include <QtDBus/QDBusPendingReply>
 
+#include "udisksinterface.h"
 #include "dbus-types.h"
 
 class UDisksPartitionTablePrivate;
-class UDisksPartitionTable : public QObject
+class UDisksPartitionTable : public UDisksInterface
 {
     Q_OBJECT
 public:
@@ -42,6 +43,7 @@ public Q_SLOTS:
     QDBusPendingReply<QDBusObjectPath> createPartition(qulonglong offset, qulonglong size, const QString &type, const QString &name, const QVariantMap &options);
 
 protected:
+    virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);
     UDisksPartitionTablePrivate *d_ptr;
 
 private:

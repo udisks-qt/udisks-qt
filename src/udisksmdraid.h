@@ -23,10 +23,11 @@
 #include <QObject>
 #include <QtDBus/QDBusPendingReply>
 
+#include "udisksinterface.h"
 #include "dbus-types.h"
 
 class UDisksMDRaidPrivate;
-class UDisksMDRaid : public QObject
+class UDisksMDRaid : public UDisksInterface
 {
     Q_OBJECT
 public:
@@ -88,6 +89,7 @@ public Q_SLOTS:
     QDBusPendingReply<> stop(const QVariantMap &options);
 
 protected:
+    virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);
     UDisksMDRaidPrivate *d_ptr;
 
 private:

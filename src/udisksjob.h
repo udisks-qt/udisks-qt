@@ -23,10 +23,11 @@
 #include <QObject>
 #include <QtDBus/QDBusPendingReply>
 
+#include "udisksinterface.h"
 #include "dbus-types.h"
 
 class UDisksJobPrivate;
-class UDisksJob : public QObject
+class UDisksJob : public UDisksInterface
 {
     Q_OBJECT
 public:
@@ -69,6 +70,7 @@ public Q_SLOTS:
     QDBusPendingReply<> cancel(const QVariantMap &options);
 
 protected:
+    virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);
     UDisksJobPrivate *d_ptr;
 
 private:

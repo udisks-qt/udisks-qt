@@ -25,7 +25,7 @@
 #include <QDebug>
 
 UDisksDriveAta::UDisksDriveAta(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
-    QObject(parent),
+    UDisksInterface(parent),
     d_ptr(new UDisksDriveAtaPrivate(objectPath.path()))
 {
     Q_D(UDisksDriveAta);
@@ -228,6 +228,12 @@ QDBusPendingReply<> UDisksDriveAta::smartUpdate(const QVariantMap &options)
 {
     Q_D(UDisksDriveAta);
     return d->interface.SmartUpdate(options);
+}
+
+void UDisksDriveAta::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
+{
+    Q_D(UDisksDriveAta);
+    changeProperties(d->properties, properties, invalidProperties);
 }
 
 UDisksDriveAtaPrivate::UDisksDriveAtaPrivate(const QString &path) :

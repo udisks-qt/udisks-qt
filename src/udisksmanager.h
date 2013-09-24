@@ -21,28 +21,14 @@
 #define UDISKS_MANAGER_H
 
 #include <QtCore/QObject>
-#include <QtCore/QMetaEnum>
-#include <QtDBus/QDBusError>
 #include <QtDBus/QDBusObjectPath>
 #include <QtDBus/QDBusPendingReply>
 
+#include "udisksinterface.h"
 #include "dbus-types.h"
 
-/**
- * \class Manager Manager.h Manager
- * \author Daniel Nicoletti \e <dantti12@gmail.com>
- *
- * \brief Base class used to interact with the UDisks daemon
- *
- * This class holds all the functions enabling the user to interact with the UDisks daemon.
- *
- * This class is a singleton, its constructor is private. Call UDisksManager::global() to get
- * an instance of the UDisksManager object, you only need UDisksManager::global()
- * when connecting to the signals of this class.
- */
-class QDBusPendingCallWatcher;
 class UDisksManagerPrivate;
-class UDisksManager : public QObject
+class UDisksManager : public UDisksInterface
 {
     Q_OBJECT
     Q_PROPERTY(QString version READ version NOTIFY versionChanged)
@@ -87,6 +73,7 @@ Q_SIGNALS:
     void versionChanged();
 
 protected:
+    virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);
     UDisksManagerPrivate *d_ptr;
 
 private:

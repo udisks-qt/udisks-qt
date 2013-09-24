@@ -25,7 +25,7 @@
 #include <QDebug>
 
 UDisksJob::UDisksJob(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
-    QObject(parent),
+    UDisksInterface(parent),
     d_ptr(new UDisksJobPrivate(objectPath.path()))
 {
     Q_D(UDisksJob);
@@ -102,6 +102,12 @@ QDBusPendingReply<> UDisksJob::cancel(const QVariantMap &options)
 {
     Q_D(UDisksJob);
     return d->interface.Cancel(options);
+}
+
+void UDisksJob::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
+{
+    Q_D(UDisksJob);
+    changeProperties(d->properties, properties, invalidProperties);
 }
 
 UDisksJobPrivate::UDisksJobPrivate(const QString &path) :

@@ -23,10 +23,11 @@
 #include <QObject>
 #include <QtDBus/QDBusPendingReply>
 
+#include "udisksinterface.h"
 #include "dbus-types.h"
 
 class UDisksEncryptedPrivate;
-class UDisksEncrypted : public QObject
+class UDisksEncrypted : public UDisksInterface
 {
     Q_OBJECT
 public:
@@ -43,6 +44,7 @@ public Q_SLOTS:
     QDBusPendingReply<QDBusObjectPath> unlock(const QString &passphrase, const QVariantMap &options);
 
 protected:
+    virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);
     UDisksEncryptedPrivate *d_ptr;
 
 private:

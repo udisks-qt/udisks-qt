@@ -191,7 +191,7 @@ void UDisksClientPrivate::_q_interfacesRemoved(const QDBusObjectPath &object_pat
     foreach (const UDisksObject::Ptr &object, objects) {
         if (object->path() == object_path) {
             object->removeInterfaces(interfaces);
-            if (object->interfaces().isEmpty()) {
+            if (object->interfaces() == UDisksObject::InterfaceNone) {
                 q->objectRemoved(object);
                 objects.removeOne(object);
             } else {

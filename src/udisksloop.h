@@ -23,10 +23,11 @@
 #include <QObject>
 #include <QtDBus/QDBusPendingReply>
 
+#include "udisksinterface.h"
 #include "dbus-types.h"
 
 class UDisksLoopPrivate;
-class UDisksLoop : public QObject
+class UDisksLoop : public UDisksInterface
 {
     Q_OBJECT
 public:
@@ -50,6 +51,7 @@ public Q_SLOTS:
     QDBusPendingReply<> setAutoclear(bool value, const QVariantMap &options);
 
 protected:
+    virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);
     UDisksLoopPrivate *d_ptr;
 
 private:

@@ -25,7 +25,7 @@
 #include <QDebug>
 
 UDisksLoop::UDisksLoop(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
-    QObject(parent),
+    UDisksInterface(parent),
     d_ptr(new UDisksLoopPrivate(objectPath.path()))
 {
     Q_D(UDisksLoop);
@@ -66,6 +66,12 @@ QDBusPendingReply<> UDisksLoop::setAutoclear(bool value, const QVariantMap &opti
 {
     Q_D(UDisksLoop);
     return d->interface.SetAutoclear(value, options);
+}
+
+void UDisksLoop::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
+{
+    Q_D(UDisksLoop);
+    changeProperties(d->properties, properties, invalidProperties);
 }
 
 UDisksLoopPrivate::UDisksLoopPrivate(const QString &path) :

@@ -15,6 +15,7 @@ include_directories(${CMAKE_BINARY_DIR}
 
 set(udisksqt_SRC
     dbus-types.cpp
+    udisksinterface.cpp
     udisksblock.cpp
     udisksdrive.cpp
     udisksdriveata.cpp
@@ -34,6 +35,8 @@ set(udisksqt_SRC
 set(udisksqt_HEADERS
     dbus-types.h
     udisksdefs.h
+    udisksinterface.h
+    UDisksInterface
     udisksblock.h
     UDisksBlock
     udisksdrive.h
@@ -66,6 +69,7 @@ set(udisksqt_HEADERS
 
 set(udisksqt_HEADERS_PRIVATE
     common.h
+    udisksinterface_p.h
     udisksblock_p.h
     udisksdrive_p.h
     udisksdriveata_p.h

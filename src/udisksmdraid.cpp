@@ -25,7 +25,7 @@
 #include <QDebug>
 
 UDisksMDRaid::UDisksMDRaid(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
-    QObject(parent),
+    UDisksInterface(parent),
     d_ptr(new UDisksMDRaidPrivate(objectPath.path()))
 {
     Q_D(UDisksMDRaid);
@@ -150,6 +150,12 @@ QDBusPendingReply<> UDisksMDRaid::stop(const QVariantMap &options)
 {
     Q_D(UDisksMDRaid);
     return d->interface.Stop(options);
+}
+
+void UDisksMDRaid::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
+{
+    Q_D(UDisksMDRaid);
+    changeProperties(d->properties, properties, invalidProperties);
 }
 
 UDisksMDRaidPrivate::UDisksMDRaidPrivate(const QString &path) :

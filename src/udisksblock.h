@@ -24,10 +24,11 @@
 #include <QtDBus>
 #include <QtDBus/QDBusPendingReply>
 
+#include "udisksinterface.h"
 #include "dbus-types.h"
 
 class UDisksBlockPrivate;
-class UDisksBlock : public QObject
+class UDisksBlock : public UDisksInterface
 {
     Q_OBJECT
 public:
@@ -128,6 +129,7 @@ public Q_SLOTS:
     QDBusPendingReply<> updateConfigurationItem(UDItem oldItem, UDItem newItem, const QVariantMap &options);
 
 protected:
+    virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);
     UDisksBlockPrivate *d_ptr;
 
 private:

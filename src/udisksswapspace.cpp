@@ -25,7 +25,7 @@
 #include <QDebug>
 
 UDisksSwapspace::UDisksSwapspace(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
-    QObject(parent),
+    UDisksInterface(parent),
     d_ptr(new UDisksSwapspacePrivate(objectPath.path()))
 {
     Q_D(UDisksSwapspace);
@@ -54,6 +54,12 @@ QDBusPendingReply<> UDisksSwapspace::stop(const QVariantMap &options)
 {
     Q_D(UDisksSwapspace);
     return d->interface.Stop(options);
+}
+
+void UDisksSwapspace::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
+{
+    Q_D(UDisksSwapspace);
+    changeProperties(d->properties, properties, invalidProperties);
 }
 
 UDisksSwapspacePrivate::UDisksSwapspacePrivate(const QString &path) :

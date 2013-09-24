@@ -42,6 +42,9 @@ class UDisksObjectPrivate;
 class UDisksObject : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(Kind)
+    Q_ENUMS(Interface)
+    Q_FLAGS(Interfaces)
 public:
     typedef QSharedPointer<UDisksObject> Ptr;
     typedef QList<Ptr> List;
@@ -56,6 +59,23 @@ public:
         Job
     };
 
+    enum Interface {
+        InterfaceNone           = 1 << 0,
+        InterfaceManager        = 1 << 1,
+        InterfaceDrive          = 1 << 2,
+        InterfaceDriveAta       = 1 << 3,
+        InterfaceMDRaid         = 1 << 4,
+        InterfaceJob            = 1 << 5,
+        InterfaceBlock          = 1 << 6,
+        InterfacePartition      = 1 << 7,
+        InterfacePartitionTable = 1 << 8,
+        InterfaceFilesystem     = 1 << 9,
+        InterfaceSwapspace      = 1 << 10,
+        InterfaceEncrypted      = 1 << 11,
+        InterfaceLoop           = 1 << 12
+    };
+    Q_DECLARE_FLAGS(Interfaces, Interface)
+
     ~UDisksObject();
 
     Q_PROPERTY(Kind kind READ kind)
@@ -64,8 +84,8 @@ public:
     Q_PROPERTY(QDBusObjectPath path READ path)
     QDBusObjectPath path() const;
 
-    Q_PROPERTY(QStringList interfaces READ interfaces)
-    QStringList interfaces() const;
+    Q_PROPERTY(Interfaces interfaces READ interfaces)
+    Interfaces interfaces() const;
 
     UDisksManager *manager() const;
     UDisksDrive *drive() const;
@@ -81,19 +101,21 @@ public:
     UDisksLoop *loop() const;
 
 Q_SIGNALS:
-    void interfaceAdded(const QString &interface);
-    void interfaceRemoved(const QString &interface);
+    void interfaceAdded(Interface interface);
+    void interfaceRemoved(Interface interface);
 
 protected:
     UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties);
     bool addInterfaces(const UDVariantMapMap &interfacesAndProperties);
     bool removeInterfaces(const QStringList &interfaces);
+    Interface interfaceEnumFromString(const QString &interface) const;
 
     UDisksObjectPrivate *d_ptr;
 
 private:
     friend class UDisksClientPrivate;
     Q_DECLARE_PRIVATE(UDisksObject)
+    Q_PRIVATE_SLOT(d_func(), void _q_propertiesChanged(QString,QVariantMap,QStringList))
 };
 
 #endif // UDISKSOBJECT_H

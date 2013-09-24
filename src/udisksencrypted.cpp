@@ -25,7 +25,7 @@
 #include <QDebug>
 
 UDisksEncrypted::UDisksEncrypted(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
-    QObject(parent),
+    UDisksInterface(parent),
     d_ptr(new UDisksEncryptedPrivate(objectPath.path()))
 {
     Q_D(UDisksEncrypted);
@@ -54,6 +54,12 @@ QDBusPendingReply<QDBusObjectPath> UDisksEncrypted::unlock(const QString &passph
 {
     Q_D(UDisksEncrypted);
     return d->interface.Unlock(passphrase, options);
+}
+
+void UDisksEncrypted::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
+{
+    Q_D(UDisksEncrypted);
+    changeProperties(d->properties, properties, invalidProperties);
 }
 
 UDisksEncryptedPrivate::UDisksEncryptedPrivate(const QString &path) :

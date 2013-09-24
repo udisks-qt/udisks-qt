@@ -25,7 +25,7 @@
 #include <QDebug>
 
 UDisksBlock::UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
-    QObject(parent),
+    UDisksInterface(parent),
     d_ptr(new UDisksBlockPrivate(objectPath.path()))
 {
     Q_D(UDisksBlock);
@@ -234,6 +234,12 @@ QDBusPendingReply<> UDisksBlock::updateConfigurationItem(UDItem oldItem, UDItem 
 {
     Q_D(UDisksBlock);
     return d->interface.UpdateConfigurationItem(oldItem, newItem, options);
+}
+
+void UDisksBlock::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
+{
+    Q_D(UDisksBlock);
+    changeProperties(d->properties, properties, invalidProperties);
 }
 
 UDisksBlockPrivate::UDisksBlockPrivate(const QString &path) :

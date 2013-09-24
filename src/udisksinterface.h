@@ -17,39 +17,28 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef UDISKSSWAPSPACE_H
-#define UDISKSSWAPSPACE_H
+#ifndef UDISKSINTERFACE_H
+#define UDISKSINTERFACE_H
 
 #include <QObject>
-#include <QtDBus/QDBusPendingReply>
+#include <QVariantMap>
 
-#include "udisksinterface.h"
-#include "dbus-types.h"
-
-class UDisksSwapspacePrivate;
-class UDisksSwapspace : public UDisksInterface
+class UDisksInterface : public QObject
 {
     Q_OBJECT
 public:
-    typedef QSharedPointer<UDisksSwapspace> Ptr;
-    typedef QList<Ptr> List;
-    explicit UDisksSwapspace(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
-    ~UDisksSwapspace();
+    explicit UDisksInterface(QObject *parent);
+    virtual ~UDisksInterface() {}
 
-    Q_PROPERTY(bool active READ active)
-    bool active() const;
-
-public Q_SLOTS:
-    QDBusPendingReply<> start(const QVariantMap &options);
-
-    QDBusPendingReply<> stop(const QVariantMap &options);
+Q_SIGNALS:
+    void changed();
 
 protected:
-    virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);
-    UDisksSwapspacePrivate *d_ptr;
+    virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties) = 0;
+    void changeProperties(QVariantMap &properties, const QVariantMap &changedProperties, const QStringList &invalidProperties);
 
 private:
-    Q_DECLARE_PRIVATE(UDisksSwapspace)
+    friend class UDisksObjectPrivate;
 };
 
-#endif // UDISKSSWAPSPACE_H
+#endif // UDISKSINTERFACE_H

@@ -22,10 +22,11 @@ public:
     UDisksObjectPrivate(const QDBusObjectPath &path, UDisksObject *parent);
     bool _q_addInterface(const QString &interface, const QVariantMap &properties, bool emitSignal);
     bool _q_removeInterface(const QString &interface);
+    void _q_propertiesChanged(const QString &interface, const QVariantMap &properties, const QStringList &invalidatedProperties);
 
     UDisksObject *q_ptr;
     QDBusObjectPath object;
-    QStringList interfaces;
+    UDisksObject::Interfaces interfaces;
     UDisksObject::Kind kind;
     UDisksManager *manager;
     UDisksDrive *drive;

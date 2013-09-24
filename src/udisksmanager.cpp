@@ -32,7 +32,7 @@
 
 
 UDisksManager::UDisksManager(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
-    QObject(parent),
+    UDisksInterface(parent),
     d_ptr(new UDisksManagerPrivate(objectPath))
 {
     Q_D(UDisksManager);
@@ -61,6 +61,12 @@ QDBusPendingReply<QDBusObjectPath> UDisksManager::mDRaidCreate(const QList<QDBus
 {
     Q_D(UDisksManager);
     return d->interface.MDRaidCreate(blocks, level, name, chunk, options);
+}
+
+void UDisksManager::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
+{
+    Q_D(UDisksManager);
+    changeProperties(d->properties, properties, invalidProperties);
 }
 
 UDisksManagerPrivate::UDisksManagerPrivate(const QDBusObjectPath &object) :
