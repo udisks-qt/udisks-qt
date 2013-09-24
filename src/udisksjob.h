@@ -67,7 +67,7 @@ public:
     uint startedByUID() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<> cancel(const QVariantMap &options);
+    QDBusPendingReply<> cancel(const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

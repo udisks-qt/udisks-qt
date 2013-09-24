@@ -110,23 +110,23 @@ public:
     QList<QByteArray> symlinks() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<> addConfigurationItem(UDItem item, const QVariantMap &options);
+    QDBusPendingReply<> addConfigurationItem(UDItem item, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> format(const QString &type, const QVariantMap &options);
+    QDBusPendingReply<> format(const QString &type, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<QList<QVariantMap> > getSecretConfiguration(const QVariantMap &options);
+    QDBusPendingReply<QList<QVariantMap> > getSecretConfiguration(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<QDBusUnixFileDescriptor> openForBackup(const QVariantMap &options);
+    QDBusPendingReply<QDBusUnixFileDescriptor> openForBackup(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<QDBusUnixFileDescriptor> openForBenchmark(const QVariantMap &options);
+    QDBusPendingReply<QDBusUnixFileDescriptor> openForBenchmark(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<QDBusUnixFileDescriptor> openForRestore(const QVariantMap &options);
+    QDBusPendingReply<QDBusUnixFileDescriptor> openForRestore(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> removeConfigurationItem(UDItem item, const QVariantMap &options);
+    QDBusPendingReply<> removeConfigurationItem(UDItem item, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> rescan(const QVariantMap &options);
+    QDBusPendingReply<> rescan(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> updateConfigurationItem(UDItem oldItem, UDItem newItem, const QVariantMap &options);
+    QDBusPendingReply<> updateConfigurationItem(UDItem oldItem, UDItem newItem, const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

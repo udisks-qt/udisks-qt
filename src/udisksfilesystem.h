@@ -40,11 +40,11 @@ public:
     QList<QByteArray> mountPoints() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<QString> mount(const QVariantMap &options);
+    QDBusPendingReply<QString> mount(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> setLabel(const QString &label, const QVariantMap &options);
+    QDBusPendingReply<> setLabel(const QString &label, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> unmount(const QVariantMap &options);
+    QDBusPendingReply<> unmount(const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

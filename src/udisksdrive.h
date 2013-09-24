@@ -124,11 +124,11 @@ public:
     QString wWN() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<> eject(const QVariantMap &options);
+    QDBusPendingReply<> eject(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> powerOff(const QVariantMap &options);
+    QDBusPendingReply<> powerOff(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> setConfiguration(const QVariantMap &value, const QVariantMap &options);
+    QDBusPendingReply<> setConfiguration(const QVariantMap &value, const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

@@ -46,9 +46,9 @@ public:
     uint setupByUID() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<> deleteLoop(const QVariantMap &options);
+    QDBusPendingReply<> deleteLoop(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> setAutoclear(bool value, const QVariantMap &options);
+    QDBusPendingReply<> setAutoclear(bool value, const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

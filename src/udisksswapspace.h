@@ -40,9 +40,9 @@ public:
     bool active() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<> start(const QVariantMap &options);
+    QDBusPendingReply<> start(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> stop(const QVariantMap &options);
+    QDBusPendingReply<> stop(const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

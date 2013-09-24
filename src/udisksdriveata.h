@@ -106,23 +106,23 @@ public:
     bool writeCacheSupported() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<uchar> pmGetState(const QVariantMap &options);
+    QDBusPendingReply<uchar> pmGetState(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> pmStandby(const QVariantMap &options);
+    QDBusPendingReply<> pmStandby(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> pmWakeup(const QVariantMap &options);
+    QDBusPendingReply<> pmWakeup(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> securityEraseUnit(const QVariantMap &options);
+    QDBusPendingReply<> securityEraseUnit(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<UDAttributes> smartGetAttributes(const QVariantMap &options);
+    QDBusPendingReply<UDAttributes> smartGetAttributes(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> smartSelftestAbort(const QVariantMap &options);
+    QDBusPendingReply<> smartSelftestAbort(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> smartSelftestStart(const QString &type, const QVariantMap &options);
+    QDBusPendingReply<> smartSelftestStart(const QString &type, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> smartSetEnabled(bool value, const QVariantMap &options);
+    QDBusPendingReply<> smartSetEnabled(bool value, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> smartUpdate(const QVariantMap &options);
+    QDBusPendingReply<> smartUpdate(const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

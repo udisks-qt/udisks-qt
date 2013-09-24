@@ -67,13 +67,13 @@ public:
     QString uUID() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<> deletePartition(const QVariantMap &options);
+    QDBusPendingReply<> deletePartition(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> setFlags(qulonglong flags, const QVariantMap &options);
+    QDBusPendingReply<> setFlags(qulonglong flags, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> setName(const QString &name, const QVariantMap &options);
+    QDBusPendingReply<> setName(const QString &name, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> setType(const QString &type, const QVariantMap &options);
+    QDBusPendingReply<> setType(const QString &type, const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

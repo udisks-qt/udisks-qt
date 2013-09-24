@@ -40,7 +40,7 @@ public:
     QString type() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<QDBusObjectPath> createPartition(qulonglong offset, qulonglong size, const QString &type, const QString &name, const QVariantMap &options);
+    QDBusPendingReply<QDBusObjectPath> createPartition(qulonglong offset, qulonglong size, const QString &type, const QString &name, const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

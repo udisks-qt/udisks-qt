@@ -37,11 +37,11 @@ public:
     ~UDisksEncrypted();
 
 public Q_SLOTS:
-    QDBusPendingReply<> changePassphrase(const QString &passphrase, const QString &newPassphrase, const QVariantMap &options);
+    QDBusPendingReply<> changePassphrase(const QString &passphrase, const QString &newPassphrase, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> lock(const QVariantMap &options);
+    QDBusPendingReply<> lock(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<QDBusObjectPath> unlock(const QString &passphrase, const QVariantMap &options);
+    QDBusPendingReply<QDBusObjectPath> unlock(const QString &passphrase, const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

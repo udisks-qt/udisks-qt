@@ -76,17 +76,17 @@ public:
     QString uUID() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<> addDevice(const QDBusObjectPath &device, const QVariantMap &options);
+    QDBusPendingReply<> addDevice(const QDBusObjectPath &device, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> removeDevice(const QDBusObjectPath &device, const QVariantMap &options);
+    QDBusPendingReply<> removeDevice(const QDBusObjectPath &device, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> requestSyncAction(const QString &syncAction, const QVariantMap &options);
+    QDBusPendingReply<> requestSyncAction(const QString &syncAction, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> setBitmapLocation(const QByteArray &value, const QVariantMap &options);
+    QDBusPendingReply<> setBitmapLocation(const QByteArray &value, const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> start(const QVariantMap &options);
+    QDBusPendingReply<> start(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> stop(const QVariantMap &options);
+    QDBusPendingReply<> stop(const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

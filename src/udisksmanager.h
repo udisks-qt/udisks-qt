@@ -49,7 +49,7 @@ public:
      *
      * Returns a Block::Ptr
      */
-    QDBusPendingReply<QDBusObjectPath> loopSetup(const QDBusUnixFileDescriptor &fd, const QVariantMap &options);
+    QDBusPendingReply<QDBusObjectPath> loopSetup(const QDBusUnixFileDescriptor &fd, const QVariantMap &options = QVariantMap());
 
     /**
      * Creates a new RAID array on the block devices specified by
@@ -64,7 +64,7 @@ public:
      * \p options: Options (currently unused except for <link linkend="udisks-std-options">standard options</link>).
      * returns an MDRaid object
      */
-    QDBusPendingReply<QDBusObjectPath> mDRaidCreate(const QList<QDBusObjectPath> &blocks, const QString &level, const QString &name, qulonglong chunk, const QVariantMap &options);
+    QDBusPendingReply<QDBusObjectPath> mDRaidCreate(const QList<QDBusObjectPath> &blocks, const QString &level, const QString &name, qulonglong chunk, const QVariantMap &options = QVariantMap());
 
 Q_SIGNALS:
     /**
