@@ -441,6 +441,7 @@ bool UDisksObjectPrivate::_q_removeInterface(const QString &interface)
         }
         break;
     default:
+        qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
         break;
     }
 
@@ -456,64 +457,77 @@ void UDisksObjectPrivate::_q_propertiesChanged(const QString &interface, const Q
 {
     Q_Q(UDisksObject);
 
-    qDebug() << Q_FUNC_INFO << interface;
-    qDebug() << properties;
-    qDebug() << invalidatedProperties;
     UDisksInterface *interfacePointer = 0;
-    if (interface == QLatin1String(UD2_INTERFACE_BLOCK)) {
+    UDisksObject::Interface interfaceEnum = q->interfaceEnumFromString(interface);
+    switch (interfaceEnum) {
+    case UDisksObject::InterfaceBlock:
         if (block) {
             interfacePointer = block;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE)) {
+        break;
+    case UDisksObject::InterfaceDrive:
         if (drive) {
             interfacePointer = drive;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_DRIVE_ATA)) {
+        break;
+    case UDisksObject::InterfaceDriveAta:
         if (driveAta) {
             interfacePointer = driveAta;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_MDRAID)) {
+        break;
+    case UDisksObject::InterfaceMDRaid:
         if (mDRaid) {
             interfacePointer = mDRaid;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_MANAGER)) {
+        break;
+    case UDisksObject::InterfaceManager:
         if (manager) {
             interfacePointer = manager;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION)) {
+        break;
+    case UDisksObject::InterfacePartition:
         if (partition) {
             interfacePointer = partition;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_PARTITION_TABLE)) {
+        break;
+    case UDisksObject::InterfacePartitionTable:
         if (partitionTable) {
             interfacePointer = partitionTable;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_FILESYSTEM)) {
+        break;
+    case UDisksObject::InterfaceFilesystem:
         if (filesystem) {
             interfacePointer = filesystem;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_SWAPSPACE)) {
+        break;
+    case UDisksObject::InterfaceSwapspace:
         if (swapspace) {
             interfacePointer = swapspace;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_ENCRYPTION)) {
+        break;
+    case UDisksObject::InterfaceEncrypted:
         if (encrypted) {
             interfacePointer = encrypted;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_LOOP)) {
+        break;
+    case UDisksObject::InterfaceLoop:
         if (loop) {
             interfacePointer = loop;
         }
-    } else if (interface == QLatin1String(UD2_INTERFACE_JOB)) {
+        break;
+    case UDisksObject::InterfaceJob:
         if (job) {
             interfacePointer = job;
         }
-    } else {
+        break;
+    default:
         qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
+        break;
     }
 
     if (interfacePointer) {
         interfacePointer->propertiesChanged(properties, invalidatedProperties);
+        q->propertiesChanged(interfaceEnum);
     }
 }
 

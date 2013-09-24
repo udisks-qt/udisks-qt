@@ -55,7 +55,7 @@ public:
 
     UDisksManager *manager() const;
 
-signals:
+Q_SIGNALS:
     void objectsAvailable();
     void objectAdded(const UDisksObject::Ptr &object);
     void objectRemoved(const UDisksObject::Ptr &object);

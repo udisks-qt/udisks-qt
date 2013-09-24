@@ -103,6 +103,7 @@ public:
 Q_SIGNALS:
     void interfaceAdded(Interface interface);
     void interfaceRemoved(Interface interface);
+    void propertiesChanged(Interface interface);
 
 protected:
     UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties);
