@@ -34,6 +34,7 @@
 #include "udisksloop.h"
 #include "udisksjob.h"
 
+#include <QtDBus/QDBusConnection>
 #include <QDebug>
 
 UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties) :

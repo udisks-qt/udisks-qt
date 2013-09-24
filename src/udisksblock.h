@@ -21,7 +21,7 @@
 #define UDISKSBLOCK_H
 
 #include <QObject>
-#include <QtDBus>
+#include <QtDBus/QDBusUnixFileDescriptor>
 #include <QtDBus/QDBusPendingReply>
 
 #include "udisksinterface.h"

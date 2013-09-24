@@ -38,7 +38,7 @@ UDisksBlock::~UDisksBlock()
     delete d_ptr;
 }
 
-QList<UDItem> UDisksBlock::configuration() const
+UDItemList UDisksBlock::configuration() const
 {
     Q_D(const UDisksBlock);
     return d->properties[QLatin1String("Configuration")].value<QList<UDItem> >();
