@@ -32,8 +32,6 @@ class UDisksJob : public UDisksInterface
 {
     Q_OBJECT
 public:
-    typedef QSharedPointer<UDisksJob> Ptr;
-    typedef QList<Ptr> List;
     explicit UDisksJob(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksJob();
 

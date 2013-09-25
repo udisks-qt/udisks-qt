@@ -32,8 +32,6 @@ class UDisksPartition : public UDisksInterface
 {
     Q_OBJECT
 public:
-    typedef QSharedPointer<UDisksPartition> Ptr;
-    typedef QList<Ptr> List;
     explicit UDisksPartition(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksPartition();
 

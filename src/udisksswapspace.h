@@ -31,8 +31,6 @@ class UDisksSwapspace : public UDisksInterface
 {
     Q_OBJECT
 public:
-    typedef QSharedPointer<UDisksSwapspace> Ptr;
-    typedef QList<Ptr> List;
     explicit UDisksSwapspace(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksSwapspace();
 

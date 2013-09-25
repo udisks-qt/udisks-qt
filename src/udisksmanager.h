@@ -33,8 +33,6 @@ class UDisksManager : public UDisksInterface
     Q_OBJECT
     Q_PROPERTY(QString version READ version NOTIFY versionChanged)
 public:
-    typedef QSharedPointer<UDisksManager> Ptr;
-    typedef QList<Ptr> List;
     explicit UDisksManager(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksManager();
 

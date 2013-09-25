@@ -31,8 +31,6 @@ class UDisksDriveAta : public UDisksInterface
 {
     Q_OBJECT
 public:
-    typedef QSharedPointer<UDisksDriveAta> Ptr;
-    typedef QList<Ptr> List;
     explicit UDisksDriveAta(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksDriveAta();
 

@@ -33,8 +33,6 @@ class UDisksBlock : public UDisksInterface
 {
     Q_OBJECT
 public:
-    typedef QSharedPointer<UDisksBlock> Ptr;
-    typedef QList<Ptr> List;
     explicit UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent);
     ~UDisksBlock();
 

@@ -31,8 +31,6 @@ class UDisksEncrypted : public UDisksInterface
 {
     Q_OBJECT
 public:
-    typedef QSharedPointer<UDisksEncrypted> Ptr;
-    typedef QList<Ptr> List;
     explicit UDisksEncrypted(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
     ~UDisksEncrypted();
 
