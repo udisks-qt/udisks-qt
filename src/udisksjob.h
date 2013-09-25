@@ -24,6 +24,7 @@
 #include <QtDBus/QDBusPendingReply>
 
 #include "udisksinterface.h"
+#include "udisksobject.h"
 #include "dbus-types.h"
 
 class UDisksJobPrivate;
@@ -47,6 +48,8 @@ public:
 
     Q_PROPERTY(QList<QDBusObjectPath> objects READ objects)
     QList<QDBusObjectPath> objects() const;
+
+    UDisksObject::List objectsPtr() const;
 
     Q_PROPERTY(QString operation READ operation)
     QString operation() const;

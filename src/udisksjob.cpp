@@ -20,6 +20,7 @@
 #include "udisksjob.h"
 #include "udisksjob_p.h"
 
+#include "udisksclient.h"
 #include "common.h"
 
 #include <QDebug>
@@ -60,6 +61,19 @@ QList<QDBusObjectPath> UDisksJob::objects() const
 {
     Q_D(const UDisksJob);
     return d->properties[QLatin1String("Objects")].value<QList<QDBusObjectPath> >();
+}
+
+UDisksObject::List UDisksJob::objectsPtr() const
+{
+    Q_D(const UDisksJob);
+    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    if (object) {
+        UDisksClient *client = object->client();
+        if (client) {
+            return client->getObjects(objects());
+        }
+    }
+    return UDisksObject::List();
 }
 
 QString UDisksJob::operation() const

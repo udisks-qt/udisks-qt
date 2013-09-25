@@ -20,11 +20,12 @@
 #include "udisksblock.h"
 #include "udisksblock_p.h"
 
+#include "udisksclient.h"
 #include "common.h"
 
 #include <QDebug>
 
-UDisksBlock::UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
+UDisksBlock::UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksBlockPrivate(objectPath.path()))
 {
@@ -50,6 +51,19 @@ QDBusObjectPath UDisksBlock::cryptoBackingDevice() const
     return d->properties[QLatin1String("CryptoBackingDevice")].value<QDBusObjectPath>();
 }
 
+UDisksObject::Ptr UDisksBlock::cryptoBackingDeviceObjectPtr() const
+{
+    Q_D(const UDisksBlock);
+    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    if (object) {
+        UDisksClient *client = object->client();
+        if (client) {
+            return client->getObject(cryptoBackingDevice());
+        }
+    }
+    return UDisksObject::Ptr();
+}
+
 QByteArray UDisksBlock::device() const
 {
     Q_D(const UDisksBlock);
@@ -66,6 +80,19 @@ QDBusObjectPath UDisksBlock::drive() const
 {
     Q_D(const UDisksBlock);
     return d->properties[QLatin1String("Drive")].value<QDBusObjectPath>();
+}
+
+UDisksObject::Ptr UDisksBlock::driveObjectPtr() const
+{
+    Q_D(const UDisksBlock);
+    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    if (object) {
+        UDisksClient *client = object->client();
+        if (client) {
+            return client->getObject(drive());
+        }
+    }
+    return UDisksObject::Ptr();
 }
 
 bool UDisksBlock::hintAuto() const
@@ -152,10 +179,36 @@ QDBusObjectPath UDisksBlock::mDRaid() const
     return d->properties[QLatin1String("MDRaid")].value<QDBusObjectPath>();
 }
 
+UDisksObject::Ptr UDisksBlock::mDRaidObjectPtr() const
+{
+    Q_D(const UDisksBlock);
+    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    if (object) {
+        UDisksClient *client = object->client();
+        if (client) {
+            return client->getObject(mDRaid());
+        }
+    }
+    return UDisksObject::Ptr();
+}
+
 QDBusObjectPath UDisksBlock::mDRaidMember() const
 {
     Q_D(const UDisksBlock);
     return d->properties[QLatin1String("MDRaidMember")].value<QDBusObjectPath>();
+}
+
+UDisksObject::Ptr UDisksBlock::mDRaidMemberObjectPtr() const
+{
+    Q_D(const UDisksBlock);
+    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    if (object) {
+        UDisksClient *client = object->client();
+        if (client) {
+            return client->getObject(mDRaidMember());
+        }
+    }
+    return UDisksObject::Ptr();
 }
 
 QByteArray UDisksBlock::preferredDevice() const

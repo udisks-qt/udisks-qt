@@ -20,6 +20,7 @@
 #include "udiskspartition.h"
 #include "udiskspartition_p.h"
 
+#include "udisksclient.h"
 #include "common.h"
 
 #include <QDebug>
@@ -84,6 +85,19 @@ QDBusObjectPath UDisksPartition::table() const
 {
     Q_D(const UDisksPartition);
     return d->properties[QLatin1String("Table")].value<QDBusObjectPath>();
+}
+
+UDisksObject::Ptr UDisksPartition::tableObjectPtr() const
+{
+    Q_D(const UDisksPartition);
+    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    if (object) {
+        UDisksClient *client = object->client();
+        if (client) {
+            return client->getObject(table());
+        }
+    }
+    return UDisksObject::Ptr();
 }
 
 QString UDisksPartition::type() const

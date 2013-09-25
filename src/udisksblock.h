@@ -25,6 +25,7 @@
 #include <QtDBus/QDBusPendingReply>
 
 #include "udisksinterface.h"
+#include "udisksobject.h"
 #include "dbus-types.h"
 
 class UDisksBlockPrivate;
@@ -34,7 +35,7 @@ class UDisksBlock : public UDisksInterface
 public:
     typedef QSharedPointer<UDisksBlock> Ptr;
     typedef QList<Ptr> List;
-    explicit UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    explicit UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent);
     ~UDisksBlock();
 
     Q_PROPERTY(UDItemList configuration READ configuration)
@@ -42,6 +43,8 @@ public:
 
     Q_PROPERTY(QDBusObjectPath cryptoBackingDevice READ cryptoBackingDevice)
     QDBusObjectPath cryptoBackingDevice() const;
+
+    UDisksObject::Ptr cryptoBackingDeviceObjectPtr() const;
 
     Q_PROPERTY(QByteArray device READ device)
     QByteArray device() const;
@@ -51,6 +54,8 @@ public:
 
     Q_PROPERTY(QDBusObjectPath drive READ drive)
     QDBusObjectPath drive() const;
+
+    UDisksObject::Ptr driveObjectPtr() const;
 
     Q_PROPERTY(bool hintAuto READ hintAuto)
     bool hintAuto() const;
@@ -94,8 +99,12 @@ public:
     Q_PROPERTY(QDBusObjectPath mDRaid READ mDRaid)
     QDBusObjectPath mDRaid() const;
 
+    UDisksObject::Ptr mDRaidObjectPtr() const;
+
     Q_PROPERTY(QDBusObjectPath mDRaidMember READ mDRaidMember)
     QDBusObjectPath mDRaidMember() const;
+
+    UDisksObject::Ptr mDRaidMemberObjectPtr() const;
 
     Q_PROPERTY(QByteArray preferredDevice READ preferredDevice)
     QByteArray preferredDevice() const;

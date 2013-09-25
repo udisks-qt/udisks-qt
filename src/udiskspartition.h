@@ -24,6 +24,7 @@
 #include <QtDBus/QDBusPendingReply>
 
 #include "udisksinterface.h"
+#include "udisksobject.h"
 #include "dbus-types.h"
 
 class UDisksPartitionPrivate;
@@ -59,6 +60,8 @@ public:
 
     Q_PROPERTY(QDBusObjectPath table READ table)
     QDBusObjectPath table() const;
+
+    UDisksObject::Ptr tableObjectPtr() const;
 
     Q_PROPERTY(QString type READ type)
     QString type() const;

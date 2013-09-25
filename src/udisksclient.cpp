@@ -91,7 +91,24 @@ UDisksObject::List UDisksClient::getObjects(UDisksObject::Kind kind) const
     }
 }
 
+UDisksObject::List UDisksClient::getObjects(const QList<QDBusObjectPath> &objectPaths) const
+{
+    Q_D(const UDisksClient);
+    UDisksObject::List ret;
+    foreach (const QDBusObjectPath &objectPath, objectPaths) {
+        UDisksObject::Ptr object = d->objects.value(objectPath);
+        if (object) {
+            ret << object;
+        }
+    }
+    return ret;
+}
 
+UDisksObject::Ptr UDisksClient::getObject(const QDBusObjectPath &objectPath) const
+{
+    Q_D(const UDisksClient);
+    return d->objects.value(objectPath);
+}
 
 UDisksManager *UDisksClient::manager() const
 {
