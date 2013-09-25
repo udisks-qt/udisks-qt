@@ -43,8 +43,4 @@ void UDisksInterface::changeProperties(QVariantMap &properties, const QVariantMa
     emit changed();
 }
 
-void UDisksInterface::removeInterface()
-{
-    emit removed();
-    deleteLater();
-}
+#include "moc_udisksinterface.cpp"

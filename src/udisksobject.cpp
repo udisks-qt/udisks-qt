@@ -254,6 +254,7 @@ UDisksObjectPrivate::UDisksObjectPrivate(const QDBusObjectPath &path, UDisksClie
     drive(0),
     driveAta(0),
     mDRaid(0),
+    job(0),
     block(0),
     partition(0),
     partitionTable(0),
@@ -366,84 +367,84 @@ bool UDisksObjectPrivate::_q_removeInterface(const QString &interface)
     switch (interfaceEnum) {
     case UDisksObject::InterfaceBlock:
         if (block) {
-            block->removeInterface();
+            block->deleteLater();
             block = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceDrive:
         if (drive) {
-            drive->removeInterface();
+            drive->deleteLater();
             drive = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceDriveAta:
         if (driveAta) {
-            driveAta->removeInterface();
+            driveAta->deleteLater();
             driveAta = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceMDRaid:
         if (mDRaid) {
-            mDRaid->removeInterface();
+            mDRaid->deleteLater();
             mDRaid = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceManager:
         if (manager) {
-            manager->removeInterface();
+            manager->deleteLater();
             manager = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfacePartition:
         if (partition) {
-            partition->removeInterface();
+            partition->deleteLater();
             partition = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfacePartitionTable:
         if (partitionTable) {
-            partitionTable->removeInterface();
+            partitionTable->deleteLater();
             partitionTable = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceFilesystem:
         if (filesystem) {
-            filesystem->removeInterface();
+            filesystem->deleteLater();
             filesystem = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceSwapspace:
         if (swapspace) {
-            swapspace->removeInterface();
+            swapspace->deleteLater();
             swapspace = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceEncrypted:
         if (encrypted) {
-            encrypted->removeInterface();
+            encrypted->deleteLater();
             encrypted = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceLoop:
         if (loop) {
-            loop->removeInterface();
+            loop->deleteLater();
             loop = 0;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceJob:
         if (job) {
-            job->removeInterface();
+            job->deleteLater();
             job = 0;
             ret = true;
         }
