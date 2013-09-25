@@ -25,6 +25,7 @@
 
 #include "dbus-types.h"
 
+class UDisksClient;
 class UDisksManager;
 class UDisksDrive;
 class UDisksDriveAta;
@@ -87,6 +88,7 @@ public:
     Q_PROPERTY(Interfaces interfaces READ interfaces)
     Interfaces interfaces() const;
 
+    UDisksClient *client() const;
     UDisksManager *manager() const;
     UDisksDrive *drive() const;
     UDisksDriveAta *driveAta() const;
@@ -106,7 +108,7 @@ Q_SIGNALS:
     void propertiesChanged(Interface interface);
 
 protected:
-    UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties);
+    UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties, UDisksClient *client);
     bool addInterfaces(const UDVariantMapMap &interfacesAndProperties);
     bool removeInterfaces(const QStringList &interfaces);
     Interface interfaceEnumFromString(const QString &interface) const;

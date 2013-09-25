@@ -16,14 +16,14 @@ public:
     void initObjects(const UDManagedObjects &managedObjects);
 
     void _q_getObjectsFinished(QDBusPendingCallWatcher *call);
-    void _q_interfacesAdded(const QDBusObjectPath &object_path, UDVariantMapMap interfaces_and_properties);
-    void _q_interfacesRemoved(const QDBusObjectPath &object_path, const QStringList &interfaces);
+    void _q_interfacesAdded(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties);
+    void _q_interfacesRemoved(const QDBusObjectPath &objectPath, const QStringList &interfaces);
 
     UDisksClient *q_ptr;
     bool inited;
     OrgFreedesktopDBusObjectManagerInterface objectInterface;
     QDBusServiceWatcher *watcher;
-    UDisksObject::List objects;
+    QHash<QDBusObjectPath, UDisksObject::Ptr> objects;
 };
 
 #endif // UDISKSCLIENT_P_H

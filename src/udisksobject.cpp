@@ -37,8 +37,8 @@
 #include <QtDBus/QDBusConnection>
 #include <QDebug>
 
-UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties) :
-    d_ptr(new UDisksObjectPrivate(objectPath, this))
+UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties, UDisksClient *client) :
+    d_ptr(new UDisksObjectPrivate(objectPath, client, this))
 {
     Q_D(UDisksObject);
 
@@ -101,6 +101,12 @@ UDisksObject::Interfaces UDisksObject::interfaces() const
 {
     Q_D(const UDisksObject);
     return d->interfaces;
+}
+
+UDisksClient *UDisksObject::client() const
+{
+    Q_D(const UDisksObject);
+    return d->client;
 }
 
 UDisksManager *UDisksObject::manager() const
@@ -238,8 +244,9 @@ UDisksObject::Interface UDisksObject::interfaceEnumFromString(const QString &int
     }
 }
 
-UDisksObjectPrivate::UDisksObjectPrivate(const QDBusObjectPath &path, UDisksObject *parent) :
+UDisksObjectPrivate::UDisksObjectPrivate(const QDBusObjectPath &path, UDisksClient *uDClient, UDisksObject *parent) :
     q_ptr(parent),
+    client(uDClient),
     object(path),
     interfaces(UDisksObject::InterfaceNone),
     kind(UDisksObject::Unknown),

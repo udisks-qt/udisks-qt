@@ -53,7 +53,7 @@ public:
 
     UDisksObject::List getObjects(UDisksObject::Kind kind = UDisksObject::Any) const;
 
-    UDisksObject::Ptr getObject(const QDBusObjectPath &path) const;
+    UDisksObject::Ptr getObject(const QDBusObjectPath &objectPath) const;
 
     UDisksManager *manager() const;
 

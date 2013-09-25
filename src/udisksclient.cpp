@@ -77,29 +77,21 @@ UDisksObject::List UDisksClient::getObjects(UDisksObject::Kind kind) const
     Q_D(const UDisksClient);
 
     if (kind == UDisksObject::Any) {
-        return d->objects;
+        return d->objects.values();
     } else {
         UDisksObject::List ret;
-        foreach (const UDisksObject::Ptr &object, d->objects) {
-            if (kind == object->kind()) {
-                ret << object;
+        QHash<QDBusObjectPath, UDisksObject::Ptr>::ConstIterator it = d->objects.constBegin();
+        while (it != d->objects.end()) {
+            if (kind == it.value()->kind()) {
+                ret << it.value();
             }
+            ++it;
         }
         return ret;
     }
 }
 
-UDisksObject::Ptr UDisksClient::getObject(const QDBusObjectPath &path) const
-{
-    Q_D(const UDisksClient);
 
-    foreach (const UDisksObject::Ptr &object, d->objects) {
-        if (path == object->path()) {
-            return object;
-        }
-    }
-    return UDisksObject::Ptr();
-}
 
 UDisksManager *UDisksClient::manager() const
 {
@@ -151,10 +143,12 @@ UDisksClientPrivate::UDisksClientPrivate(UDisksClient *parent) :
 
 void UDisksClientPrivate::initObjects(const UDManagedObjects &managedObjects)
 {
+    Q_Q(UDisksClient);
+
     UDManagedObjects::ConstIterator it = managedObjects.constBegin();
     while (it != managedObjects.constEnd()) {
-        UDisksObject::Ptr object(new UDisksObject(it.key(), it.value()));
-        objects << object;
+        UDisksObject::Ptr object(new UDisksObject(it.key(), it.value(), q));
+        objects.insert(it.key(), object);
         ++it;
     }
 }
@@ -176,41 +170,37 @@ void UDisksClientPrivate::_q_getObjectsFinished(QDBusPendingCallWatcher *call)
     q->objectsAvailable();
 }
 
-void UDisksClientPrivate::_q_interfacesAdded(const QDBusObjectPath &object_path, UDVariantMapMap interfaces_and_properties)
+void UDisksClientPrivate::_q_interfacesAdded(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties)
 {
     Q_Q(UDisksClient);
 
-    qDebug() << Q_FUNC_INFO << object_path.path();
+    qDebug() << Q_FUNC_INFO << objectPath.path();
 
-    foreach (const UDisksObject::Ptr &object, objects) {
-        if (object->path() == object_path) {
-            object->addInterfaces(interfaces_and_properties);
-            q->interfacesAdded(object);
-            return;
-        }
+    UDisksObject::Ptr object = objects.value(objectPath);
+    if (object.isNull()) {
+        UDisksObject::Ptr object(new UDisksObject(objectPath, interfacesAndProperties, q));
+        objects.insert(objectPath, object);
+        q->objectAdded(object);
+    } else {
+        object->addInterfaces(interfacesAndProperties);
+        q->interfacesAdded(object);
     }
-
-    UDisksObject::Ptr object(new UDisksObject(object_path, interfaces_and_properties));
-    objects << object;
-    q->objectAdded(object);
 }
 
-void UDisksClientPrivate::_q_interfacesRemoved(const QDBusObjectPath &object_path, const QStringList &interfaces)
+void UDisksClientPrivate::_q_interfacesRemoved(const QDBusObjectPath &objectPath, const QStringList &interfaces)
 {
     Q_Q(UDisksClient);
 
-    qDebug() << Q_FUNC_INFO << object_path.path();
+    qDebug() << Q_FUNC_INFO << objectPath.path();
 
-    foreach (const UDisksObject::Ptr &object, objects) {
-        if (object->path() == object_path) {
-            object->removeInterfaces(interfaces);
-            if (object->interfaces() == UDisksObject::InterfaceNone) {
-                q->objectRemoved(object);
-                objects.removeOne(object);
-            } else {
-                q->interfacesRemoved(object);
-            }
-            return;
+    UDisksObject::Ptr object = objects.value(objectPath);
+    if (object) {
+        object->removeInterfaces(interfaces);
+        if (object->interfaces() == UDisksObject::InterfaceNone) {
+            q->objectRemoved(object);
+            objects.remove(objectPath);
+        } else {
+            q->interfacesRemoved(object);
         }
     }
 }
