@@ -19,6 +19,7 @@
 
 #include "udisksclient_p.h"
 
+#include "udiskspartition.h"
 #include "common.h"
 
 #include <QDebug>
@@ -110,6 +111,18 @@ UDisksObject::Ptr UDisksClient::getObject(const QDBusObjectPath &objectPath) con
     return d->objects.value(objectPath);
 }
 
+UDisksObject::List UDisksClient::getPartitions(const QDBusObjectPath &tablePath) const
+{
+    UDisksObject::List ret;
+    UDisksObject::List blockDevices = getObjects(UDisksObject::BlockDevice);
+    foreach (const UDisksObject::Ptr &object, blockDevices) {
+        if (object->partition() && object->partition()->table() == tablePath) {
+            ret << object;
+        }
+    }
+    return ret;
+}
+
 UDisksManager *UDisksClient::manager() const
 {
     UDisksManager *ret = 0;
@@ -173,7 +186,7 @@ void UDisksClientPrivate::initObjects(const UDManagedObjects &managedObjects)
 void UDisksClientPrivate::_q_getObjectsFinished(QDBusPendingCallWatcher *call)
 {
     Q_Q(UDisksClient);
-    qWarning() << Q_FUNC_INFO;
+//    qWarning() << Q_FUNC_INFO;
     QDBusPendingReply<UDManagedObjects> reply = *call;
     if (reply.isError()) {
 //        showError();
@@ -191,7 +204,7 @@ void UDisksClientPrivate::_q_interfacesAdded(const QDBusObjectPath &objectPath, 
 {
     Q_Q(UDisksClient);
 
-    qDebug() << Q_FUNC_INFO << objectPath.path();
+//    qDebug() << Q_FUNC_INFO << objectPath.path();
 
     UDisksObject::Ptr object = objects.value(objectPath);
     if (object.isNull()) {
@@ -208,7 +221,7 @@ void UDisksClientPrivate::_q_interfacesRemoved(const QDBusObjectPath &objectPath
 {
     Q_Q(UDisksClient);
 
-    qDebug() << Q_FUNC_INFO << objectPath.path();
+//    qDebug() << Q_FUNC_INFO << objectPath.path();
 
     UDisksObject::Ptr object = objects.value(objectPath);
     if (object) {

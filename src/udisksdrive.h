@@ -23,15 +23,17 @@
 #include <QObject>
 #include <QtDBus/QDBusPendingReply>
 
+#include "udisksblock.h"
 #include "udisksinterface.h"
 #include "dbus-types.h"
 
+class UDisksObject;
 class UDisksDrivePrivate;
 class UDisksDrive : public UDisksInterface
 {
     Q_OBJECT
 public:
-    explicit UDisksDrive(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    explicit UDisksDrive(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = 0);
     ~UDisksDrive();
 
     Q_PROPERTY(bool canPowerOff READ canPowerOff)
@@ -120,6 +122,20 @@ public:
 
     Q_PROPERTY(QString wWN READ wWN)
     QString wWN() const;
+
+    /**
+     * @brief Get the main block device associated with
+     * this drive, do not delete this pointer.
+     * @return the block device associated with this drive
+     */
+    UDisksBlock* block() const;
+
+    /**
+     * @brief Get the main block device associated with
+     * this drive, do not delete this pointer.
+     * @return the block device associated with this drive
+     */
+    UDisksObject::List topLevelBlocks() const;
 
 public Q_SLOTS:
     QDBusPendingReply<> eject(const QVariantMap &options = QVariantMap());

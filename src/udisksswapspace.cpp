@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-UDisksSwapspace::UDisksSwapspace(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
+UDisksSwapspace::UDisksSwapspace(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksSwapspacePrivate(objectPath.path()))
 {

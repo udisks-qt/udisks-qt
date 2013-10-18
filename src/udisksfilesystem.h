@@ -31,7 +31,7 @@ class UDisksFilesystem : public UDisksInterface
 {
     Q_OBJECT
 public:
-    explicit UDisksFilesystem(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    explicit UDisksFilesystem(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = 0);
     ~UDisksFilesystem();
 
     Q_PROPERTY(QStringList mountPoints READ mountPoints)

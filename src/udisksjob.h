@@ -32,7 +32,7 @@ class UDisksJob : public UDisksInterface
 {
     Q_OBJECT
 public:
-    explicit UDisksJob(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    explicit UDisksJob(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = 0);
     ~UDisksJob();
 
     Q_PROPERTY(qulonglong bytes READ bytes)

@@ -23,17 +23,20 @@
 #include <QObject>
 #include <QVariantMap>
 
+class UDisksObject;
 class UDisksInterface : public QObject
 {
     Q_OBJECT
 public:
-    explicit UDisksInterface(QObject *parent);
+    explicit UDisksInterface(UDisksObject *parent);
     virtual ~UDisksInterface() {}
+
 
 Q_SIGNALS:
     void changed();
 
 protected:
+    UDisksObject* object() const;
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties) = 0;
     void changeProperties(QVariantMap &properties, const QVariantMap &changedProperties, const QStringList &invalidProperties);
 

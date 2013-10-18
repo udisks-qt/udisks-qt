@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-UDisksMDRaid::UDisksMDRaid(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
+UDisksMDRaid::UDisksMDRaid(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksMDRaidPrivate(objectPath.path()))
 {

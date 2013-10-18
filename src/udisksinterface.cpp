@@ -19,14 +19,20 @@
 
 #include "udisksinterface.h"
 
+#include "udisksobject.h"
 #include "common.h"
 
 #include <QStringList>
 #include <QDebug>
 
-UDisksInterface::UDisksInterface(QObject *parent) :
+UDisksInterface::UDisksInterface(UDisksObject *parent) :
     QObject(parent)
 {
+}
+
+UDisksObject *UDisksInterface::object() const
+{
+    return qobject_cast<UDisksObject*>(parent());
 }
 
 void UDisksInterface::changeProperties(QVariantMap &properties, const QVariantMap &changedProperties, const QStringList &invalidProperties)

@@ -52,19 +52,19 @@ UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMap
     // Initializa the kind of the object
     const QString &path = objectPath.path();
     if (path.startsWith(QLatin1String(UD2_PATH_BLOCK_DEVICES))) {
-        qWarning() << "Block Devices";
+//        qWarning() << "Block Devices";
         d->kind = BlockDevice;
     } else if (path.startsWith(QLatin1String(UD2_PATH_DRIVES))) {
         qWarning() << "Drives";
         d->kind = Drive;
     } else if (path.startsWith(QLatin1String(UD2_PATH_MDRAID))) {
-        qWarning() << "MDRaid";
+//        qWarning() << "MDRaid";
         d->kind = MDRaid;
     } else if (path.startsWith(QLatin1String(UD2_PATH_JOBS))) {
-        qWarning() << "Jobs";
+//        qWarning() << "Jobs";
         d->kind = Job;
     } else if (path.startsWith(QLatin1String(UD2_PATH_MANAGER))) {
-        qWarning() << "Manager";
+//        qWarning() << "Manager";
         d->kind = Manager;
     } else {
         qWarning() << Q_FUNC_INFO << "Unknown udisk object please report a bug:" << path;
@@ -74,6 +74,9 @@ UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMap
     // Create the object interfaces
     UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
     while (it != interfacesAndProperties.constEnd()) {
+        if (d->kind == Drive) {
+            qDebug() << Q_FUNC_INFO << it.key();
+        }
         d->_q_addInterface(it.key(), it.value(), false);
 
         ++it;
@@ -466,9 +469,9 @@ void UDisksObjectPrivate::_q_propertiesChanged(const QString &interface, const Q
 {
     Q_Q(UDisksObject);
 
-    qDebug() << Q_FUNC_INFO << interface;
-    qDebug() << properties;
-    qDebug() << invalidatedProperties;
+//    qDebug() << Q_FUNC_INFO << interface;
+//    qDebug() << properties;
+//    qDebug() << invalidatedProperties;
     UDisksInterface *interfacePointer = 0;
     UDisksObject::Interface interfaceEnum = q->interfaceEnumFromString(interface);
     switch (interfaceEnum) {

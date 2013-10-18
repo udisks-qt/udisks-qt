@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-UDisksPartitionTable::UDisksPartitionTable(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
+UDisksPartitionTable::UDisksPartitionTable(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksPartitionTablePrivate(objectPath.path()))
 {

@@ -31,7 +31,7 @@ class UDisksMDRaid : public UDisksInterface
 {
     Q_OBJECT
 public:
-    explicit UDisksMDRaid(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    explicit UDisksMDRaid(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = 0);
     ~UDisksMDRaid();
 
     Q_PROPERTY(UDActiveDevice activeDevices READ activeDevices)

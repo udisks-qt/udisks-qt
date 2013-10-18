@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-UDisksLoop::UDisksLoop(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
+UDisksLoop::UDisksLoop(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksLoopPrivate(objectPath.path()))
 {

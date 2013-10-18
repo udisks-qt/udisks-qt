@@ -20,11 +20,13 @@
 #include "udisksdrive.h"
 #include "udisksdrive_p.h"
 
+#include "udisksobject.h"
+#include "udisksclient.h"
 #include "common.h"
 
 #include <QDebug>
 
-UDisksDrive::UDisksDrive(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
+UDisksDrive::UDisksDrive(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksDrivePrivate(objectPath.path(), properties))
 {
@@ -207,6 +209,40 @@ QString UDisksDrive::wWN() const
 {
     Q_D(const UDisksDrive);
     return d->properties[QLatin1String("WWN")].toString();
+}
+
+UDisksBlock *UDisksDrive::block() const
+{
+    UDisksObject::List blocks = topLevelBlocks();
+    UDisksBlock *ret = 0;
+    foreach (const UDisksObject::Ptr &object, blocks) {
+        if (object->block()) {
+            ret = object->block();
+            break;
+        }
+    }
+    return ret;
+}
+
+UDisksObject::List UDisksDrive::topLevelBlocks() const
+{
+    Q_D(const UDisksDrive);
+
+    UDisksObject::List ret;
+    if (object() && object()->client()) {
+        UDisksClient *client = object()->client();
+        foreach (const UDisksObject::Ptr &object, client->getObjects(UDisksObject::BlockDevice)) {
+            UDisksBlock *block = object->block();
+            if (block == 0) {
+                continue;
+            }
+
+            if (block->drive().path() == d->interface.path() && object->partition() == 0) {
+                ret << object;
+            }
+        }
+    }
+    return ret;
 }
 
 QDBusPendingReply<> UDisksDrive::eject(const QVariantMap &options)

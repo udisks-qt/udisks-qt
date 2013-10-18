@@ -33,7 +33,7 @@ class UDisksManager : public UDisksInterface
     Q_OBJECT
     Q_PROPERTY(QString version READ version NOTIFY versionChanged)
 public:
-    explicit UDisksManager(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    explicit UDisksManager(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = 0);
     ~UDisksManager();
 
     /**

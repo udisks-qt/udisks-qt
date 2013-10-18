@@ -104,8 +104,8 @@ public:
 
     UDisksObject::Ptr mDRaidMemberObjectPtr() const;
 
-    Q_PROPERTY(QByteArray preferredDevice READ preferredDevice)
-    QByteArray preferredDevice() const;
+    Q_PROPERTY(QString preferredDevice READ preferredDevice)
+    QString preferredDevice() const;
 
     Q_PROPERTY(bool readOnly READ readOnly)
     bool readOnly() const;

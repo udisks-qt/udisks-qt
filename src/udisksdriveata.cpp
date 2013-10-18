@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-UDisksDriveAta::UDisksDriveAta(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
+UDisksDriveAta::UDisksDriveAta(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksDriveAtaPrivate(objectPath.path()))
 {

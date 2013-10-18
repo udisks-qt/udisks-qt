@@ -30,8 +30,7 @@
 
 #include <QDebug>
 
-
-UDisksManager::UDisksManager(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
+UDisksManager::UDisksManager(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksManagerPrivate(objectPath))
 {

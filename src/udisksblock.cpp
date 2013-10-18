@@ -211,10 +211,11 @@ UDisksObject::Ptr UDisksBlock::mDRaidMemberObjectPtr() const
     return UDisksObject::Ptr();
 }
 
-QByteArray UDisksBlock::preferredDevice() const
+QString UDisksBlock::preferredDevice() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("PreferredDevice")].toByteArray();
+    QByteArray array = d->properties[QLatin1String("PreferredDevice")].toByteArray();
+    return QFile::decodeName(array);
 }
 
 bool UDisksBlock::readOnly() const

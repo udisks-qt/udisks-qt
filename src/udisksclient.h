@@ -57,6 +57,8 @@ public:
 
     UDisksObject::Ptr getObject(const QDBusObjectPath &objectPath) const;
 
+    UDisksObject::List getPartitions(const QDBusObjectPath &tablePath) const;
+
     UDisksManager *manager() const;
 
 Q_SIGNALS:

@@ -25,7 +25,7 @@
 
 #include <QDebug>
 
-UDisksJob::UDisksJob(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent) :
+UDisksJob::UDisksJob(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksJobPrivate(objectPath.path()))
 {

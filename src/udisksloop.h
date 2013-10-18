@@ -31,7 +31,7 @@ class UDisksLoop : public UDisksInterface
 {
     Q_OBJECT
 public:
-    explicit UDisksLoop(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    explicit UDisksLoop(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = 0);
     ~UDisksLoop();
 
     Q_PROPERTY(bool autoclear READ autoclear)

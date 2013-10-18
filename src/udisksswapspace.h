@@ -31,7 +31,7 @@ class UDisksSwapspace : public UDisksInterface
 {
     Q_OBJECT
 public:
-    explicit UDisksSwapspace(const QDBusObjectPath &objectPath, const QVariantMap &properties, QObject *parent = 0);
+    explicit UDisksSwapspace(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = 0);
     ~UDisksSwapspace();
 
     Q_PROPERTY(bool active READ active)
