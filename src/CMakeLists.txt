@@ -94,8 +94,6 @@ set_property(SOURCE org.freedesktop.DBus.ObjectManager.xml PROPERTY INCLUDE dbus
 set_property(SOURCE org.freedesktop.DBus.ObjectManager.xml PROPERTY NO_NAMESPACE true)
 qt5_add_dbus_interface(udisksqt_SRC org.freedesktop.DBus.ObjectManager.xml DBusObjectManager)
 
-qt5_wrap_cpp(udisksqt_MOC_SRC ${udisksqt_HEADERS} ${udisksqt_HEADERS_PRIVATE})
-
 add_library(udisks2-qt5 SHARED ${udisksqt_SRC} ${udisksqt_HEADERS} ${udisksqt_HEADERS_PRIVATE})
 set_target_properties(udisks2-qt5 PROPERTIES VERSION ${UDISKS_VERSION} SOVERSION ${UDISKS_API_LEVEL})
 
