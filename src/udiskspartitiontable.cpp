@@ -41,7 +41,7 @@ UDisksPartitionTable::~UDisksPartitionTable()
 QString UDisksPartitionTable::type() const
 {
     Q_D(const UDisksPartitionTable);
-    return d->properties[QLatin1String("Type")].toString();
+    return d->properties.value(QStringLiteral("Type")).toString();
 }
 
 QDBusPendingReply<QDBusObjectPath> UDisksPartitionTable::createPartition(qulonglong offset, qulonglong size, const QString &type, const QString &name, const QVariantMap &options)

@@ -42,25 +42,25 @@ UDisksJob::~UDisksJob()
 qulonglong UDisksJob::bytes() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("Bytes")].toULongLong();
+    return d->properties.value(QStringLiteral("Bytes")).toULongLong();
 }
 
 bool UDisksJob::cancelable() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("Cancelable")].toBool();
+    return d->properties.value(QStringLiteral("Cancelable")).toBool();
 }
 
 qulonglong UDisksJob::expectedEndTime() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("ExpectedEndTime")].toULongLong();
+    return d->properties.value(QStringLiteral("ExpectedEndTime")).toULongLong();
 }
 
 QList<QDBusObjectPath> UDisksJob::objects() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("Objects")].value<QList<QDBusObjectPath> >();
+    return d->properties.value(QStringLiteral("Objects")).value<QList<QDBusObjectPath> >();
 }
 
 UDisksObject::List UDisksJob::objectsPtr() const
@@ -79,37 +79,37 @@ UDisksObject::List UDisksJob::objectsPtr() const
 QString UDisksJob::operation() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("Operation")].toString();
+    return d->properties.value(QStringLiteral("Operation")).toString();
 }
 
 double UDisksJob::progress() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("Progress")].toDouble();
+    return d->properties.value(QStringLiteral("Progress")).toDouble();
 }
 
 bool UDisksJob::progressValid() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("ProgressValid")].toBool();
+    return d->properties.value(QStringLiteral("ProgressValid")).toBool();
 }
 
 qulonglong UDisksJob::rate() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("Rate")].toULongLong();
+    return d->properties.value(QStringLiteral("Rate")).toULongLong();
 }
 
 qulonglong UDisksJob::startTime() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("StartTime")].toULongLong();
+    return d->properties.value(QStringLiteral("StartTime")).toULongLong();
 }
 
 uint UDisksJob::startedByUID() const
 {
     Q_D(const UDisksJob);
-    return d->properties[QLatin1String("StartedByUID")].toUInt();
+    return d->properties.value(QStringLiteral("StartedByUID")).toUInt();
 }
 
 QDBusPendingReply<> UDisksJob::cancel(const QVariantMap &options)

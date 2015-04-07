@@ -42,49 +42,49 @@ UDisksPartition::~UDisksPartition()
 qulonglong UDisksPartition::flags() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("Flags")].toULongLong();
+    return d->properties.value(QStringLiteral("Flags")).toULongLong();
 }
 
 bool UDisksPartition::isContained() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("IsContained")].toBool();
+    return d->properties.value(QStringLiteral("IsContained")).toBool();
 }
 
 bool UDisksPartition::isContainer() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("IsContainer")].toBool();
+    return d->properties.value(QStringLiteral("IsContainer")).toBool();
 }
 
 QString UDisksPartition::name() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("Name")].toString();
+    return d->properties.value(QStringLiteral("Name")).toString();
 }
 
 uint UDisksPartition::number() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("Number")].toUInt();
+    return d->properties.value(QStringLiteral("Number")).toUInt();
 }
 
 qulonglong UDisksPartition::offset() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("Offset")].toULongLong();
+    return d->properties.value(QStringLiteral("Offset")).toULongLong();
 }
 
 qulonglong UDisksPartition::size() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("Size")].toULongLong();
+    return d->properties.value(QStringLiteral("Size")).toULongLong();
 }
 
 QDBusObjectPath UDisksPartition::table() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("Table")].value<QDBusObjectPath>();
+    return d->properties.value(QStringLiteral("Table")).value<QDBusObjectPath>();
 }
 
 UDisksObject::Ptr UDisksPartition::tableObjectPtr() const
@@ -103,13 +103,13 @@ UDisksObject::Ptr UDisksPartition::tableObjectPtr() const
 QString UDisksPartition::type() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("Type")].toString();
+    return d->properties.value(QStringLiteral("Type")).toString();
 }
 
 QString UDisksPartition::uUID() const
 {
     Q_D(const UDisksPartition);
-    return d->properties[QLatin1String("UUID")].toString();
+    return d->properties.value(QStringLiteral("UUID")).toString();
 }
 
 QDBusPendingReply<> UDisksPartition::deletePartition(const QVariantMap &options)

@@ -42,13 +42,13 @@ UDisksBlock::~UDisksBlock()
 UDItemList UDisksBlock::configuration() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("Configuration")].value<QList<UDItem> >();
+    return d->properties.value(QStringLiteral("Configuration")).value<QList<UDItem> >();
 }
 
 QDBusObjectPath UDisksBlock::cryptoBackingDevice() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("CryptoBackingDevice")].value<QDBusObjectPath>();
+    return d->properties.value(QStringLiteral("CryptoBackingDevice")).value<QDBusObjectPath>();
 }
 
 UDisksObject::Ptr UDisksBlock::cryptoBackingDeviceObjectPtr() const
@@ -67,19 +67,19 @@ UDisksObject::Ptr UDisksBlock::cryptoBackingDeviceObjectPtr() const
 QByteArray UDisksBlock::device() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("Device")].toByteArray();
+    return d->properties.value(QStringLiteral("Device")).toByteArray();
 }
 
 qulonglong UDisksBlock::deviceNumber() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("DeviceNumber")].toULongLong();
+    return d->properties.value(QStringLiteral("DeviceNumber")).toULongLong();
 }
 
 QDBusObjectPath UDisksBlock::drive() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("Drive")].value<QDBusObjectPath>();
+    return d->properties.value(QStringLiteral("Drive")).value<QDBusObjectPath>();
 }
 
 UDisksObject::Ptr UDisksBlock::driveObjectPtr() const
@@ -98,85 +98,85 @@ UDisksObject::Ptr UDisksBlock::driveObjectPtr() const
 bool UDisksBlock::hintAuto() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("Drive")].toBool();
+    return d->properties.value(QStringLiteral("Drive")).toBool();
 }
 
 QString UDisksBlock::hintIconName() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("HintIconName")].toString();
+    return d->properties.value(QStringLiteral("HintIconName")).toString();
 }
 
 bool UDisksBlock::hintIgnore() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("HintIgnore")].toBool();
+    return d->properties.value(QStringLiteral("HintIgnore")).toBool();
 }
 
 QString UDisksBlock::hintName() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("HintName")].toString();
+    return d->properties.value(QStringLiteral("HintName")).toString();
 }
 
 bool UDisksBlock::hintPartitionable() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("HintPartitionable")].toBool();
+    return d->properties.value(QStringLiteral("HintPartitionable")).toBool();
 }
 
 QString UDisksBlock::hintSymbolicIconName() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("HintSymbolicIconName")].toString();
+    return d->properties.value(QStringLiteral("HintSymbolicIconName")).toString();
 }
 
 bool UDisksBlock::hintSystem() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("HintSystem")].toBool();
+    return d->properties.value(QStringLiteral("HintSystem")).toBool();
 }
 
 QString UDisksBlock::id() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("Id")].toString();
+    return d->properties.value(QStringLiteral("Id")).toString();
 }
 
 QString UDisksBlock::idLabel() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("IdLabel")].toString();
+    return d->properties.value(QStringLiteral("IdLabel")).toString();
 }
 
 QString UDisksBlock::idType() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("IdType")].toString();
+    return d->properties.value(QStringLiteral("IdType")).toString();
 }
 
 QString UDisksBlock::idUUID() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("IdUUID")].toString();
+    return d->properties.value(QStringLiteral("IdUUID")).toString();
 }
 
 QString UDisksBlock::idUsage() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("IdUsage")].toString();
+    return d->properties.value(QStringLiteral("IdUsage")).toString();
 }
 
 QString UDisksBlock::idVersion() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("IdVersion")].toString();
+    return d->properties.value(QStringLiteral("IdVersion")).toString();
 }
 
 QDBusObjectPath UDisksBlock::mDRaid() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("MDRaid")].value<QDBusObjectPath>();
+    return d->properties.value(QStringLiteral("MDRaid")).value<QDBusObjectPath>();
 }
 
 UDisksObject::Ptr UDisksBlock::mDRaidObjectPtr() const
@@ -195,7 +195,7 @@ UDisksObject::Ptr UDisksBlock::mDRaidObjectPtr() const
 QDBusObjectPath UDisksBlock::mDRaidMember() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("MDRaidMember")].value<QDBusObjectPath>();
+    return d->properties.value(QStringLiteral("MDRaidMember")).value<QDBusObjectPath>();
 }
 
 UDisksObject::Ptr UDisksBlock::mDRaidMemberObjectPtr() const
@@ -214,27 +214,27 @@ UDisksObject::Ptr UDisksBlock::mDRaidMemberObjectPtr() const
 QString UDisksBlock::preferredDevice() const
 {
     Q_D(const UDisksBlock);
-    QByteArray array = d->properties[QLatin1String("PreferredDevice")].toByteArray();
+    QByteArray array = d->properties.value(QStringLiteral("PreferredDevice")).toByteArray();
     return QFile::decodeName(array);
 }
 
 bool UDisksBlock::readOnly() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("ReadOnly")].toBool();
+    return d->properties.value(QStringLiteral("ReadOnly")).toBool();
 }
 
 qulonglong UDisksBlock::size() const
 {
     Q_D(const UDisksBlock);
-    return d->properties[QLatin1String("Size")].toULongLong();
+    return d->properties.value(QStringLiteral("Size")).toULongLong();
 }
 
 QStringList UDisksBlock::symlinks() const
 {
     Q_D(const UDisksBlock);
     QStringList ret;
-    QVariant variant = d->properties[QLatin1String("Symlinks")];
+    QVariant variant = d->properties.value(QStringLiteral("Symlinks"));
     UDByteArrayList symlinks = qdbus_cast<UDByteArrayList>(variant);
     foreach (const QByteArray &symlink, symlinks) {
         ret << QFile::decodeName(symlink);

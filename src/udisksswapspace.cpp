@@ -41,7 +41,7 @@ UDisksSwapspace::~UDisksSwapspace()
 bool UDisksSwapspace::active() const
 {
     Q_D(const UDisksSwapspace);
-    return d->properties[QLatin1String("Active")].toBool();
+    return d->properties.value(QStringLiteral("Active")).toBool();
 }
 
 QDBusPendingReply<> UDisksSwapspace::start(const QVariantMap &options)

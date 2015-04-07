@@ -41,19 +41,19 @@ UDisksLoop::~UDisksLoop()
 bool UDisksLoop::autoclear() const
 {
     Q_D(const UDisksLoop);
-    return d->properties[QLatin1String("Autoclear")].toBool();
+    return d->properties.value(QStringLiteral("Autoclear")).toBool();
 }
 
 QByteArray UDisksLoop::backingFile() const
 {
     Q_D(const UDisksLoop);
-    return d->properties[QLatin1String("BackingFile")].toByteArray();
+    return d->properties.value(QStringLiteral("BackingFile")).toByteArray();
 }
 
 uint UDisksLoop::setupByUID() const
 {
     Q_D(const UDisksLoop);
-    return d->properties[QLatin1String("SetupByUID")].toUInt();
+    return d->properties.value(QStringLiteral("SetupByUID")).toUInt();
 }
 
 QDBusPendingReply<> UDisksLoop::deleteLoop(const QVariantMap &options)

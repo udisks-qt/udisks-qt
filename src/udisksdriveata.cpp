@@ -41,139 +41,139 @@ UDisksDriveAta::~UDisksDriveAta()
 bool UDisksDriveAta::aamEnabled() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("AamEnabled")].toBool();
+    return d->properties.value(QStringLiteral("AamEnabled")).toBool();
 }
 
 bool UDisksDriveAta::aamSupported() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("AamSupported")].toBool();
+    return d->properties.value(QStringLiteral("AamSupported")).toBool();
 }
 
 int UDisksDriveAta::aamVendorRecommendedValue() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("AamVendorRecommendedValue")].toInt();
+    return d->properties.value(QStringLiteral("AamVendorRecommendedValue")).toInt();
 }
 
 bool UDisksDriveAta::apmEnabled() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("ApmEnabled")].toBool();
+    return d->properties.value(QStringLiteral("ApmEnabled")).toBool();
 }
 
 bool UDisksDriveAta::apmSupported() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("ApmSupported")].toBool();
+    return d->properties.value(QStringLiteral("ApmSupported")).toBool();
 }
 
 bool UDisksDriveAta::pmEnabled() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("PmEnabled")].toBool();
+    return d->properties.value(QStringLiteral("PmEnabled")).toBool();
 }
 
 bool UDisksDriveAta::pmSupported() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("PmSupported")].toBool();
+    return d->properties.value(QStringLiteral("PmSupported")).toBool();
 }
 
 int UDisksDriveAta::securityEnhancedEraseUnitMinutes() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SecurityEnhancedEraseUnitMinutes")].toInt();
+    return d->properties.value(QStringLiteral("SecurityEnhancedEraseUnitMinutes")).toInt();
 }
 
 int UDisksDriveAta::securityEraseUnitMinutes() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SecurityEraseUnitMinutes")].toInt();
+    return d->properties.value(QStringLiteral("SecurityEraseUnitMinutes")).toInt();
 }
 
 bool UDisksDriveAta::securityFrozen() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SecurityFrozen")].toBool();
+    return d->properties.value(QStringLiteral("SecurityFrozen")).toBool();
 }
 
 bool UDisksDriveAta::smartEnabled() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartEnabled")].toBool();
+    return d->properties.value(QStringLiteral("SmartEnabled")).toBool();
 }
 
 bool UDisksDriveAta::smartFailing() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartFailing")].toBool();
+    return d->properties.value(QStringLiteral("SmartFailing")).toBool();
 }
 
 int UDisksDriveAta::smartNumAttributesFailedInThePast() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartNumAttributesFailedInThePast")].toInt();
+    return d->properties.value(QStringLiteral("SmartNumAttributesFailedInThePast")).toInt();
 }
 
 int UDisksDriveAta::smartNumAttributesFailing() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartNumAttributesFailing")].toInt();
+    return d->properties.value(QStringLiteral("SmartNumAttributesFailing")).toInt();
 }
 
 qlonglong UDisksDriveAta::smartNumBadSectors() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartNumBadSectors")].toULongLong();
+    return d->properties.value(QStringLiteral("SmartNumBadSectors")).toULongLong();
 }
 
 qulonglong UDisksDriveAta::smartPowerOnSeconds() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartPowerOnSeconds")].toULongLong();
+    return d->properties.value(QStringLiteral("SmartPowerOnSeconds")).toULongLong();
 }
 
 int UDisksDriveAta::smartSelftestPercentRemaining() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartSelftestPercentRemaining")].toInt();
+    return d->properties.value(QStringLiteral("SmartSelftestPercentRemaining")).toInt();
 }
 
 QString UDisksDriveAta::smartSelftestStatus() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartSelftestStatus")].toString();
+    return d->properties.value(QStringLiteral("SmartSelftestStatus")).toString();
 }
 
 bool UDisksDriveAta::smartSupported() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartSupported")].toBool();
+    return d->properties.value(QStringLiteral("SmartSupported")).toBool();
 }
 
 double UDisksDriveAta::smartTemperature() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartTemperature")].toDouble();
+    return d->properties.value(QStringLiteral("SmartTemperature")).toDouble();
 }
 
 qulonglong UDisksDriveAta::smartUpdated() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("SmartUpdated")].toULongLong();
+    return d->properties.value(QStringLiteral("SmartUpdated")).toULongLong();
 }
 
 bool UDisksDriveAta::writeCacheEnabled() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("WriteCacheEnabled")].toBool();
+    return d->properties.value(QStringLiteral("WriteCacheEnabled")).toBool();
 }
 
 bool UDisksDriveAta::writeCacheSupported() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties[QLatin1String("WriteCacheSupported")].toBool();
+    return d->properties.value(QStringLiteral("WriteCacheSupported")).toBool();
 }
 
 QDBusPendingReply<uchar> UDisksDriveAta::pmGetState(const QVariantMap &options)

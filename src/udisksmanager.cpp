@@ -47,7 +47,7 @@ UDisksManager::~UDisksManager()
 QString UDisksManager::version() const
 {
     Q_D(const UDisksManager);
-    return d->properties[QLatin1String("Version")].toString();
+    return d->properties.value(QStringLiteral("Version")).toString();
 }
 
 QDBusPendingReply<QDBusObjectPath> UDisksManager::loopSetup(const QDBusUnixFileDescriptor &fd, const QVariantMap &options)

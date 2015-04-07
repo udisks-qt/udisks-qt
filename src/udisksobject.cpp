@@ -35,7 +35,10 @@
 #include "udisksjob.h"
 
 #include <QtDBus/QDBusConnection>
-#include <QDebug>
+
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(UDISKSQT_OBJECT, "udisksqt.object")
 
 UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties, UDisksClient *client) :
     d_ptr(new UDisksObjectPrivate(objectPath, client, this))
@@ -52,31 +55,23 @@ UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMap
     // Initializa the kind of the object
     const QString &path = objectPath.path();
     if (path.startsWith(QLatin1String(UD2_PATH_BLOCK_DEVICES))) {
-//        qWarning() << "Block Devices";
         d->kind = BlockDevice;
     } else if (path.startsWith(QLatin1String(UD2_PATH_DRIVES))) {
-        qWarning() << "Drives";
         d->kind = Drive;
     } else if (path.startsWith(QLatin1String(UD2_PATH_MDRAID))) {
-//        qWarning() << "MDRaid";
         d->kind = MDRaid;
     } else if (path.startsWith(QLatin1String(UD2_PATH_JOBS))) {
-//        qWarning() << "Jobs";
         d->kind = Job;
     } else if (path.startsWith(QLatin1String(UD2_PATH_MANAGER))) {
-//        qWarning() << "Manager";
         d->kind = Manager;
     } else {
-        qWarning() << Q_FUNC_INFO << "Unknown udisk object please report a bug:" << path;
+        qCWarning(UDISKSQT_OBJECT) << "Unknown udisk object please report a bug:" << path;
         d->kind = Unknown;
     }
 
     // Create the object interfaces
     UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
     while (it != interfacesAndProperties.constEnd()) {
-        if (d->kind == Drive) {
-            qDebug() << Q_FUNC_INFO << it.key();
-        }
         d->_q_addInterface(it.key(), it.value(), false);
 
         ++it;
@@ -242,7 +237,7 @@ UDisksObject::Interface UDisksObject::interfaceEnumFromString(const QString &int
     } else if (interface == QLatin1String(UD2_INTERFACE_JOB)) {
         return UDisksObject::InterfaceJob;
     } else {
-        qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
+        qCWarning(UDISKSQT_OBJECT) << "Unknown interface to enum, please report a bug:" << interface;
         return UDisksObject::InterfaceNone;
     }
 }
@@ -348,6 +343,7 @@ bool UDisksObjectPrivate::_q_addInterface(const QString &interface, const QVaria
         }
         break;
     default:
+        qCWarning(UDISKSQT_OBJECT) << "Unknown interface to add, please report a bug:" << interface;
         break;
     }
 
@@ -453,7 +449,7 @@ bool UDisksObjectPrivate::_q_removeInterface(const QString &interface)
         }
         break;
     default:
-        qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
+        qCWarning(UDISKSQT_OBJECT) << "Unknown interface to remove, please report a bug:" << interface;
         break;
     }
 
@@ -469,9 +465,8 @@ void UDisksObjectPrivate::_q_propertiesChanged(const QString &interface, const Q
 {
     Q_Q(UDisksObject);
 
-//    qDebug() << Q_FUNC_INFO << interface;
-//    qDebug() << properties;
-//    qDebug() << invalidatedProperties;
+    qCDebug(UDISKSQT_OBJECT) << "Properties changed" << interface;
+
     UDisksInterface *interfacePointer = 0;
     UDisksObject::Interface interfaceEnum = q->interfaceEnumFromString(interface);
     switch (interfaceEnum) {
@@ -536,7 +531,7 @@ void UDisksObjectPrivate::_q_propertiesChanged(const QString &interface, const Q
         }
         break;
     default:
-        qWarning() << Q_FUNC_INFO << "Unknown interface, please report a bug:" << interface;
+        qCWarning(UDISKSQT_OBJECT) << "Unknown interface to change, please report a bug:" << interface;
         break;
     }
 

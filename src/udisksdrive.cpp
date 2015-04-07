@@ -40,175 +40,175 @@ UDisksDrive::~UDisksDrive()
 bool UDisksDrive::canPowerOff() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("CanPowerOff")].toBool();
+    return d->properties.value(QStringLiteral("CanPowerOff")).toBool();
 }
 
 QVariantMap UDisksDrive::configuration() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Configuration")].value<QVariantMap>();
+    return d->properties.value(QStringLiteral("Configuration")).value<QVariantMap>();
 }
 
 QString UDisksDrive::connectionBus() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("ConnectionBus")].toString();
+    return d->properties.value(QStringLiteral("ConnectionBus")).toString();
 }
 
 bool UDisksDrive::ejectable() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Ejectable")].toBool();
+    return d->properties.value(QStringLiteral("Ejectable")).toBool();
 }
 
 QString UDisksDrive::id() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Id")].toString();
+    return d->properties.value(QStringLiteral("Id")).toString();
 }
 
 QString UDisksDrive::media() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Media")].toString();
+    return d->properties.value(QStringLiteral("Media")).toString();
 }
 
 bool UDisksDrive::mediaAvailable() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("MediaAvailable")].toBool();
+    return d->properties.value(QStringLiteral("MediaAvailable")).toBool();
 }
 
 bool UDisksDrive::mediaChangeDetected() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("MediaChangeDetected")].toBool();
+    return d->properties.value(QStringLiteral("MediaChangeDetected")).toBool();
 }
 
 QStringList UDisksDrive::mediaCompatibility() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("MediaCompatibility")].toStringList();
+    return d->properties.value(QStringLiteral("MediaCompatibility")).toStringList();
 }
 
 bool UDisksDrive::mediaRemovable() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("MediaRemovable")].toBool();
+    return d->properties.value(QStringLiteral("MediaRemovable")).toBool();
 }
 
 QString UDisksDrive::model() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Model")].toString();
+    return d->properties.value(QStringLiteral("Model")).toString();
 }
 
 bool UDisksDrive::optical() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Optical")].toBool();
+    return d->properties.value(QStringLiteral("Optical")).toBool();
 }
 
 bool UDisksDrive::opticalBlank() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("OpticalBlank")].toBool();
+    return d->properties.value(QStringLiteral("OpticalBlank")).toBool();
 }
 
 uint UDisksDrive::opticalNumAudioTracks() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("OpticalNumAudioTracks")].toUInt();
+    return d->properties.value(QStringLiteral("OpticalNumAudioTracks")).toUInt();
 }
 
 uint UDisksDrive::opticalNumDataTracks() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("OpticalNumDataTracks")].toUInt();
+    return d->properties.value(QStringLiteral("OpticalNumDataTracks")).toUInt();
 }
 
 uint UDisksDrive::opticalNumSessions() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("OpticalNumSessions")].toUInt();
+    return d->properties.value(QStringLiteral("OpticalNumSessions")).toUInt();
 }
 
 uint UDisksDrive::opticalNumTracks() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("OpticalNumTracks")].toUInt();
+    return d->properties.value(QStringLiteral("OpticalNumTracks")).toUInt();
 }
 
 bool UDisksDrive::removable() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Removable")].toBool();
+    return d->properties.value(QStringLiteral("Removable")).toBool();
 }
 
 QString UDisksDrive::revision() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Revision")].toString();
+    return d->properties.value(QStringLiteral("Revision")).toString();
 }
 
 int UDisksDrive::rotationRate() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("RotationRate")].toInt();
+    return d->properties.value(QStringLiteral("RotationRate")).toInt();
 }
 
 QString UDisksDrive::seat() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Seat")].toString();
+    return d->properties.value(QStringLiteral("Seat")).toString();
 }
 
 QString UDisksDrive::serial() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Serial")].toString();
+    return d->properties.value(QStringLiteral("Serial")).toString();
 }
 
 QString UDisksDrive::siblingId() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("SiblingId")].toString();
+    return d->properties.value(QStringLiteral("SiblingId")).toString();
 }
 
 qulonglong UDisksDrive::size() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Size")].toULongLong();
+    return d->properties.value(QStringLiteral("Size")).toULongLong();
 }
 
 QString UDisksDrive::sortKey() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("SortKey")].toString();
+    return d->properties.value(QStringLiteral("SortKey")).toString();
 }
 
 qulonglong UDisksDrive::timeDetected() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("TimeDetected")].toULongLong();
+    return d->properties.value(QStringLiteral("TimeDetected")).toULongLong();
 }
 
 qulonglong UDisksDrive::timeMediaDetected() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("TimeMediaDetected")].toULongLong();
+    return d->properties.value(QStringLiteral("TimeMediaDetected")).toULongLong();
 }
 
 QString UDisksDrive::vendor() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("Vendor")].toString();
+    return d->properties.value(QStringLiteral("Vendor")).toString();
 }
 
 QString UDisksDrive::wWN() const
 {
     Q_D(const UDisksDrive);
-    return d->properties[QLatin1String("WWN")].toString();
+    return d->properties.value(QStringLiteral("WWN")).toString();
 }
 
 UDisksBlock *UDisksDrive::getBlock()

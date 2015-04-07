@@ -41,79 +41,79 @@ UDisksMDRaid::~UDisksMDRaid()
 UDActiveDevice UDisksMDRaid::activeDevices() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("ActiveDevices")].value<UDActiveDevice>();
+    return d->properties.value(QStringLiteral("ActiveDevices")).value<UDActiveDevice>();
 }
 
 QByteArray UDisksMDRaid::bitmapLocation() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("BitmapLocation")].toByteArray();
+    return d->properties.value(QStringLiteral("BitmapLocation")).toByteArray();
 }
 
 qulonglong UDisksMDRaid::chunkSize() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("ChunkSize")].toULongLong();
+    return d->properties.value(QStringLiteral("ChunkSize")).toULongLong();
 }
 
 uint UDisksMDRaid::degraded() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("Degraded")].toUInt();
+    return d->properties.value(QStringLiteral("Degraded")).toUInt();
 }
 
 QString UDisksMDRaid::level() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("Level")].toString();
+    return d->properties.value(QStringLiteral("Level")).toString();
 }
 
 QString UDisksMDRaid::name() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("Name")].toString();
+    return d->properties.value(QStringLiteral("Name")).toString();
 }
 
 uint UDisksMDRaid::numDevices() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("NumDevices")].toUInt();
+    return d->properties.value(QStringLiteral("NumDevices")).toUInt();
 }
 
 qulonglong UDisksMDRaid::size() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("Size")].toULongLong();
+    return d->properties.value(QStringLiteral("Size")).toULongLong();
 }
 
 QString UDisksMDRaid::syncAction() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("SyncAction")].toString();
+    return d->properties.value(QStringLiteral("SyncAction")).toString();
 }
 
 double UDisksMDRaid::syncCompleted() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("SyncCompleted")].toDouble();
+    return d->properties.value(QStringLiteral("SyncCompleted")).toDouble();
 }
 
 qulonglong UDisksMDRaid::syncRate() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("SyncRate")].toULongLong();
+    return d->properties.value(QStringLiteral("SyncRate")).toULongLong();
 }
 
 qulonglong UDisksMDRaid::syncRemainingTime() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("SyncRemainingTime")].toULongLong();
+    return d->properties.value(QStringLiteral("SyncRemainingTime")).toULongLong();
 }
 
 QString UDisksMDRaid::uUID() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties[QLatin1String("UUID")].toString();
+    return d->properties.value(QStringLiteral("UUID")).toString();
 }
 
 QDBusPendingReply<> UDisksMDRaid::addDevice(const QDBusObjectPath &device, const QVariantMap &options)

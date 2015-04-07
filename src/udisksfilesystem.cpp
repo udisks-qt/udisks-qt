@@ -43,7 +43,7 @@ QStringList UDisksFilesystem::mountPoints() const
 {
     Q_D(const UDisksFilesystem);
     QStringList ret;
-    QVariant variant = d->properties[QLatin1String("MountPoints")];
+    QVariant variant = d->properties.value(QStringLiteral("MountPoints"));
     UDByteArrayList mountPoints = qdbus_cast<UDByteArrayList>(variant);
     foreach (const QByteArray &mountPoint, mountPoints) {
         ret << QFile::decodeName(mountPoint);

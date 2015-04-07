@@ -66,7 +66,7 @@ bool UDisksClient::init(bool async)
         d->inited = true;
 
         if (!reply.isValid()) {
-            qCWarning(UDISKSQT_CLIENT) << Q_FUNC_INFO << reply.error().message();
+            qCWarning(UDISKSQT_CLIENT) << "Failed to get managed objects:" << reply.error().message();
             return false;
         }
 
@@ -86,7 +86,7 @@ UDisksObject::List UDisksClient::getObjects(UDisksObject::Kind kind) const
         QHash<QDBusObjectPath, UDisksObject::Ptr>::ConstIterator it = d->objects.constBegin();
         while (it != d->objects.end()) {
             if (kind == it.value()->kind()) {
-                ret << it.value();
+                ret.append(it.value());
             }
             ++it;
         }
@@ -101,7 +101,7 @@ UDisksObject::List UDisksClient::getObjects(const QList<QDBusObjectPath> &object
     foreach (const QDBusObjectPath &objectPath, objectPaths) {
         UDisksObject::Ptr object = d->objects.value(objectPath);
         if (object) {
-            ret << object;
+            ret.append(object);
         }
     }
     return ret;
@@ -119,7 +119,7 @@ UDisksObject::List UDisksClient::getPartitions(const QDBusObjectPath &tablePath)
     UDisksObject::List blockDevices = getObjects(UDisksObject::BlockDevice);
     foreach (const UDisksObject::Ptr &object, blockDevices) {
         if (object->partition() && object->partition()->table() == tablePath) {
-            ret << object;
+            ret.append(object);
         }
     }
     return ret;
@@ -188,11 +188,10 @@ void UDisksClientPrivate::initObjects(const UDManagedObjects &managedObjects)
 void UDisksClientPrivate::_q_getObjectsFinished(QDBusPendingCallWatcher *call)
 {
     Q_Q(UDisksClient);
-//    qWarning() << Q_FUNC_INFO;
+
     QDBusPendingReply<UDManagedObjects> reply = *call;
     if (reply.isError()) {
-//        showError();
-        qCWarning(UDISKSQT_CLIENT) << Q_FUNC_INFO << reply.error().message();
+        qCWarning(UDISKSQT_CLIENT) << "Failed to get objects" << reply.error().message();
     } else {
         initObjects(reply.value());
     }
@@ -206,7 +205,7 @@ void UDisksClientPrivate::_q_interfacesAdded(const QDBusObjectPath &objectPath, 
 {
     Q_Q(UDisksClient);
 
-    qCDebug(UDISKSQT_CLIENT) << Q_FUNC_INFO << objectPath.path();
+    qCDebug(UDISKSQT_CLIENT) << "interfaces added" << objectPath.path();
 
     UDisksObject::Ptr object = objects.value(objectPath);
     if (object.isNull()) {
@@ -223,7 +222,7 @@ void UDisksClientPrivate::_q_interfacesRemoved(const QDBusObjectPath &objectPath
 {
     Q_Q(UDisksClient);
 
-    qCDebug(UDISKSQT_CLIENT) << Q_FUNC_INFO << objectPath.path();
+    qCDebug(UDISKSQT_CLIENT) << "interfaces removed" << objectPath.path();
 
     UDisksObject::Ptr object = objects.value(objectPath);
     if (object) {
