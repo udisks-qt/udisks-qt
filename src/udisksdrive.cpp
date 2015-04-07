@@ -211,38 +211,16 @@ QString UDisksDrive::wWN() const
     return d->properties[QLatin1String("WWN")].toString();
 }
 
-UDisksBlock *UDisksDrive::block() const
-{
-    UDisksObject::List blocks = topLevelBlocks();
-    UDisksBlock *ret = 0;
-    foreach (const UDisksObject::Ptr &object, blocks) {
-        if (object->block()) {
-            ret = object->block();
-            break;
-        }
-    }
-    return ret;
-}
-
-UDisksObject::List UDisksDrive::topLevelBlocks() const
+UDisksBlock *UDisksDrive::getBlock()
 {
     Q_D(const UDisksDrive);
-
-    UDisksObject::List ret;
-    if (object() && object()->client()) {
-        UDisksClient *client = object()->client();
-        foreach (const UDisksObject::Ptr &object, client->getObjects(UDisksObject::BlockDevice)) {
-            UDisksBlock *block = object->block();
-            if (block == 0) {
-                continue;
-            }
-
-            if (block->drive().path() == d->interface.path() && object->partition() == 0) {
-                ret << object;
-            }
+    UDisksObject::List blocks = UDisksDrivePrivate::topLevelBlocks(object()->client(), d->interface.path());
+    foreach (const UDisksObject::Ptr &object, blocks) {
+        if (object->block()) {
+            return object->block();
         }
     }
-    return ret;
+    return 0;
 }
 
 QDBusPendingReply<> UDisksDrive::eject(const QVariantMap &options)
@@ -273,4 +251,20 @@ UDisksDrivePrivate::UDisksDrivePrivate(const QString &path, const QVariantMap &p
     interface(QLatin1String(UD2_SERVICE), path, QDBusConnection::systemBus()),
     properties(propertiesMap)
 {
+}
+
+UDisksObject::List UDisksDrivePrivate::topLevelBlocks(UDisksClient *client, const QString &driveObjectPath)
+{
+    UDisksObject::List ret;
+    foreach (const UDisksObject::Ptr &object, client->getObjects(UDisksObject::BlockDevice)) {
+        UDisksBlock *block = object->block();
+        if (!block) {
+            continue;
+        }
+
+        if (block->drive().path() == driveObjectPath && object->partition() == 0) {
+            ret.append(object);
+        }
+    }
+    return ret;
 }

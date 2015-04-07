@@ -22,7 +22,9 @@
 #include "udiskspartition.h"
 #include "common.h"
 
-#include <QDebug>
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(UDISKSQT_CLIENT, "udisksqt.client")
 
 UDisksClient::UDisksClient(QObject *parent) :
     QObject(parent),
@@ -64,7 +66,7 @@ bool UDisksClient::init(bool async)
         d->inited = true;
 
         if (!reply.isValid()) {
-            qWarning() << Q_FUNC_INFO << reply.error().message();
+            qCWarning(UDISKSQT_CLIENT) << Q_FUNC_INFO << reply.error().message();
             return false;
         }
 
@@ -166,7 +168,7 @@ UDisksClientPrivate::UDisksClientPrivate(UDisksClient *parent) :
         if (reply.isValid() && reply.value().contains(QLatin1String(UD2_SERVICE))) {
             QDBusConnection::systemBus().interface()->startService(QLatin1String(UD2_SERVICE));
         } else {
-            qWarning() << "UDisk2 service is not available, check if it's properly installed";
+            qCWarning(UDISKSQT_CLIENT) << "UDisk2 service is not available, check if it's properly installed";
         }
     }
 }
@@ -190,7 +192,7 @@ void UDisksClientPrivate::_q_getObjectsFinished(QDBusPendingCallWatcher *call)
     QDBusPendingReply<UDManagedObjects> reply = *call;
     if (reply.isError()) {
 //        showError();
-        qWarning() << Q_FUNC_INFO << reply.error().message();
+        qCWarning(UDISKSQT_CLIENT) << Q_FUNC_INFO << reply.error().message();
     } else {
         initObjects(reply.value());
     }
@@ -204,7 +206,7 @@ void UDisksClientPrivate::_q_interfacesAdded(const QDBusObjectPath &objectPath, 
 {
     Q_Q(UDisksClient);
 
-//    qDebug() << Q_FUNC_INFO << objectPath.path();
+    qCDebug(UDISKSQT_CLIENT) << Q_FUNC_INFO << objectPath.path();
 
     UDisksObject::Ptr object = objects.value(objectPath);
     if (object.isNull()) {
@@ -221,7 +223,7 @@ void UDisksClientPrivate::_q_interfacesRemoved(const QDBusObjectPath &objectPath
 {
     Q_Q(UDisksClient);
 
-//    qDebug() << Q_FUNC_INFO << objectPath.path();
+    qCDebug(UDISKSQT_CLIENT) << Q_FUNC_INFO << objectPath.path();
 
     UDisksObject::Ptr object = objects.value(objectPath);
     if (object) {

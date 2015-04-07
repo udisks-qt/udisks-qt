@@ -8,6 +8,8 @@ class UDisksDrivePrivate
 public:
     UDisksDrivePrivate(const QString &path, const QVariantMap &propertiesMap);
 
+    static UDisksObject::List topLevelBlocks(UDisksClient *client, const QString &driveObjectPath);
+
     OrgFreedesktopUDisks2DriveInterface interface;
     QVariantMap properties;
 };

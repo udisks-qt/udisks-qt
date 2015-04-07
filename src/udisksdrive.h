@@ -128,14 +128,7 @@ public:
      * this drive, do not delete this pointer.
      * @return the block device associated with this drive
      */
-    UDisksBlock* block() const;
-
-    /**
-     * @brief Get the main block device associated with
-     * this drive, do not delete this pointer.
-     * @return the block device associated with this drive
-     */
-    UDisksObject::List topLevelBlocks() const;
+    UDisksBlock* getBlock();
 
 public Q_SLOTS:
     QDBusPendingReply<> eject(const QVariantMap &options = QVariantMap());
