@@ -43,9 +43,6 @@ class UDisksObjectPrivate;
 class UDisksObject : public QObject
 {
     Q_OBJECT
-    Q_ENUMS(Kind)
-    Q_ENUMS(Interface)
-    Q_FLAGS(Interfaces)
 public:
     typedef QSharedPointer<UDisksObject> Ptr;
     typedef QList<Ptr> List;
@@ -59,6 +56,7 @@ public:
         MDRaid,
         Job
     };
+    Q_ENUM(Kind)
 
     enum Interface {
         InterfaceNone           = 1 << 0,
@@ -76,6 +74,7 @@ public:
         InterfaceLoop           = 1 << 12
     };
     Q_DECLARE_FLAGS(Interfaces, Interface)
+    Q_FLAG(Interfaces)
 
     ~UDisksObject();
 

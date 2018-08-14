@@ -200,8 +200,7 @@ QDBusObjectPath UDisksBlock::mDRaidMember() const
 
 UDisksObject::Ptr UDisksBlock::mDRaidMemberObjectPtr() const
 {
-    Q_D(const UDisksBlock);
-    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    auto object = qobject_cast<UDisksObject*>(parent());
     if (object) {
         UDisksClient *client = object->client();
         if (client) {
@@ -234,9 +233,9 @@ QStringList UDisksBlock::symlinks() const
 {
     Q_D(const UDisksBlock);
     QStringList ret;
-    QVariant variant = d->properties.value(QStringLiteral("Symlinks"));
-    UDByteArrayList symlinks = qdbus_cast<UDByteArrayList>(variant);
-    foreach (const QByteArray &symlink, symlinks) {
+    const QVariant variant = d->properties.value(QStringLiteral("Symlinks"));
+    const auto symlinks = qdbus_cast<UDByteArrayList>(variant);
+    for (const QByteArray &symlink : symlinks) {
         ret << QFile::decodeName(symlink);
     }
     return ret;

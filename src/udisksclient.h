@@ -36,7 +36,7 @@ public:
      * become populated.
      * @param parent
      */
-    explicit UDisksClient(QObject *parent = 0);
+    explicit UDisksClient(QObject *parent = nullptr);
     ~UDisksClient();
 
     Q_PROPERTY(bool inited READ inited)

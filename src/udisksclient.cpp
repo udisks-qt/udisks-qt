@@ -198,7 +198,7 @@ void UDisksClientPrivate::_q_getObjectsFinished(QDBusPendingCallWatcher *call)
     call->deleteLater();
 
     inited = true;
-    q->objectsAvailable();
+    Q_EMIT q->objectsAvailable();
 }
 
 void UDisksClientPrivate::_q_interfacesAdded(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties)
@@ -211,10 +211,10 @@ void UDisksClientPrivate::_q_interfacesAdded(const QDBusObjectPath &objectPath, 
     if (object.isNull()) {
         UDisksObject::Ptr object(new UDisksObject(objectPath, interfacesAndProperties, q));
         objects.insert(objectPath, object);
-        q->objectAdded(object);
+        Q_EMIT q->objectAdded(object);
     } else {
         object->addInterfaces(interfacesAndProperties);
-        q->interfacesAdded(object);
+        Q_EMIT q->interfacesAdded(object);
     }
 }
 
@@ -228,10 +228,10 @@ void UDisksClientPrivate::_q_interfacesRemoved(const QDBusObjectPath &objectPath
     if (object) {
         object->removeInterfaces(interfaces);
         if (object->interfaces() == UDisksObject::InterfaceNone) {
-            q->objectRemoved(object);
+            Q_EMIT q->objectRemoved(object);
             objects.remove(objectPath);
         } else {
-            q->interfacesRemoved(object);
+            Q_EMIT q->interfacesRemoved(object);
         }
     }
 }
