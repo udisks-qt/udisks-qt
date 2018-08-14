@@ -1,20 +1,16 @@
-# CMakeLists for libudisks-qt
-project(udisks-qt)
+cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
-cmake_minimum_required(VERSION 2.8.6 FATAL_ERROR)
+project(udisks-qt LANGUAGES CXX VERSION 0.1.0)
+
 find_package(PkgConfig REQUIRED)
-find_package(Qt5Core REQUIRED)
-find_package(Qt5DBus REQUIRED)
-
-set(CMAKE_BUILD_TYPE "Debug")
-
-set(UDISKS_VERSION_MAJOR  "0")
-set(UDISKS_VERSION_MINOR  "0")
-set(UDISKS_VERSION_PATCH  "0")
-set(UDISKS_VERSION_SUFFIX "${VERSION_SUFFIX}")
-set(UDISKS_VERSION "${UDISKS_VERSION_MAJOR}.${UDISKS_VERSION_MINOR}.${UDISKS_VERSION_PATCH}")
+find_package(Qt5 COMPONENTS Core DBus REQUIRED)
 
 set(UDISKS_API_LEVEL "0")
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Forbid in-tree building
 if(${CMAKE_SOURCE_DIR} MATCHES ${CMAKE_BINARY_DIR})
@@ -68,7 +64,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${Qt5Core_INCLUDE_DIRS}
 )
 
 add_subdirectory(src)

@@ -1,18 +1,3 @@
-# CMakeLists for UDisks-Qt library
-set(CMAKE_AUTOMOC ON)
-# As moc files are generated in the binary dir, tell CMake
-# to always look for includes there:
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-# We need add -DQT_WIDGETS_LIB when using QtWidgets in Qt 5.
-add_definitions(${Qt5Core_DEFINITIONS})
-add_definitions(-fPIC)
-
-include_directories(${CMAKE_BINARY_DIR}
-		    ${CMAKE_CURRENT_BINARY_DIR}
-		    ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
 set(udisksqt_SRC
     dbus-types.cpp
     udisksinterface.cpp
@@ -95,11 +80,11 @@ set_property(SOURCE org.freedesktop.DBus.ObjectManager.xml PROPERTY NO_NAMESPACE
 qt5_add_dbus_interface(udisksqt_SRC org.freedesktop.DBus.ObjectManager.xml DBusObjectManager)
 
 add_library(udisks2-qt5 SHARED ${udisksqt_SRC} ${udisksqt_HEADERS} ${udisksqt_HEADERS_PRIVATE})
-set_target_properties(udisks2-qt5 PROPERTIES VERSION ${UDISKS_VERSION} SOVERSION ${UDISKS_API_LEVEL})
+set_target_properties(udisks2-qt5 PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${UDISKS_API_LEVEL})
 
 target_link_libraries(udisks2-qt5
-    ${Qt5Core_LIBRARIES}
-    ${Qt5DBus_LIBRARIES}
+    Qt5::Core
+    Qt5::DBus
 )
 
 set_property(TARGET udisks2-qt5 PROPERTY COMPILE_DEFINITIONS UDISKS_STATIC)
