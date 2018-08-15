@@ -30,7 +30,7 @@ UDisksLoop::UDisksLoop(const QDBusObjectPath &objectPath, const QVariantMap &pro
 {
     Q_D(UDisksLoop);
 
-    d->properties =  properties;
+    d->properties = properties;
 }
 
 UDisksLoop::~UDisksLoop()

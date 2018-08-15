@@ -89,8 +89,7 @@ QDBusObjectPath UDisksPartition::table() const
 
 UDisksObject::Ptr UDisksPartition::tableObjectPtr() const
 {
-    Q_D(const UDisksPartition);
-    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    auto object = qobject_cast<UDisksObject*>(parent());
     if (object) {
         UDisksClient *client = object->client();
         if (client) {

@@ -65,15 +65,15 @@ QList<QDBusObjectPath> UDisksJob::objects() const
 
 UDisksObject::List UDisksJob::objectsPtr() const
 {
-    Q_D(const UDisksJob);
-    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    UDisksObject::List ret;
+    auto object = qobject_cast<UDisksObject*>(parent());
     if (object) {
         UDisksClient *client = object->client();
         if (client) {
-            return client->getObjects(objects());
+            ret = client->getObjects(objects());
         }
     }
-    return UDisksObject::List();
+    return ret;
 }
 
 QString UDisksJob::operation() const

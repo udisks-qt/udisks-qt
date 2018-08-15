@@ -125,7 +125,7 @@ int UDisksDriveAta::smartNumAttributesFailing() const
 qlonglong UDisksDriveAta::smartNumBadSectors() const
 {
     Q_D(const UDisksDriveAta);
-    return d->properties.value(QStringLiteral("SmartNumBadSectors")).toULongLong();
+    return d->properties.value(QStringLiteral("SmartNumBadSectors")).toLongLong();
 }
 
 qulonglong UDisksDriveAta::smartPowerOnSeconds() const

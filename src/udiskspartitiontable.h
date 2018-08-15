@@ -31,7 +31,7 @@ class UDisksPartitionTable : public UDisksInterface
 {
     Q_OBJECT
 public:
-    explicit UDisksPartitionTable(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = 0);
+    explicit UDisksPartitionTable(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = nullptr);
     ~UDisksPartitionTable();
 
     Q_PROPERTY(QString type READ type)

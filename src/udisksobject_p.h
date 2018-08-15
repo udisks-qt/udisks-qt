@@ -18,20 +18,20 @@ public:
     UDisksObject *q_ptr;
     QPointer<UDisksClient> client;
     QDBusObjectPath object;
-    UDisksObject::Interfaces interfaces;
-    UDisksObject::Kind kind;
-    UDisksManager *manager;
-    UDisksDrive *drive;
-    UDisksDriveAta *driveAta;
-    UDisksMDRaid *mDRaid;
-    UDisksJob *job;
-    UDisksBlock *block;
-    UDisksPartition *partition;
-    UDisksPartitionTable *partitionTable;
-    UDisksFilesystem *filesystem;
-    UDisksSwapspace *swapspace;
-    UDisksEncrypted *encrypted;
-    UDisksLoop *loop;
+    UDisksObject::Interfaces interfaces = UDisksObject::InterfaceNone;
+    UDisksObject::Kind kind = UDisksObject::Unknown;
+    UDisksManager *manager = nullptr;
+    UDisksDrive *drive = nullptr;
+    UDisksDriveAta *driveAta = nullptr;
+    UDisksMDRaid *mDRaid = nullptr;
+    UDisksJob *job = nullptr;
+    UDisksBlock *block = nullptr;
+    UDisksPartition *partition = nullptr;
+    UDisksPartitionTable *partitionTable = nullptr;
+    UDisksFilesystem *filesystem = nullptr;
+    UDisksSwapspace *swapspace = nullptr;
+    UDisksEncrypted *encrypted = nullptr;
+    UDisksLoop *loop = nullptr;
 };
 
 #endif // UDISKSOBJECT_P_H

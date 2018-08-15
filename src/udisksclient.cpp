@@ -58,7 +58,7 @@ bool UDisksClient::init(bool async)
 
     if (async) {
         QDBusPendingReply<UDManagedObjects> reply = d->objectInterface.GetManagedObjects();
-        QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
+        auto watcher = new QDBusPendingCallWatcher(reply, this);
         connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)),
                 SLOT(_q_getObjectsFinished(QDBusPendingCallWatcher*)));
     } else {
@@ -98,7 +98,7 @@ UDisksObject::List UDisksClient::getObjects(const QList<QDBusObjectPath> &object
 {
     Q_D(const UDisksClient);
     UDisksObject::List ret;
-    foreach (const QDBusObjectPath &objectPath, objectPaths) {
+    for (const QDBusObjectPath &objectPath : objectPaths) {
         UDisksObject::Ptr object = d->objects.value(objectPath);
         if (object) {
             ret.append(object);
@@ -116,8 +116,8 @@ UDisksObject::Ptr UDisksClient::getObject(const QDBusObjectPath &objectPath) con
 UDisksObject::List UDisksClient::getPartitions(const QDBusObjectPath &tablePath) const
 {
     UDisksObject::List ret;
-    UDisksObject::List blockDevices = getObjects(UDisksObject::BlockDevice);
-    foreach (const UDisksObject::Ptr &object, blockDevices) {
+    const UDisksObject::List blockDevices = getObjects(UDisksObject::BlockDevice);
+    for (const UDisksObject::Ptr &object : blockDevices) {
         if (object->partition() && object->partition()->table() == tablePath) {
             ret.append(object);
         }
@@ -127,8 +127,8 @@ UDisksObject::List UDisksClient::getPartitions(const QDBusObjectPath &tablePath)
 
 UDisksManager *UDisksClient::manager() const
 {
-    UDisksManager *ret = 0;
-    UDisksObject::List managers = getObjects(UDisksObject::Manager);
+    UDisksManager *ret = nullptr;
+    const UDisksObject::List managers = getObjects(UDisksObject::Manager);
     if (!managers.isEmpty()) {
         ret = managers.first()->manager();
     }

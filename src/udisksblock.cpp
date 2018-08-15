@@ -53,8 +53,7 @@ QDBusObjectPath UDisksBlock::cryptoBackingDevice() const
 
 UDisksObject::Ptr UDisksBlock::cryptoBackingDeviceObjectPtr() const
 {
-    Q_D(const UDisksBlock);
-    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    auto object = qobject_cast<UDisksObject*>(parent());
     if (object) {
         UDisksClient *client = object->client();
         if (client) {
@@ -84,8 +83,7 @@ QDBusObjectPath UDisksBlock::drive() const
 
 UDisksObject::Ptr UDisksBlock::driveObjectPtr() const
 {
-    Q_D(const UDisksBlock);
-    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    auto object = qobject_cast<UDisksObject*>(parent());
     if (object) {
         UDisksClient *client = object->client();
         if (client) {
@@ -181,8 +179,7 @@ QDBusObjectPath UDisksBlock::mDRaid() const
 
 UDisksObject::Ptr UDisksBlock::mDRaidObjectPtr() const
 {
-    Q_D(const UDisksBlock);
-    UDisksObject *object = qobject_cast<UDisksObject*>(parent());
+    auto object = qobject_cast<UDisksObject*>(parent());
     if (object) {
         UDisksClient *client = object->client();
         if (client) {

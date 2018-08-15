@@ -214,13 +214,13 @@ QString UDisksDrive::wWN() const
 UDisksBlock *UDisksDrive::getBlock()
 {
     Q_D(const UDisksDrive);
-    UDisksObject::List blocks = UDisksDrivePrivate::topLevelBlocks(object()->client(), d->interface.path());
-    foreach (const UDisksObject::Ptr &object, blocks) {
+    const UDisksObject::List blocks = UDisksDrivePrivate::topLevelBlocks(object()->client(), d->interface.path());
+    for (const UDisksObject::Ptr &object : blocks) {
         if (object->block()) {
             return object->block();
         }
     }
-    return 0;
+    return nullptr;
 }
 
 QDBusPendingReply<> UDisksDrive::eject(const QVariantMap &options)
@@ -256,13 +256,14 @@ UDisksDrivePrivate::UDisksDrivePrivate(const QString &path, const QVariantMap &p
 UDisksObject::List UDisksDrivePrivate::topLevelBlocks(UDisksClient *client, const QString &driveObjectPath)
 {
     UDisksObject::List ret;
-    foreach (const UDisksObject::Ptr &object, client->getObjects(UDisksObject::BlockDevice)) {
+    const auto objects = client->getObjects(UDisksObject::BlockDevice);
+    for (const UDisksObject::Ptr &object : objects) {
         UDisksBlock *block = object->block();
         if (!block) {
             continue;
         }
 
-        if (block->drive().path() == driveObjectPath && object->partition() == 0) {
+        if (block->drive().path() == driveObjectPath && object->partition() == nullptr) {
             ret.append(object);
         }
     }

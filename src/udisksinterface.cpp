@@ -37,7 +37,7 @@ UDisksObject *UDisksInterface::object() const
 
 void UDisksInterface::changeProperties(QVariantMap &properties, const QVariantMap &changedProperties, const QStringList &invalidProperties)
 {
-    foreach (const QString &property, invalidProperties) {
+    for (const QString &property : invalidProperties) {
         properties.remove(property);
     }
 

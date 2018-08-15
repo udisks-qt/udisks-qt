@@ -201,7 +201,7 @@ bool UDisksObject::removeInterfaces(const QStringList &interfaces)
     Q_D(UDisksObject);
 
     bool ret = false;
-    foreach (const QString &interface, interfaces) {
+    for (const QString &interface : interfaces) {
         if (d->_q_removeInterface(interface)) {
             ret = true;
         }
@@ -242,24 +242,10 @@ UDisksObject::Interface UDisksObject::interfaceEnumFromString(const QString &int
     }
 }
 
-UDisksObjectPrivate::UDisksObjectPrivate(const QDBusObjectPath &path, UDisksClient *uDClient, UDisksObject *parent) :
-    q_ptr(parent),
-    client(uDClient),
-    object(path),
-    interfaces(UDisksObject::InterfaceNone),
-    kind(UDisksObject::Unknown),
-    manager(0),
-    drive(0),
-    driveAta(0),
-    mDRaid(0),
-    job(0),
-    block(0),
-    partition(0),
-    partitionTable(0),
-    filesystem(0),
-    swapspace(0),
-    encrypted(0),
-    loop(0)
+UDisksObjectPrivate::UDisksObjectPrivate(const QDBusObjectPath &path, UDisksClient *uDClient, UDisksObject *parent)
+    : q_ptr(parent)
+    , client(uDClient)
+    , object(path)
 {
 }
 
@@ -271,73 +257,73 @@ bool UDisksObjectPrivate::_q_addInterface(const QString &interface, const QVaria
     UDisksObject::Interface interfaceEnum = q->interfaceEnumFromString(interface);
     switch (interfaceEnum) {
     case UDisksObject::InterfaceBlock:
-        if (block == 0) {
+        if (block == nullptr) {
             block = new UDisksBlock(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfaceDrive:
-        if (drive == 0) {
+        if (drive == nullptr) {
             drive = new UDisksDrive(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfaceDriveAta:
-        if (driveAta == 0) {
+        if (driveAta == nullptr) {
             driveAta = new UDisksDriveAta(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfaceMDRaid:
-        if (mDRaid == 0) {
+        if (mDRaid == nullptr) {
             mDRaid = new UDisksMDRaid(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfaceManager:
-        if (manager == 0) {
+        if (manager == nullptr) {
             manager = new UDisksManager(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfacePartition:
-        if (partition == 0) {
+        if (partition == nullptr) {
             partition = new UDisksPartition(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfacePartitionTable:
-        if (partitionTable == 0) {
+        if (partitionTable == nullptr) {
             partitionTable = new UDisksPartitionTable(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfaceFilesystem:
-        if (filesystem == 0) {
+        if (filesystem == nullptr) {
             filesystem = new UDisksFilesystem(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfaceSwapspace:
-        if (swapspace == 0) {
+        if (swapspace == nullptr) {
             swapspace = new UDisksSwapspace(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfaceEncrypted:
-        if (encrypted == 0) {
+        if (encrypted == nullptr) {
             encrypted = new UDisksEncrypted(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfaceLoop:
-        if (loop == 0) {
+        if (loop == nullptr) {
             loop = new UDisksLoop(object, properties, q);
             ret = true;
         }
         break;
     case UDisksObject::InterfaceJob:
-        if (job == 0) {
+        if (job == nullptr) {
             job = new UDisksJob(object, properties, q);
             ret = true;
         }
@@ -367,84 +353,84 @@ bool UDisksObjectPrivate::_q_removeInterface(const QString &interface)
     case UDisksObject::InterfaceBlock:
         if (block) {
             block->deleteLater();
-            block = 0;
+            block = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceDrive:
         if (drive) {
             drive->deleteLater();
-            drive = 0;
+            drive = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceDriveAta:
         if (driveAta) {
             driveAta->deleteLater();
-            driveAta = 0;
+            driveAta = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceMDRaid:
         if (mDRaid) {
             mDRaid->deleteLater();
-            mDRaid = 0;
+            mDRaid = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceManager:
         if (manager) {
             manager->deleteLater();
-            manager = 0;
+            manager = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfacePartition:
         if (partition) {
             partition->deleteLater();
-            partition = 0;
+            partition = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfacePartitionTable:
         if (partitionTable) {
             partitionTable->deleteLater();
-            partitionTable = 0;
+            partitionTable = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceFilesystem:
         if (filesystem) {
             filesystem->deleteLater();
-            filesystem = 0;
+            filesystem = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceSwapspace:
         if (swapspace) {
             swapspace->deleteLater();
-            swapspace = 0;
+            swapspace = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceEncrypted:
         if (encrypted) {
             encrypted->deleteLater();
-            encrypted = 0;
+            encrypted = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceLoop:
         if (loop) {
             loop->deleteLater();
-            loop = 0;
+            loop = nullptr;
             ret = true;
         }
         break;
     case UDisksObject::InterfaceJob:
         if (job) {
             job->deleteLater();
-            job = 0;
+            job = nullptr;
             ret = true;
         }
         break;
@@ -467,7 +453,7 @@ void UDisksObjectPrivate::_q_propertiesChanged(const QString &interface, const Q
 
     qCDebug(UDISKSQT_OBJECT) << "Properties changed" << interface;
 
-    UDisksInterface *interfacePointer = 0;
+    UDisksInterface *interfacePointer = nullptr;
     UDisksObject::Interface interfaceEnum = q->interfaceEnumFromString(interface);
     switch (interfaceEnum) {
     case UDisksObject::InterfaceBlock:

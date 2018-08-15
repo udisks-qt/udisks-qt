@@ -32,7 +32,7 @@ class UDisksPartition : public UDisksInterface
 {
     Q_OBJECT
 public:
-    explicit UDisksPartition(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = 0);
+    explicit UDisksPartition(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = nullptr);
     ~UDisksPartition();
 
     Q_PROPERTY(qulonglong flags READ flags)
