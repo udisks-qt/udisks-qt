@@ -23,8 +23,6 @@
 #include "udisksclient.h"
 #include "common.h"
 
-#include <QDebug>
-
 UDisksBlock::UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent) :
     UDisksInterface(parent),
     d_ptr(new UDisksBlockPrivate(objectPath.path()))

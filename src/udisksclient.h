@@ -73,9 +73,6 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(UDisksClient)
-    Q_PRIVATE_SLOT(d_func(), void _q_interfacesAdded(const QDBusObjectPath &, UDVariantMapMap))
-    Q_PRIVATE_SLOT(d_func(), void _q_interfacesRemoved(const QDBusObjectPath &, const QStringList &))
-    Q_PRIVATE_SLOT(d_func(), void _q_getObjectsFinished(QDBusPendingCallWatcher *))
 };
 
 #endif // UDISKSCLIENT_H

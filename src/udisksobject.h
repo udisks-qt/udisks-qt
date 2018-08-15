@@ -116,6 +116,7 @@ protected:
 
 private:
     friend class UDisksClientPrivate;
+    friend class UDisksClient;
     Q_DECLARE_PRIVATE(UDisksObject)
     Q_PRIVATE_SLOT(d_func(), void _q_propertiesChanged(QString,QVariantMap,QStringList))
 };

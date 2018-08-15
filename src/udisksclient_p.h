@@ -10,17 +10,11 @@
 
 class UDisksClientPrivate
 {
-    Q_DECLARE_PUBLIC(UDisksClient)
 public:
-    UDisksClientPrivate(UDisksClient *parent);
-    void initObjects(const UDManagedObjects &managedObjects);
+    UDisksClientPrivate();
+    void initObjects(const UDManagedObjects &managedObjects, UDisksClient *client);
 
-    void _q_getObjectsFinished(QDBusPendingCallWatcher *call);
-    void _q_interfacesAdded(const QDBusObjectPath &objectPath, UDVariantMapMap interfacesAndProperties);
-    void _q_interfacesRemoved(const QDBusObjectPath &objectPath, const QStringList &interfaces);
-
-    UDisksClient *q_ptr;
-    bool inited;
+    bool inited = false;
     OrgFreedesktopDBusObjectManagerInterface objectInterface;
     QDBusServiceWatcher *watcher;
     QHash<QDBusObjectPath, UDisksObject::Ptr> objects;
