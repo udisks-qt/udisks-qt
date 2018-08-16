@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(udisks-qt LANGUAGES CXX VERSION 0.1.0)
 
-find_package(PkgConfig REQUIRED)
 find_package(Qt5 COMPONENTS Core DBus REQUIRED)
 
 set(UDISKS_API_LEVEL "0")
