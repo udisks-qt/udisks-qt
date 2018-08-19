@@ -39,7 +39,7 @@ public:
     explicit UDisksClient(QObject *parent = nullptr);
     ~UDisksClient();
 
-    Q_PROPERTY(bool inited READ inited)
+    Q_PROPERTY(bool inited READ inited NOTIFY initChanged)
     bool inited() const;
 
     /**
@@ -62,6 +62,7 @@ public:
     UDisksManager *manager() const;
 
 Q_SIGNALS:
+    void initChanged();
     void objectsAvailable();
     void objectAdded(const UDisksObject::Ptr &object);
     void objectRemoved(const UDisksObject::Ptr &object);

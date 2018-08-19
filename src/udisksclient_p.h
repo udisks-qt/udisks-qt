@@ -16,7 +16,6 @@ public:
 
     bool inited = false;
     OrgFreedesktopDBusObjectManagerInterface objectInterface;
-    QDBusServiceWatcher *watcher;
     QHash<QDBusObjectPath, UDisksObject::Ptr> objects;
 };
 
