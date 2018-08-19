@@ -116,11 +116,13 @@ bool UDisksClient::init(bool async)
             watcher->deleteLater();
 
             d->inited = true;
+            Q_EMIT initChanged();
             Q_EMIT objectsAvailable();
         });
     } else {
         QDBusReply<UDManagedObjects> reply = d->objectInterface.GetManagedObjects();
         d->inited = true;
+        Q_EMIT initChanged();
 
         if (!reply.isValid()) {
             qCWarning(UDISKSQT_CLIENT) << "Failed to get managed objects:" << reply.error().message();
