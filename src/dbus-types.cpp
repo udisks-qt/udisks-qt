@@ -58,14 +58,14 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksAttributes 
 {
     argument.beginStructure();
     argument >> attributes.id
-             >> attributes.name
-             >> attributes.flags
-             >> attributes.value
-             >> attributes.worst
-             >> attributes.threshold
-             >> attributes.pretty
-             >> attributes.pretty_unit
-             >> attributes.expansion;
+            >> attributes.name
+            >> attributes.flags
+            >> attributes.value
+            >> attributes.worst
+            >> attributes.threshold
+            >> attributes.pretty
+            >> attributes.pretty_unit
+            >> attributes.expansion;
     argument.endStructure();
     return argument;
 }
@@ -87,10 +87,48 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksActiveDevic
 {
     argument.beginStructure();
     argument >> activeDevice.block
-             >> activeDevice.slot
-             >> activeDevice.state
-             >> activeDevice.num_read_errors
-             >> activeDevice.expansion;
+            >> activeDevice.slot
+            >> activeDevice.state
+            >> activeDevice.num_read_errors
+            >> activeDevice.expansion;
+    argument.endStructure();
+    return argument;
+}
+
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksTypeAvailable &item)
+{
+    argument.beginStructure();
+    argument << item.available
+             << item.value;
+    argument.endStructure();
+    return argument;
+}
+
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksTypeAvailable &item)
+{
+    argument.beginStructure();
+    argument >> item.available
+            >> item.value;
+    argument.endStructure();
+    return argument;
+}
+
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksTypeAvailableFlags &item)
+{
+    argument.beginStructure();
+    argument << item.available
+             << item.flags
+             << item.value;
+    argument.endStructure();
+    return argument;
+}
+
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksTypeAvailableFlags &item)
+{
+    argument.beginStructure();
+    argument >> item.available
+            >> item.flags
+            >> item.value;
     argument.endStructure();
     return argument;
 }
