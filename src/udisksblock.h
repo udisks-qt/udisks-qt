@@ -36,8 +36,8 @@ public:
     explicit UDisksBlock(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent);
     ~UDisksBlock();
 
-    Q_PROPERTY(UDItemList configuration READ configuration)
-    UDItemList configuration() const;
+    Q_PROPERTY(UDisksItemList configuration READ configuration)
+    UDisksItemList configuration() const;
 
     Q_PROPERTY(QDBusObjectPath cryptoBackingDevice READ cryptoBackingDevice)
     QDBusObjectPath cryptoBackingDevice() const;
@@ -117,7 +117,7 @@ public:
     QStringList symlinks() const;
 
 public Q_SLOTS:
-    QDBusPendingReply<> addConfigurationItem(UDItem item, const QVariantMap &options = QVariantMap());
+    QDBusPendingReply<> addConfigurationItem(UDisksItem item, const QVariantMap &options = QVariantMap());
 
     QDBusPendingReply<> format(const QString &type, const QVariantMap &options = QVariantMap());
 
@@ -129,11 +129,11 @@ public Q_SLOTS:
 
     QDBusPendingReply<QDBusUnixFileDescriptor> openForRestore(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> removeConfigurationItem(UDItem item, const QVariantMap &options = QVariantMap());
+    QDBusPendingReply<> removeConfigurationItem(UDisksItem item, const QVariantMap &options = QVariantMap());
 
     QDBusPendingReply<> rescan(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<> updateConfigurationItem(UDItem oldItem, UDItem newItem, const QVariantMap &options = QVariantMap());
+    QDBusPendingReply<> updateConfigurationItem(UDisksItem oldItem, UDisksItem newItem, const QVariantMap &options = QVariantMap());
 
 protected:
     virtual void propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties);

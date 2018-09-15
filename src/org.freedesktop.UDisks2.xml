@@ -50,6 +50,7 @@
         for a list of known types. Unknown or unsupported filesystems result in an error.
     -->
     <method name="CanFormat">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="UDisksTypeAvailable"/>
       <arg name="type" direction="in" type="s"/>
       <arg name="available" direction="out" type="(bs)"/>
     </method>
@@ -70,6 +71,7 @@
         Unknown filesystems or filesystems which do not support resizing result in errors.
     -->
     <method name="CanResize">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="UDisksTypeAvailable"/>
       <arg name="type" direction="in" type="s"/>
       <arg name="available" direction="out" type="(bts)"/>
     </method>
@@ -84,6 +86,7 @@
         Unsupported filesystems or filesystems which do not support checking result in errors.
     -->
     <method name="CanCheck">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="UDisksTypeAvailable"/>
       <arg name="type" direction="in" type="s"/>
       <arg name="available" direction="out" type="(bs)"/>
     </method>
@@ -98,6 +101,7 @@
         Unsupported filesystems or filesystems which do not support repairing result in errors.
     -->
     <method name="CanRepair">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="UDisksTypeAvailable"/>
       <arg name="type" direction="in" type="s"/>
       <arg name="available" direction="out" type="(bs)"/>
     </method>
@@ -112,8 +116,8 @@
     -->
     <method name="LoopSetup">
       <annotation name="org.gtk.GDBus.C.UnixFD" value="1"/>
-      <arg name="fd" direction="in" type="h"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="fd" direction="in" type="h"/>
       <arg name="options" direction="in" type="a{sv}"/>
       <arg name="resulting_device" direction="out" type="o"/>
     </method>
@@ -143,11 +147,11 @@
         array will be erased.
     -->
     <method name="MDRaidCreate">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In4" value="QVariantMap"/>
       <arg name="blocks" direction="in" type="ao"/>
       <arg name="level" direction="in" type="s"/>
       <arg name="name" direction="in" type="s"/>
       <arg name="chunk" direction="in" type="t"/>
-      <annotation name="org.qtproject.QtDBus.QtTypeName.In4" value="QVariantMap"/>
       <arg name="options" direction="in" type="a{sv}"/>
       <arg name="resulting_array" direction="out" type="o"/>
     </method>
@@ -173,6 +177,7 @@
 
     -->
     <method name="GetBlockDevices">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
       <arg name="options" direction="in" type="a{sv}"/>
       <arg name="block_objects" direction="out" type="ao"/>
     </method>
@@ -213,6 +218,8 @@
 
     -->
     <method name="ResolveDevice">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
       <arg name="devspec" direction="in" type="a{sv}"/>
       <arg name="options" direction="in" type="a{sv}"/>
       <arg name="devices" direction="out" type="ao"/>
@@ -527,8 +534,8 @@
     -->
     <method name="SetConfiguration">
       <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
-      <arg name="value" direction="in" type="a{sv}"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="value" direction="in" type="a{sv}"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -730,8 +737,8 @@
     -->
     <method name="SmartGetAttributes">
       <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="UDisksAttributes"/>
       <arg name="options" direction="in" type="a{sv}"/>
-      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="UDAttributes"/>
       <arg name="attributes" direction="out" type="a(ysqiiixia{sv})"/>
     </method>
 
@@ -748,8 +755,8 @@
         been started successfully.
     -->
     <method name="SmartSelftestStart">
-      <arg name="type" direction="in" type="s"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="type" direction="in" type="s"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -781,8 +788,8 @@
         writable.
     -->
     <method name="SmartSetEnabled">
-      <arg name="value" direction="in" type="b"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="value" direction="in" type="b"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -1210,7 +1217,7 @@
          <filename>/etc/luks-keys</filename> directory.
     -->
     <property name="Configuration" type="a(sa{sv})" access="read">
-      <annotation name="org.qtproject.QtDBus.QtTypeName" value="QList&lt;UDItem>"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName" value="UDisksItemList"/>
     </property>
 
     <!-- CryptoBackingDevice:
@@ -1309,9 +1316,9 @@
         this item reliably.
     -->
     <method name="AddConfigurationItem">
-      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="UDItem"/>
-      <arg name="item" direction="in" type="(sa{sv})"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="UDisksItem"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="item" direction="in" type="(sa{sv})"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -1326,9 +1333,9 @@
         property for details about valid configuration items.
     -->
     <method name="RemoveConfigurationItem">
-      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="UDItem"/>
-      <arg name="item" direction="in" type="(sa{sv})"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="UDisksItem"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="item" direction="in" type="(sa{sv})"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -1350,12 +1357,12 @@
         property for details about valid configuration items.
     -->
     <method name="UpdateConfigurationItem">
-      <arg name="old_item" direction="in" type="(sa{sv})"/>
-      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="UDItem"/>
-      <arg name="new_item" direction="in" type="(sa{sv})"/>
-      <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="UDItem"/>
-      <arg name="options" direction="in" type="a{sv}"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="UDisksItem"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="UDisksItem"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In2" value="QVariantMap"/>
+      <arg name="old_item" direction="in" type="(sa{sv})"/>
+      <arg name="new_item" direction="in" type="(sa{sv})"/>
+      <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
     <!--
@@ -1369,8 +1376,8 @@
     -->
     <method name="GetSecretConfiguration">
       <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
-      <arg name="options" direction="in" type="a{sv}"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QList&lt;QVariantMap>"/>
+      <arg name="options" direction="in" type="a{sv}"/>
       <arg name="configuration" direction="out" type="a(sa{sv})"/>
     </method>
 
@@ -1460,9 +1467,9 @@
         block device is currently unavailable.
     -->
     <method name="Format">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
       <arg name="type" direction="in" type="s"/>
       <arg name="options" direction="in" type="a{sv}"/>
-      <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
     </method>
 
     <!--
@@ -1548,6 +1555,7 @@
     -->
     <method name="OpenDevice">
       <annotation name="org.gtk.GDBus.C.UnixFD" value="1"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
       <arg name="mode" direction="in" type="s"/>
       <arg name="options" direction="in" type="a{sv}"/>
       <arg name="fd" direction="out" type="h"/>
@@ -1632,11 +1640,11 @@
         command.
     -->
     <method name="CreatePartition">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In4" value="QVariantMap"/>
       <arg name="offset" direction="in" type="t"/>
       <arg name="size" direction="in" type="t"/>
       <arg name="type" direction="in" type="s"/>
       <arg name="name" direction="in" type="s"/>
-      <annotation name="org.qtproject.QtDBus.QtTypeName.In4" value="QVariantMap"/>
       <arg name="options" direction="in" type="a{sv}"/>
       <arg name="created_partition" direction="out" type="o"/>
     </method>
@@ -1658,6 +1666,8 @@
         partition, the resulting block device is formatted.
     -->
     <method name="CreatePartitionAndFormat">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In4" value="QVariantMap"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In6" value="QVariantMap"/>
       <arg name="offset" direction="in" type="t"/>
       <arg name="size" direction="in" type="t"/>
       <arg name="type" direction="in" type="s"/>
@@ -1756,8 +1766,8 @@
          description of known partition types.
     -->
     <method name="SetType">
-      <arg name="type" direction="in" type="s"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="type" direction="in" type="s"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -1768,8 +1778,8 @@
          Sets the partition name.
     -->
     <method name="SetName">
-      <arg name="name" direction="in" type="s"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="name" direction="in" type="s"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -1782,8 +1792,8 @@
          description of known flags.
     -->
     <method name="SetFlags">
-      <arg name="flags" direction="in" type="t"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="flags" direction="in" type="t"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -1800,8 +1810,8 @@
          The maximal size can automatically be set by using 0 as size.
     -->
     <method name="Resize">
-      <arg name="size" direction="in" type="t"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="size" direction="in" type="t"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -1845,8 +1855,8 @@
         Sets the filesystem label.
     -->
     <method name="SetLabel">
-      <arg name="label" direction="in" type="s"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="label" direction="in" type="s"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -1960,6 +1970,7 @@
         slow. The filesystem-resize job for the object might expose progress.
     -->
     <method name="Resize">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
       <arg name="size" direction="in" type="t"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
@@ -1974,6 +1985,7 @@
          Unsupported filesystems result in an error.
     -->
     <method name="Check">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
       <arg name="options" direction="in" type="a{sv}"/>
       <arg name="consistent" direction="out" type="b"/>
     </method>
@@ -1988,6 +2000,7 @@
          Unsupported filesystems result in an error.
     -->
     <method name="Repair">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
       <arg name="options" direction="in" type="a{sv}"/>
       <arg name="repaired" direction="out" type="b"/>
     </method>
@@ -2002,6 +2015,7 @@
          Filesystems that don't support ownership result in an error.
     -->
     <method name="TakeOwnership">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
   </interface>
@@ -2051,8 +2065,8 @@
         Set label for the swap device.
     -->
     <method name="SetLabel">
-      <arg name="label" direction="in" type="s"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="label" direction="in" type="s"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
   </interface>
@@ -2077,7 +2091,9 @@
          org.freedesktop.UDisks2.Block.AddConfigurationItem(), which
          see.
     -->
-    <property name="ChildConfiguration" type="a(sa{sv})" access="read"/>
+    <property name="ChildConfiguration" type="a(sa{sv})" access="read">
+      <annotation name="org.qtproject.QtDBus.QtTypeName" value="UDisksItemList"/>
+    </property>
 
     <!-- HintEncryptionType:
          If not blank, the type of the encryption used to encrypt this device.
@@ -2120,8 +2136,8 @@
         device will be cleaned up.
     -->
     <method name="Unlock">
-      <arg name="passphrase" direction="in" type="s"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="passphrase" direction="in" type="s"/>
       <arg name="options" direction="in" type="a{sv}"/>
       <arg name="cleartext_device" direction="out" type="o"/>
     </method>
@@ -2156,9 +2172,9 @@
         automatically updated.
     -->
     <method name="ChangePassphrase">
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In2" value="QVariantMap"/>
       <arg name="passphrase" direction="in" type="s"/>
       <arg name="new_passphrase" direction="in" type="s"/>
-      <annotation name="org.qtproject.QtDBus.QtTypeName.In2" value="QVariantMap"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -2175,8 +2191,8 @@
         devices that don't have verified key loaded in kernel keyring.
     -->
     <method name="Resize">
-      <arg name="size" direction="in" type="t"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="size" direction="in" type="t"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -2235,8 +2251,8 @@
         writable.
     -->
     <method name="SetAutoclear">
-      <arg name="value" direction="in" type="b"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="value" direction="in" type="b"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
   </interface>
@@ -2400,7 +2416,7 @@
          file shipped with the kernel sources.
     -->
     <property name="ActiveDevices" type="a(oiasta{sv})" access="read">
-      <annotation name="org.qtproject.QtDBus.QtTypeName" value="UDActiveDevice"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName" value="UDisksActiveDevice"/>
     </property>
 
     <!-- ChildConfiguration: Configuration items belonging to the
@@ -2410,7 +2426,9 @@
          org.freedesktop.UDisks2.Block.AddConfigurationItem(), which
          see.
     -->
-    <property name="ChildConfiguration" type="a(sa{sv})" access="read"/>
+    <property name="ChildConfiguration" type="a(sa{sv})" access="read">
+      <annotation name="org.qtproject.QtDBus.QtTypeName" value="UDisksItemList"/>
+    </property>
 
     <!-- Running: Whether or not the array is considered running.
 
@@ -2461,8 +2479,8 @@
         @device after removal.
     -->
     <method name="RemoveDevice">
-      <arg name="device" direction="in" type="o"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="device" direction="in" type="o"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -2474,8 +2492,8 @@
         Adds @device to the array.
     -->
     <method name="AddDevice">
-      <arg name="device" direction="in" type="o"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="device" direction="in" type="o"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -2487,8 +2505,8 @@
         Sets whether the array has a write-intent bitmap.
     -->
     <method name="SetBitmapLocation">
-      <arg name="value" direction="in" type="ay"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="value" direction="in" type="ay"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 
@@ -2510,8 +2528,8 @@
         file shipped with the kernel sources.
     -->
     <method name="RequestSyncAction">
-      <arg name="sync_action" direction="in" type="s"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QVariantMap"/>
+      <arg name="sync_action" direction="in" type="s"/>
       <arg name="options" direction="in" type="a{sv}"/>
     </method>
 

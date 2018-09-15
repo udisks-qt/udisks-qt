@@ -40,7 +40,7 @@
 
 Q_LOGGING_CATEGORY(UDISKSQT_OBJECT, "udisksqt.object")
 
-UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties, UDisksClient *client) :
+UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDisksVariantMapMap &interfacesAndProperties, UDisksClient *client) :
     d_ptr(new UDisksObjectPrivate(objectPath, client, this))
 {
     Q_D(UDisksObject);
@@ -70,7 +70,7 @@ UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMap
     }
 
     // Create the object interfaces
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
+    auto it = interfacesAndProperties.constBegin();
     while (it != interfacesAndProperties.constEnd()) {
         d->_q_addInterface(it.key(), it.value(), false);
 
@@ -179,13 +179,13 @@ UDisksLoop *UDisksObject::loop() const
     return d->loop;
 }
 
-bool UDisksObject::addInterfaces(const UDVariantMapMap &interfacesAndProperties)
+bool UDisksObject::addInterfaces(const UDisksVariantMapMap &interfacesAndProperties)
 {
     Q_D(UDisksObject);
     bool ret = false;
 
     // Create the object interfaces
-    UDVariantMapMap::ConstIterator it = interfacesAndProperties.constBegin();
+    auto it = interfacesAndProperties.constBegin();
     while (it != interfacesAndProperties.constEnd()) {
         if (d->_q_addInterface(it.key(), it.value(), true)) {
             ret = true;

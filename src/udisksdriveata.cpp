@@ -200,7 +200,7 @@ QDBusPendingReply<> UDisksDriveAta::securityEraseUnit(const QVariantMap &options
     return d->interface.SecurityEraseUnit(options);
 }
 
-QDBusPendingReply<UDAttributes> UDisksDriveAta::smartGetAttributes(const QVariantMap &options)
+QDBusPendingReply<UDisksAttributes> UDisksDriveAta::smartGetAttributes(const QVariantMap &options)
 {
     Q_D(UDisksDriveAta);
     return d->interface.SmartGetAttributes(options);

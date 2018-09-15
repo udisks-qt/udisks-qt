@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright (C) 2013-2018 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -20,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "dbus-types.h"
 
-QDBusArgument &operator<<(QDBusArgument &argument, const UDItem &item)
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksItem &item)
 {
     argument.beginStructure();
     argument << item.name << item.values;
@@ -28,7 +29,7 @@ QDBusArgument &operator<<(QDBusArgument &argument, const UDItem &item)
     return argument;
 }
 
-const QDBusArgument &operator>>(const QDBusArgument &argument, UDItem &item)
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksItem &item)
 {
     argument.beginStructure();
     argument >> item.name >> item.values;
@@ -37,7 +38,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, UDItem &item)
 }
 
 
-QDBusArgument &operator<<(QDBusArgument &argument, const UDAttributes &attributes)
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksAttributes &attributes)
 {
     argument.beginStructure();
     argument << attributes.id
@@ -53,7 +54,7 @@ QDBusArgument &operator<<(QDBusArgument &argument, const UDAttributes &attribute
     return argument;
 }
 
-const QDBusArgument &operator>>(const QDBusArgument &argument, UDAttributes &attributes)
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksAttributes &attributes)
 {
     argument.beginStructure();
     argument >> attributes.id
@@ -70,7 +71,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, UDAttributes &att
 }
 
 
-QDBusArgument &operator<<(QDBusArgument &argument, const UDActiveDevice &activeDevice)
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksActiveDevice &activeDevice)
 {
     argument.beginStructure();
     argument << activeDevice.block
@@ -82,7 +83,7 @@ QDBusArgument &operator<<(QDBusArgument &argument, const UDActiveDevice &activeD
     return argument;
 }
 
-const QDBusArgument &operator>>(const QDBusArgument &argument, UDActiveDevice &activeDevice)
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksActiveDevice &activeDevice)
 {
     argument.beginStructure();
     argument >> activeDevice.block

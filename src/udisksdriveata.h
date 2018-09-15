@@ -112,7 +112,7 @@ public Q_SLOTS:
 
     QDBusPendingReply<> securityEraseUnit(const QVariantMap &options = QVariantMap());
 
-    QDBusPendingReply<UDAttributes> smartGetAttributes(const QVariantMap &options = QVariantMap());
+    QDBusPendingReply<UDisksAttributes> smartGetAttributes(const QVariantMap &options = QVariantMap());
 
     QDBusPendingReply<> smartSelftestAbort(const QVariantMap &options = QVariantMap());
 

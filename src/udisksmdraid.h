@@ -34,8 +34,8 @@ public:
     explicit UDisksMDRaid(const QDBusObjectPath &objectPath, const QVariantMap &properties, UDisksObject *parent = nullptr);
     ~UDisksMDRaid();
 
-    Q_PROPERTY(UDActiveDevice activeDevices READ activeDevices)
-    UDActiveDevice activeDevices() const;
+    Q_PROPERTY(UDisksActiveDevice activeDevices READ activeDevices)
+    UDisksActiveDevice activeDevices() const;
 
     Q_PROPERTY(QByteArray bitmapLocation READ bitmapLocation)
     QByteArray bitmapLocation() const;

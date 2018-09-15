@@ -33,7 +33,7 @@ UDisksClient::UDisksClient(QObject *parent) :
     Q_D(UDisksClient);
 
     connect(&d->objectInterface, &OrgFreedesktopDBusObjectManagerInterface::InterfacesAdded,
-            this, [=] (const QDBusObjectPath & objectPath, UDVariantMapMap interfacesAndProperties) {
+            this, [=] (const QDBusObjectPath & objectPath, UDisksVariantMapMap interfacesAndProperties) {
         qCDebug(UDISKSQT_CLIENT) << "interfaces added" << objectPath.path();
 
         UDisksObject::Ptr object = d->objects.value(objectPath);
@@ -104,10 +104,10 @@ bool UDisksClient::init(bool async)
     }
 
     if (async) {
-        QDBusPendingReply<UDManagedObjects> reply = d->objectInterface.GetManagedObjects();
+        QDBusPendingReply<UDisksManagedObjects> reply = d->objectInterface.GetManagedObjects();
         auto watcher = new QDBusPendingCallWatcher(reply, this);
         connect(watcher, &QDBusPendingCallWatcher::finished, this, [=] {
-            QDBusPendingReply<UDManagedObjects> reply = *watcher;
+            QDBusPendingReply<UDisksManagedObjects> reply = *watcher;
             if (reply.isError()) {
                 qCWarning(UDISKSQT_CLIENT) << "Failed to get objects" << reply.error().message();
             } else {
@@ -120,7 +120,7 @@ bool UDisksClient::init(bool async)
             Q_EMIT objectsAvailable();
         });
     } else {
-        QDBusReply<UDManagedObjects> reply = d->objectInterface.GetManagedObjects();
+        QDBusReply<UDisksManagedObjects> reply = d->objectInterface.GetManagedObjects();
         d->inited = true;
         Q_EMIT initChanged();
 
@@ -199,13 +199,12 @@ UDisksClientPrivate::UDisksClientPrivate()
                       QLatin1String(UD2_PATH),
                       QDBusConnection::systemBus())
 {
-    qDBusRegisterMetaType<UDVariantMapMap>();
-    qDBusRegisterMetaType<UDManagedObjects>();
-    qDBusRegisterMetaType<UDItem>();
-    qDBusRegisterMetaType<UDItemList>();
-    qDBusRegisterMetaType<UDAttributes>();
-    qDBusRegisterMetaType<UDActiveDevice>();
-    qDBusRegisterMetaType<UDByteArrayList>();
+    qDBusRegisterMetaType<UDisksVariantMapMap>();
+    qDBusRegisterMetaType<UDisksManagedObjects>();
+    qDBusRegisterMetaType<UDisksItem>();
+    qDBusRegisterMetaType<UDisksItemList>();
+    qDBusRegisterMetaType<UDisksAttributes>();
+    qDBusRegisterMetaType<UDisksActiveDevice>();
 
     if (!objectInterface.isValid()) {
         // TODO do an async call
@@ -224,9 +223,9 @@ UDisksClientPrivate::UDisksClientPrivate()
     }
 }
 
-void UDisksClientPrivate::initObjects(const UDManagedObjects &managedObjects, UDisksClient *client)
+void UDisksClientPrivate::initObjects(const UDisksManagedObjects &managedObjects, UDisksClient *client)
 {
-    UDManagedObjects::ConstIterator it = managedObjects.constBegin();
+    auto it = managedObjects.constBegin();
     while (it != managedObjects.constEnd()) {
         UDisksObject::Ptr object(new UDisksObject(it.key(), it.value(), client));
         objects.insert(it.key(), object);

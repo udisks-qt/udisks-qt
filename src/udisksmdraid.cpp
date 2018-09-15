@@ -38,10 +38,10 @@ UDisksMDRaid::~UDisksMDRaid()
     delete d_ptr;
 }
 
-UDActiveDevice UDisksMDRaid::activeDevices() const
+UDisksActiveDevice UDisksMDRaid::activeDevices() const
 {
     Q_D(const UDisksMDRaid);
-    return d->properties.value(QStringLiteral("ActiveDevices")).value<UDActiveDevice>();
+    return d->properties.value(QStringLiteral("ActiveDevices")).value<UDisksActiveDevice>();
 }
 
 QByteArray UDisksMDRaid::bitmapLocation() const

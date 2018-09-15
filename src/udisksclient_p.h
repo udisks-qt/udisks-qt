@@ -12,7 +12,7 @@ class UDisksClientPrivate
 {
 public:
     UDisksClientPrivate();
-    void initObjects(const UDManagedObjects &managedObjects, UDisksClient *client);
+    void initObjects(const UDisksManagedObjects &managedObjects, UDisksClient *client);
 
     bool inited = false;
     OrgFreedesktopDBusObjectManagerInterface objectInterface;

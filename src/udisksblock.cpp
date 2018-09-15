@@ -37,10 +37,10 @@ UDisksBlock::~UDisksBlock()
     delete d_ptr;
 }
 
-UDItemList UDisksBlock::configuration() const
+UDisksItemList UDisksBlock::configuration() const
 {
     Q_D(const UDisksBlock);
-    return d->properties.value(QStringLiteral("Configuration")).value<QList<UDItem> >();
+    return d->properties.value(QStringLiteral("Configuration")).value<QList<UDisksItem> >();
 }
 
 QDBusObjectPath UDisksBlock::cryptoBackingDevice() const
@@ -229,14 +229,14 @@ QStringList UDisksBlock::symlinks() const
     Q_D(const UDisksBlock);
     QStringList ret;
     const QVariant variant = d->properties.value(QStringLiteral("Symlinks"));
-    const auto symlinks = qdbus_cast<UDByteArrayList>(variant);
+    const auto symlinks = qdbus_cast<QByteArrayList>(variant);
     for (const QByteArray &symlink : symlinks) {
         ret << QFile::decodeName(symlink);
     }
     return ret;
 }
 
-QDBusPendingReply<> UDisksBlock::addConfigurationItem(UDItem item, const QVariantMap &options)
+QDBusPendingReply<> UDisksBlock::addConfigurationItem(UDisksItem item, const QVariantMap &options)
 {
     Q_D(UDisksBlock);
     return d->interface.AddConfigurationItem(item, options);
@@ -272,7 +272,7 @@ QDBusPendingReply<QDBusUnixFileDescriptor> UDisksBlock::openForRestore(const QVa
     return d->interface.OpenForRestore(options);
 }
 
-QDBusPendingReply<> UDisksBlock::removeConfigurationItem(UDItem item, const QVariantMap &options)
+QDBusPendingReply<> UDisksBlock::removeConfigurationItem(UDisksItem item, const QVariantMap &options)
 {
     Q_D(UDisksBlock);
     return d->interface.RemoveConfigurationItem(item, options);
@@ -284,7 +284,7 @@ QDBusPendingReply<> UDisksBlock::rescan(const QVariantMap &options)
     return d->interface.Rescan(options);
 }
 
-QDBusPendingReply<> UDisksBlock::updateConfigurationItem(UDItem oldItem, UDItem newItem, const QVariantMap &options)
+QDBusPendingReply<> UDisksBlock::updateConfigurationItem(UDisksItem oldItem, UDisksItem newItem, const QVariantMap &options)
 {
     Q_D(UDisksBlock);
     return d->interface.UpdateConfigurationItem(oldItem, newItem, options);

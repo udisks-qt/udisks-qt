@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Daniel Nicoletti <dantti12@gmail.com>
+ * Copyright (C) 2013-2018 Daniel Nicoletti <dantti12@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -24,26 +24,24 @@
 #include <QtDBus/QDBusArgument>
 #include <QtCore/QVariantMap>
 
-typedef QList<QByteArray> UDByteArrayList;
-Q_DECLARE_METATYPE(UDByteArrayList)
 
-typedef QMap<QString,QVariantMap> UDVariantMapMap;
-Q_DECLARE_METATYPE(UDVariantMapMap)
+typedef QMap<QString,QVariantMap> UDisksVariantMapMap;
+Q_DECLARE_METATYPE(UDisksVariantMapMap)
 
-typedef QMap<QDBusObjectPath, UDVariantMapMap> UDManagedObjects;
-Q_DECLARE_METATYPE(UDManagedObjects)
+typedef QMap<QDBusObjectPath, UDisksVariantMapMap> UDisksManagedObjects;
+Q_DECLARE_METATYPE(UDisksManagedObjects)
 
 typedef struct
 {
     QString name;
     QVariantMap values;
-} UDItem;
-QDBusArgument &operator<<(QDBusArgument &argument, const UDItem &item);
-const QDBusArgument &operator>>(const QDBusArgument &argument, UDItem &item);
-Q_DECLARE_METATYPE(UDItem)
+} UDisksItem;
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksItem &item);
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksItem &item);
+Q_DECLARE_METATYPE(UDisksItem)
 
-typedef QList<UDItem> UDItemList;
-Q_DECLARE_METATYPE(UDItemList)
+typedef QList<UDisksItem> UDisksItemList;
+Q_DECLARE_METATYPE(UDisksItemList)
 
 typedef struct
 {
@@ -56,10 +54,10 @@ typedef struct
     qint64 pretty;
     int pretty_unit;
     QVariantMap expansion;
-} UDAttributes;
-QDBusArgument &operator<<(QDBusArgument &argument, const UDAttributes &attributes);
-const QDBusArgument &operator>>(const QDBusArgument &argument, UDAttributes &attributes);
-Q_DECLARE_METATYPE(UDAttributes)
+} UDisksAttributes;
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksAttributes &attributes);
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksAttributes &attributes);
+Q_DECLARE_METATYPE(UDisksAttributes)
 
 typedef struct
 {
@@ -68,9 +66,28 @@ typedef struct
     QStringList state;
     quint64 num_read_errors;
     QVariantMap expansion;
-} UDActiveDevice;
-QDBusArgument &operator<<(QDBusArgument &argument, const UDActiveDevice &activeDevice);
-const QDBusArgument &operator>>(const QDBusArgument &argument, UDActiveDevice &activeDevice);
-Q_DECLARE_METATYPE(UDActiveDevice)
+} UDisksActiveDevice;
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksActiveDevice &activeDevice);
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksActiveDevice &activeDevice);
+Q_DECLARE_METATYPE(UDisksActiveDevice)
+
+typedef struct
+{
+    bool available;
+    QString value;
+} UDisksTypeAvailable;
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksTypeAvailable &item);
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksTypeAvailable &item);
+Q_DECLARE_METATYPE(UDisksTypeAvailable)
+
+typedef struct
+{
+    bool available;
+    quint64 flags;
+    QString value;
+} UDisksTypeAvailableFlags;
+QDBusArgument &operator<<(QDBusArgument &argument, const UDisksTypeAvailableFlags &item);
+const QDBusArgument &operator>>(const QDBusArgument &argument, UDisksTypeAvailableFlags &item);
+Q_DECLARE_METATYPE(UDisksTypeAvailableFlags)
 
 #endif // GENERIC_TYPES_H

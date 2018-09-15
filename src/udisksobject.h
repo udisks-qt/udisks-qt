@@ -107,8 +107,8 @@ Q_SIGNALS:
     void propertiesChanged(Interface interface);
 
 protected:
-    UDisksObject(const QDBusObjectPath &objectPath, const UDVariantMapMap &interfacesAndProperties, UDisksClient *client);
-    bool addInterfaces(const UDVariantMapMap &interfacesAndProperties);
+    UDisksObject(const QDBusObjectPath &objectPath, const UDisksVariantMapMap &interfacesAndProperties, UDisksClient *client);
+    bool addInterfaces(const UDisksVariantMapMap &interfacesAndProperties);
     bool removeInterfaces(const QStringList &interfaces);
     Interface interfaceEnumFromString(const QString &interface) const;
 
