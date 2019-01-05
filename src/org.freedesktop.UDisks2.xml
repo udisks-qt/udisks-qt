@@ -71,7 +71,7 @@
         Unknown filesystems or filesystems which do not support resizing result in errors.
     -->
     <method name="CanResize">
-      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="UDisksTypeAvailable"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="UDisksTypeAvailableFlags"/>
       <arg name="type" direction="in" type="s"/>
       <arg name="available" direction="out" type="(bts)"/>
     </method>
