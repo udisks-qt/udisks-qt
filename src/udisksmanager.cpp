@@ -50,6 +50,48 @@ QString UDisksManager::version() const
     return d->properties.value(QStringLiteral("Version")).toString();
 }
 
+QStringList UDisksManager::supportedFilesystems() const
+{
+    Q_D(const UDisksManager);
+    return d->properties.value(QStringLiteral("SupportedFilesystems")).toStringList();
+}
+
+QDBusPendingReply<UDisksTypeAvailable> UDisksManager::canCheck(const QString &type)
+{
+    Q_D(UDisksManager);
+    return d->interface.CanCheck(type);
+}
+
+QDBusPendingReply<UDisksTypeAvailable> UDisksManager::canFormat(const QString &type)
+{
+    Q_D(UDisksManager);
+    return d->interface.CanFormat(type);
+}
+
+QDBusPendingReply<UDisksTypeAvailable> UDisksManager::canRepair(const QString &type)
+{
+    Q_D(UDisksManager);
+    return d->interface.CanRepair(type);
+}
+
+QDBusPendingReply<UDisksTypeAvailableFlags> UDisksManager::canResize(const QString &type)
+{
+    Q_D(UDisksManager);
+    return d->interface.CanResize(type);
+}
+
+QDBusPendingReply<> UDisksManager::enableModules(bool enable)
+{
+    Q_D(UDisksManager);
+    return d->interface.EnableModules(enable);
+}
+
+QDBusPendingReply<QList<QDBusObjectPath> > UDisksManager::getBlockDevices(const QVariantMap &options)
+{
+    Q_D(UDisksManager);
+    return d->interface.GetBlockDevices(options);
+}
+
 QDBusPendingReply<QDBusObjectPath> UDisksManager::loopSetup(const QDBusUnixFileDescriptor &fd, const QVariantMap &options)
 {
     Q_D(UDisksManager);
@@ -60,6 +102,12 @@ QDBusPendingReply<QDBusObjectPath> UDisksManager::mDRaidCreate(const QList<QDBus
 {
     Q_D(UDisksManager);
     return d->interface.MDRaidCreate(blocks, level, name, chunk, options);
+}
+
+QDBusPendingReply<QList<QDBusObjectPath> > UDisksManager::resolveDevice(const QVariantMap &devspec, const QVariantMap &options)
+{
+    Q_D(UDisksManager);
+    return d->interface.ResolveDevice(devspec, options);
 }
 
 void UDisksManager::propertiesChanged(const QVariantMap &properties, const QStringList &invalidProperties)
