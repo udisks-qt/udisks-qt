@@ -41,12 +41,12 @@ void UDisksInterface::changeProperties(QVariantMap &properties, const QVariantMa
         properties.remove(property);
     }
 
-    QVariantMap::ConstIterator it = changedProperties.constBegin();
+    auto it = changedProperties.constBegin();
     while (it != changedProperties.constEnd()) {
         properties[it.key()] = it.value();
         ++it;
     }
-    emit changed();
+    Q_EMIT changed();
 }
 
 #include "moc_udisksinterface.cpp"

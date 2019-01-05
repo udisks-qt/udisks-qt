@@ -45,10 +45,10 @@ UDisksObject::UDisksObject(const QDBusObjectPath &objectPath, const UDisksVarian
 {
     Q_D(UDisksObject);
 
-    QDBusConnection::systemBus().connect(UD2_SERVICE,
+    QDBusConnection::systemBus().connect(QStringLiteral(UD2_SERVICE),
                                          objectPath.path(),
-                                         DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
+                                         QStringLiteral(DBUS_PROPERTIES),
+                                         QStringLiteral("PropertiesChanged"),
                                          this,
                                          SLOT(_q_propertiesChanged(QString,QVariantMap,QStringList)));
 

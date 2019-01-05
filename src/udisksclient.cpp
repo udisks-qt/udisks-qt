@@ -47,7 +47,7 @@ UDisksClient::UDisksClient(QObject *parent) :
         }
     });
     connect(&d->objectInterface, &OrgFreedesktopDBusObjectManagerInterface::InterfacesRemoved,
-            this, [=] (const QDBusObjectPath & objectPath, const QStringList &interfaces) {
+            this, [=] (const QDBusObjectPath &objectPath, const QStringList &interfaces) {
         qCDebug(UDISKSQT_CLIENT) << "interfaces removed" << objectPath.path();
 
         auto it = d->objects.find(objectPath);
@@ -142,7 +142,7 @@ UDisksObject::List UDisksClient::getObjects(UDisksObject::Kind kind) const
         return d->objects.values();
     } else {
         UDisksObject::List ret;
-        QHash<QDBusObjectPath, UDisksObject::Ptr>::ConstIterator it = d->objects.constBegin();
+        auto it = d->objects.constBegin();
         while (it != d->objects.end()) {
             if (kind == it.value()->kind()) {
                 ret.append(it.value());
